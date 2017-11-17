@@ -1,7 +1,5 @@
 package by.laligulbani.vk.model.client;
 
-import android.support.annotation.VisibleForTesting;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -25,7 +23,6 @@ public class HttpClient implements IClient{
         }
     }
 
-    @VisibleForTesting
     InputStream openStream(final String url) throws IOException {
         con = (HttpURLConnection) (new URL(url)).openConnection();
         return con.getInputStream();

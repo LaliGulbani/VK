@@ -39,7 +39,7 @@ public class ModelManager implements IModelManagement {
     public void sendMessages(String token, String message) {
     }
 
-    public static class MyResponseListener implements HttpClient.ResponseListener {
+    private static class MyResponseListener implements HttpClient.ResponseListener {
         private static final String TAG = "MyResponseListener";
 
         private Result result;
