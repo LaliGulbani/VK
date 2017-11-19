@@ -5,7 +5,7 @@ import java.util.List;
 import by.laligulbani.vk.Api;
 import by.laligulbani.vk.model.client.HttpClient;
 import by.laligulbani.vk.model.client.IClient;
-import by.laligulbani.vk.model.entity.Item;
+import by.laligulbani.vk.model.entity.message.Item;
 import by.laligulbani.vk.model.entity.message.Response;
 import by.laligulbani.vk.model.listener.GsonResponseListener;
 import by.laligulbani.vk.model.listener.ResponseListener;

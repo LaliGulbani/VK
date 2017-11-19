@@ -1,22 +1,23 @@
 package by.laligulbani.vk.model.listener;
 
-
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-import com.google.gson.GsonBuilder;
-
 import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import by.laligulbani.vk.model.parser.GsonParser;
+import by.laligulbani.vk.model.parser.IParser;
 
 public class GsonResponseListener<T> implements ResponseListener {
 
     private final Class<T> type;
     private Exception exception;
     private T result;
+    private IParser<T> mParser;
 
     public GsonResponseListener(final Class<T> type) {
         this.type = type;
+        this.mParser = new GsonParser();
     }
 
     @Override
@@ -27,7 +28,6 @@ public class GsonResponseListener<T> implements ResponseListener {
     @Override
     public void onException(final Exception exception) {
         this.exception = exception;
-
     }
 
     @Override
@@ -38,11 +38,8 @@ public class GsonResponseListener<T> implements ResponseListener {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onResponse(final InputStream stream) throws Exception {
-        try (final InputStreamReader inputStreamReader = new InputStreamReader(stream)) {
-            result = new GsonBuilder()
-                    .setLenient()
-                    .create()
-                    .fromJson(inputStreamReader, type);
+        try {
+            result = mParser.parse(stream, type);
         } catch (final Exception e) {
             exception = e;
         }

@@ -1,23 +1,34 @@
 package by.laligulbani.vk.model.parser;
 
 
-import com.google.gson.Gson;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 
-public class GsonParser<T> implements IParser {
+public class GsonParser implements IParser {
 
-    private final InputStreamReader reader;
-    private final Class<T> mClass;
+    private Gson gson;
 
-    public GsonParser(final InputStream mIntputStream, final Class<T> mClass) {
-        this.mClass = mClass;
-        this.reader = new InputStreamReader(mIntputStream);
+    public GsonParser() {
+        this.gson = new GsonBuilder()
+                .setLenient()
+                .create();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public T parse() {
-        return new Gson().fromJson(reader, mClass);
+    public Object parse(InputStream mIntputStream, Class mClass) {
+        try (final Reader reader = new InputStreamReader(mIntputStream)) {
+            return gson.fromJson(reader, mClass);
+        } catch (IOException e) {
+            throw new RuntimeException("Trouble with parsing", e);
+        }
     }
 }

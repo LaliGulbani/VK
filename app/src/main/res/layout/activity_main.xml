@@ -12,7 +12,11 @@
         android:id="@+id/btn_messenger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="click"/>
+        android:text="click"
+        android:layout_alignTop="@+id/text_messenger"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="DDDDDDDDDDDD"/>
 
 
 </RelativeLayout>
