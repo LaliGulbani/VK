@@ -1,22 +1,22 @@
 package by.laligulbani.vk.presenter;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Collection;
+import java.util.List;
 
 import by.laligulbani.vk.Api;
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.model.entity.Message;
+import by.laligulbani.vk.model.entity.Item;
 import by.laligulbani.vk.model.management.IModelManagement;
 import by.laligulbani.vk.model.management.ModelManager;
 
@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     public String token;
     public IModelManagement modelManager;
+
+    private TextView textView;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +37,34 @@ public class MainActivity extends AppCompatActivity {
         webview.loadUrl(Api.AUTORIZATION_URL);
         modelManager = new ModelManager();
 
+        this.textView = (TextView) (findViewById(R.id.text_messenger));
+        this.button = (Button) (findViewById(R.id.btn_messenger));
+        this.button.setOnClickListener((arg) -> refresh());
+
 
     }
 
-    private void refrash() {
-        final Collection<Message> messages = modelManager.getMessages(token);
-        final StringBuilder sb = new StringBuilder();
-        for (final Message message : messages) {
-            sb.append(message.getId());
-            sb.append("\n");
+    private void refresh() {
+        new GetMessageTask().execute();
+    }
+
+    private class GetMessageTask extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(final String[] tokens) {
+            final List<Item> items = modelManager.getMessages(token);
+            final StringBuilder sb = new StringBuilder();
+            for (final Item item : items) {
+                sb.append(item.body);
+                sb.append("\n");
+            }
+            return sb.toString();
         }
-        String result = sb.toString();
-        //TODO add setting result to textview
+
+        @Override
+        protected void onPostExecute(final String result) {
+            textView.setText(result);
+        }
     }
 
     private class MainActivityViewClient extends WebViewClient {
@@ -67,15 +86,7 @@ public class MainActivity extends AppCompatActivity {
             if (Api.REDIRECT_URL.equals(currentRedirect)) {
                 final Uri redirect = Uri.parse(uri.toString().replace("#", "?"));
                 token = redirect.getQueryParameter("access_token");
-
-                ((Button)(findViewById(R.id.btn_messenger))).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        refrash();
-                        ((TextView)(findViewById(R.id.text_messenger))).setText();
-                    }
-                });
-
+                setContentView(R.layout.activity_main);
 
                 return true;
             }

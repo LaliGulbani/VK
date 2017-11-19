@@ -1,11 +1,16 @@
 package by.laligulbani.vk.model.client;
 
+import android.support.annotation.VisibleForTesting;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class HttpClient implements IClient{
+import by.laligulbani.vk.model.listener.ResponseListener;
+
+public class HttpClient implements IClient {
+
     private HttpURLConnection con;
 
     @Override
@@ -14,8 +19,8 @@ public class HttpClient implements IClient{
             final InputStream is = openStream(url);
             listener.onResponse(is);
             con.disconnect();
-        } catch (final Throwable t) {
-            listener.onError(t);
+        } catch (final Exception t) {
+            listener.onException(t);
         } finally {
             if (con != null) {
                 con.disconnect();
@@ -23,13 +28,9 @@ public class HttpClient implements IClient{
         }
     }
 
+    @VisibleForTesting
     InputStream openStream(final String url) throws IOException {
         con = (HttpURLConnection) (new URL(url)).openConnection();
         return con.getInputStream();
-    }
-
-    public interface ResponseListener {
-        void onResponse(InputStream pInputStream) throws Exception;
-        void onError(Throwable pThrowable);
     }
 }
