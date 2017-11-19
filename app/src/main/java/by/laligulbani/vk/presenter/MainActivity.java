@@ -5,13 +5,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.Collection;
 
 import by.laligulbani.vk.Api;
+import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.entity.Message;
 import by.laligulbani.vk.model.management.IModelManagement;
 import by.laligulbani.vk.model.management.ModelManager;
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         webview.setWebViewClient(new MainActivityViewClient());
         webview.loadUrl(Api.AUTORIZATION_URL);
         modelManager = new ModelManager();
+
+
     }
 
     private void refrash() {
@@ -38,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             sb.append(message.getId());
             sb.append("\n");
         }
-        final String result = sb.toString();
+        String result = sb.toString();
         //TODO add setting result to textview
     }
 
@@ -61,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
             if (Api.REDIRECT_URL.equals(currentRedirect)) {
                 final Uri redirect = Uri.parse(uri.toString().replace("#", "?"));
                 token = redirect.getQueryParameter("access_token");
+
+                ((Button)(findViewById(R.id.btn_messenger))).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        refrash();
+                        ((TextView)(findViewById(R.id.text_messenger))).setText();
+                    }
+                });
+
+
                 return true;
             }
             return false;
