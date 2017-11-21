@@ -1,22 +1,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center">
-    <TextView
-        android:id="@+id/text_messenger"
+
+
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="lalala"/>
+        android:layout_height="match_parent"
+        android:columnCount="1">
 
-    <Button
-        android:id="@+id/btn_messenger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="click"
-        android:layout_alignTop="@+id/text_messenger"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="DDDDDDDDDDDD"/>
+        <TextView
+            android:id="@+id/tvToken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"/>
 
+        <Button
+            android:id="@+id/btnToken"
+            android:layout_width="match_parent"
+            android:text="DISPLAY TOKEN"/>
+
+        <TextView
+            android:id="@+id/tvMessages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:text="HERE WILL BE MESSAGES"/>
+
+        <Button
+            android:id="@+id/btnAuthorize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvMessages"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:text="AUTHORIZE"/>
+
+        <Button
+            android:id="@+id/btnGetMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GET MESSAGE"/>
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+    </GridLayout>
 
 </RelativeLayout>

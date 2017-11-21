@@ -23,49 +23,81 @@ public class MainActivity extends AppCompatActivity {
     public String token;
     public IModelManagement modelManager;
 
-    private TextView textView;
-    private Button button;
+    private TextView tvMessages;
+    private TextView tvToken;
+
+    private WebView webView;
+
+    private Button btnAuthorize;
+    private Button btnGetMessage;
+    private Button btnDisplayToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final WebView webview = new WebView(this);
-        setContentView(webview);
-        webview.setWebViewClient(new MainActivityViewClient());
-        webview.loadUrl(Api.AUTORIZATION_URL);
+        setContentView(R.layout.activity_main);
+
+        this.webView = (WebView) findViewById(R.id.webView);
+        this.webView.setWebViewClient(new MainActivityViewClient());
+        this.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+
+        this.btnAuthorize = (Button) findViewById(R.id.btnAuthorize);
+        this.btnAuthorize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                webView.loadUrl(Api.AUTHORIZATION_URL);
+            }
+        });
+
+        this.btnGetMessage = (Button) findViewById(R.id.btnGetMessage);
+        this.btnGetMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (token == null) {
+                    tvMessages.setText("You are not authorized!");
+                    tvToken.setText("You are not authorized!");
+                    return;
+                }
+
+                new GetMessageTask(modelManager, token, tvMessages).execute();
+            }
+        });
+
+        this.btnDisplayToken = (Button) findViewById(R.id.btnToken);
+        this.btnDisplayToken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvToken.setText(token);
+            }
+        });
+
+        this.tvMessages = (TextView) findViewById(R.id.tvMessages);
+        this.tvToken = (TextView) findViewById(R.id.tvToken);
+
         modelManager = new ModelManager();
-
-        this.textView = (TextView) (findViewById(R.id.text_messenger));
-        this.button = (Button) (findViewById(R.id.btn_messenger));
     }
-
-    public void DDDDDDDDDDDD(View view) {
-        new GetMessageTask(modelManager, token, textView).execute();
-    }
-
 
     private class MainActivityViewClient extends WebViewClient {
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            return handleRedirect(request.getUrl());
+            return handleRedirect(view, request.getUrl());
         }
 
         @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return handleRedirect(Uri.parse(url));
+            return handleRedirect(view, Uri.parse(url));
         }
 
-        private boolean handleRedirect(Uri uri) {
+        private boolean handleRedirect(WebView view, Uri uri) {
             final String currentRedirect = uri.getScheme() + ":" + uri.getSchemeSpecificPart();
             if (Api.REDIRECT_URL.equals(currentRedirect)) {
                 final Uri redirect = Uri.parse(uri.toString().replace("#", "?"));
                 token = redirect.getQueryParameter("access_token");
-                setContentView(R.layout.activity_main);
-                //Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                //startActivity(intent);
+                view.loadUrl(uri.toString());
                 return true;
             }
             return false;

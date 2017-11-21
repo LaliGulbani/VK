@@ -1,7 +1,5 @@
 package by.laligulbani.vk.model.entity.message;
 
-
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

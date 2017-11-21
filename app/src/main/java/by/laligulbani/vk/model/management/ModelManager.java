@@ -21,7 +21,7 @@ public class ModelManager implements IModelManagement {
     @Override
     public List<Item> getMessages(final String token) {
 
-        final String url = Api.MESSENGES_GET +
+        final String url = Api.MESSAGES_GET +
                 "?" + "access_token=" + token
                 + "&" + "count=100";
 
