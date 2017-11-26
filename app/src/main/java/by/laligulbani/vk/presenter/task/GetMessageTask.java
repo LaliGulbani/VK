@@ -14,7 +14,7 @@ public class GetMessageTask extends AsyncTask<String, Integer, String> {
     private String token;
     private TextView textView;
 
-    public GetMessageTask(IModelManagement modelManager, String token, TextView textView) {
+    public GetMessageTask(IModelManagement modelManager, String token, Callback callbackText) {
         this.modelManager = modelManager;
         this.token = token;
         this.textView = textView;
@@ -34,6 +34,6 @@ public class GetMessageTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(final String result) {
-        textView.setText(result);
+
     }
 }

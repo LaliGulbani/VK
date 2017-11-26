@@ -10,7 +10,7 @@ public class Api {
             + "?client_id=6249213"
             + "&redirect_uri=" + REDIRECT_URL
             + "&display=mobile"
-            + "&scope=friends"
+            + "&scope=friends,messages"
             + "&response_type=token"
             + "&" + VERSION_PARAM + "=" + VERSION_VALUE;
 
@@ -21,6 +21,6 @@ public class Api {
     public static final String NEWS_GET = BASE_PATH_METHOD + "newsfeed.get";
     public static final String USERS_GET = BASE_PATH_METHOD + "users.get";
 
-    public static final String MESSAGES = BASE_PATH_METHOD + "users";
-    public static final String MESSAGES_GET = MESSAGES + ".get";
+    public static final String MESSAGES = BASE_PATH_METHOD + "messages.get";
+
 }
