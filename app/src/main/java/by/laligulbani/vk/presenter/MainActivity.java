@@ -1,5 +1,6 @@
 package by.laligulbani.vk.presenter;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import by.laligulbani.vk.Api;
+import by.laligulbani.vk.Main2Activity;
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.management.IModelManagement;
 import by.laligulbani.vk.model.management.ModelManager;
@@ -31,11 +33,22 @@ public class MainActivity extends AppCompatActivity {
     private Button btnAuthorize;
     private Button btnGetMessage;
     private Button btnDisplayToken;
+    private Button newIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        this.newIntent = (Button)findViewById(R.id.new_intent);
+        newIntent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                startActivity(intent);
+            }
+        });
 
         this.webView = (WebView) findViewById(R.id.webView);
         this.webView.setWebViewClient(new MainActivityViewClient());
