@@ -5,23 +5,22 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:paddingTop="10dp"
-                tools:background="@color/common_google_signin_btn_text_dark_disabled">
+                android:paddingTop="10dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:background="#ffffff"
             >
 
-            <ImageView
-                android:id="@+id/imgMsg"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_grour_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -29,12 +28,12 @@
                 android:src="@mipmap/ic_launcher"/>
 
             <TextView
-                android:id="@+id/textMsg"
+                android:id="@+id/title_group_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/imgMsg"
-                android:layout_toRightOf="@id/imgMsg"
-                android:text="Lalala"
+                android:layout_toEndOf="@+id/image_grour_image_view"
+                android:layout_toRightOf="@id/image_grour_image_view"
+                tools:text="Lalala"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"/>
 
@@ -42,20 +41,20 @@
                 android:id="@+id/txtDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textMsg"
-                android:layout_toEndOf="@+id/imgMsg"
-                android:layout_toRightOf="@+id/imgMsg"
-                android:text="time"/>
+                android:layout_below="@+id/title_group_text_view"
+                android:layout_toEndOf="@+id/image_grour_image_view"
+                android:layout_toRightOf="@+id/image_grour_image_view"
+                tools:text="time"/>
 
             <TextView
-                android:id="@+id/text1"
+                android:id="@+id/text_of_news_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/imgMsg"
+                android:layout_below="@+id/image_grour_image_view"
                 android:layout_marginTop="5dp"
-                android:text="пам пам пам пам пам пам пам пам"
+                tools:text="пам пам пам пам пам пам пам пам"
                 android:textColor="@android:color/black"/>
 
         </RelativeLayout>

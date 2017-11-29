@@ -1,0 +1,69 @@
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar_who_send_message_image_view"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_person_24dp"/>
+
+    <TextView
+        android:id="@+id/from_whom_message_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/avatar_who_send_message_image_view"
+        android:layout_toRightOf="@id/avatar_who_send_message_image_view"
+        tools:text="От кого"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/message_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4sp"
+        android:layout_below="@+id/from_whom_message_text_view"
+        android:layout_toEndOf="@+id/avatar_who_send_message_image_view"
+        android:layout_toRightOf="@+id/avatar_who_send_message_image_view"
+        tools:text="сообщение"
+        android:maxLines="2"/>
+    <TextView
+        android:id="@+id/time_message_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/from_whom_message_text_view"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        tools:text="20:25"
+        android:paddingTop="4sp"
+        android:textSize="14sp"/>
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_checkbox_blank_circle_outline"
+        android:textColor="#000000"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="22sp"
+        tools:text="2"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_marginTop="8sp"
+        android:layout_below="@+id/message_text_view"
+        android:layout_height="1dp"
+        android:background="@color/backgroundGray"/>
+
+
+
+
+
+</RelativeLayout>

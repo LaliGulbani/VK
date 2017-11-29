@@ -1,4 +1,4 @@
-package by.laligulbani.vk.presenter.recycleView;
+package by.laligulbani.vk.presenter.recycleViewNews;
 
 
 import android.content.Context;

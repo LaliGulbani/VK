@@ -1,7 +1,9 @@
 package by.laligulbani.vk.ui.login;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,13 +18,19 @@ import by.laligulbani.vk.Main2Activity;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String APP_PREFERENCES_NAME = "pref_name";
+    public static final String PREFERENCES_TOKEN = "token";
     public String token;
+    public static SharedPreferences mPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WebView webView = new WebView(this);
         setContentView(webView);
+
+        mPreferences = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE);
 
         webView.setWebViewClient(new WebViewClient()
         {
@@ -43,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (Api.REDIRECT_URL.equals(currentRedirect)) {
                     final Uri redirect = Uri.parse(uri.toString().replace("#", "?"));
                     token = redirect.getQueryParameter("access_token");
+                    mPreferences.edit().putString(PREFERENCES_TOKEN,token).apply();
                     Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
                     startActivity(intent);
                     finish();
@@ -53,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
         });
         webView.loadUrl(Api.AUTHORIZATION_URL);
-
 
     }
 }

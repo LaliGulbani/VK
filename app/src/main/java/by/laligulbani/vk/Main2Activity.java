@@ -15,17 +15,32 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.laligulbani.vk.presenter.recycleView.Message;
-import by.laligulbani.vk.presenter.recycleView.MyCustomAdapter;
+import by.laligulbani.vk.model.entity.message.Item;
+import by.laligulbani.vk.model.management.IModelManagement;
+import by.laligulbani.vk.presenter.recycleViewMessanger.Adapter;
+import by.laligulbani.vk.presenter.recycleViewMessanger.Messenger;
+import by.laligulbani.vk.presenter.recycleViewNews.Message;
+import by.laligulbani.vk.presenter.recycleViewNews.MyCustomAdapter;
+import by.laligulbani.vk.presenter.task.Callback;
+import by.laligulbani.vk.presenter.task.GetMessageTask;
+
+import static by.laligulbani.vk.ui.login.LoginActivity.PREFERENCES_TOKEN;
+import static by.laligulbani.vk.ui.login.LoginActivity.mPreferences;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private List<Message> list;
+    RecyclerView recycle_message;
+    private String mToken;
+
+
+    public IModelManagement modelManager;
+
 
     private RecyclerView recycleView;
     private LinearLayoutManager verticalLinearLayoutManager;
-    private LinearLayoutManager horizontalLinearLayoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +48,10 @@ public class Main2Activity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        recycle_message = (RecyclerView)findViewById(R.id.recyclerView_messanger);
+        mToken = mPreferences.getString(PREFERENCES_TOKEN, "не определено");
+
 
 
         recycleView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -56,6 +75,7 @@ public class Main2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     private List<Message> initData() {
         list = new ArrayList<>();
@@ -113,7 +133,14 @@ public class Main2Activity extends AppCompatActivity
             case R.id.nav_notification:
                 return true;
             case R.id.nav_messengers:
-                //GetMessageTask
+                new GetMessageTask(modelManager, mToken, new Callback() {
+                    @Override
+                    public void setText(List<Messenger> listItem) {
+                        Adapter adapterMessage = new Adapter(listItem);
+                        recycle_message.setAdapter(adapterMessage);
+
+                    }
+                });
                 return true;
             case R.id.nav_friends:
                 return true;

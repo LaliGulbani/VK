@@ -12,18 +12,19 @@ public class GetMessageTask extends AsyncTask<String, Integer, String> {
 
     private IModelManagement modelManager;
     private String token;
+    private Callback mCallbackText;
     private TextView textView;
 
     public GetMessageTask(IModelManagement modelManager, String token, Callback callbackText) {
         this.modelManager = modelManager;
         this.token = token;
-        this.textView = textView;
+        mCallbackText = callbackText;
     }
 
     @Override
     protected String doInBackground(final String[] tokens) {
 
-        final List<Item> items = modelManager.getMessages(token);
+        final List<> items = modelManager.getMessages(token);
         final StringBuilder sb = new StringBuilder();
         for (final Item item : items) {
             sb.append(item.body);
