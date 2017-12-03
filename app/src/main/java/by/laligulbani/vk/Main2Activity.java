@@ -6,21 +6,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import by.laligulbani.vk.model.entity.message.Item;
 import by.laligulbani.vk.model.management.IModelManagement;
 import by.laligulbani.vk.presenter.recycleViewMessanger.Adapter;
-import by.laligulbani.vk.presenter.recycleViewMessanger.Messenger;
-import by.laligulbani.vk.presenter.recycleViewNews.Message;
-import by.laligulbani.vk.presenter.recycleViewNews.MyCustomAdapter;
+import by.laligulbani.vk.presenter.recycleViewMessanger.Message;
 import by.laligulbani.vk.presenter.task.Callback;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
 
@@ -38,8 +33,8 @@ public class Main2Activity extends AppCompatActivity
     public IModelManagement modelManager;
 
 
-    private RecyclerView recycleView;
-    private LinearLayoutManager verticalLinearLayoutManager;
+    //private RecyclerView recycleView;
+    //private LinearLayoutManager verticalLinearLayoutManager;
 
 
     @Override
@@ -49,21 +44,18 @@ public class Main2Activity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recycle_message = (RecyclerView)findViewById(R.id.recyclerView_messanger);
+        //recycle_message = (RecyclerView)findViewById(R.id.recyclerView_message);
         mToken = mPreferences.getString(PREFERENCES_TOKEN, "не определено");
 
 
-
-        recycleView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        verticalLinearLayoutManager = new LinearLayoutManager(this);
+        //verticalLinearLayoutManager = new LinearLayoutManager(this);
         //horizontalLinearLayoutManager = new LinearLayoutManager(this);
 
-        recycleView.setLayoutManager(verticalLinearLayoutManager);
-        recycleView.setHasFixedSize(true);
+        //recycleView.setLayoutManager(verticalLinearLayoutManager);
+        //recycleView.setHasFixedSize(true);
 
-        MyCustomAdapter adapter = new MyCustomAdapter(initData());
-        recycleView.setAdapter(adapter);
+        //MyCustomAdapter adapter = new MyCustomAdapter(initData());
+        //recycleView.setAdapter(adapter);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -77,11 +69,7 @@ public class Main2Activity extends AppCompatActivity
     }
 
 
-    private List<Message> initData() {
-        list = new ArrayList<>();
-        list.add(new Message("a","a",R.mipmap.ic_launcher,R.string.action_settings));
-        return list;
-    }
+
 
     @Override
     public void onBackPressed() {
@@ -124,18 +112,20 @@ public class Main2Activity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_news:
-                /*ContentFragment fragment = new ContentFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                /*NewsFragment fragment = new NewsFragment();
+                FragmentManager fragmentManager = getFragmentManager()
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frame,fragment);
                 fragmentTransaction.commit();
                 */
                 return true;
             case R.id.nav_notification:
+
                 return true;
-            case R.id.nav_messengers:
+            case R.id.nav_messanges:
                 new GetMessageTask(modelManager, mToken, new Callback() {
                     @Override
-                    public void setText(List<Messenger> listItem) {
+                    public void setText(List<Message> listItem) {
                         Adapter adapterMessage = new Adapter(listItem);
                         recycle_message.setAdapter(adapterMessage);
 

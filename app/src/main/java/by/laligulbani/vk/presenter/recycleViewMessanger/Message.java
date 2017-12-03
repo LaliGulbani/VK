@@ -1,12 +1,12 @@
 package by.laligulbani.vk.presenter.recycleViewMessanger;
 
 
-public class Messenger {
+public class Message {
     private String message;
     private String personSend;
 
 
-    public Messenger(String message, String personSend) {
+    public Message(String message, String personSend) {
         this.message = message;
         this.personSend = personSend;
     }

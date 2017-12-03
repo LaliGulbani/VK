@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/backgroundGray"
     android:gravity="bottom"
     android:orientation="horizontal"
@@ -13,27 +13,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
-        />
+        tools:src="@drawable/ic_menu_gallery"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="18dp"
         android:paddingLeft="@dimen/nav_header_vertical_spacing"
-        android:text="Лали Гулбани"
+        tools:text="Лали Гулбани"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="180dp"
-        android:paddingBottom="18dp"
-        android:src="@drawable/ic_menu_camera"/>
 
 </LinearLayout>

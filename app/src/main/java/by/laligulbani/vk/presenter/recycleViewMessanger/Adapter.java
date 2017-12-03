@@ -14,9 +14,9 @@ import java.util.List;
 import by.laligulbani.vk.R;
 
 public class Adapter  extends RecyclerView.Adapter<Adapter.ViewHolder> {
-    private List<Messenger> list;
+    private List<Message> list;
 
-    public Adapter(List<Messenger> list) {
+    public Adapter(List<Message> list) {
         this.list = list;
     }
 
@@ -24,13 +24,13 @@ public class Adapter  extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_messanger, parent, false);
+        View view = inflater.inflate(R.layout.fragment_item_message, parent, false);
         return new Adapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(Adapter.ViewHolder holder, int position) {
-        Messenger messenger = list.get(position);
+        Message messenger = list.get(position);
 
         holder.textMessage.setText(messenger.getMessage());
         holder.from_whom.setText(messenger.getPersonSend());
