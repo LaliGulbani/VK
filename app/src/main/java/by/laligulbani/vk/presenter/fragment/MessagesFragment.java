@@ -43,7 +43,7 @@ public class MessagesFragment extends Fragment {
 
             public MessageHolder(View itemView) {
                 super(itemView);
-                mAvatar = (ImageView) itemView.findViewById(R.id.avatar_who_send_message_image_view);
+                mAvatar = (ImageView) itemView.findViewById(R.id.profile_avatar_image_view);
                 mTextMessage = (TextView) itemView.findViewById(R.id.message_text_view);
                 mTimeMessage = (TextView) itemView.findViewById(R.id.time_message_text_view);
                 mFromWhom = (TextView) itemView.findViewById(R.id.from_whom_message_text_view);
@@ -66,7 +66,7 @@ public class MessagesFragment extends Fragment {
             @Override
             public void onBindViewHolder(MessageHolder holder, int position) {
                 Message message = mMessage.get(position);
-                holder.mFromWhom.setText(message.getTitle());
+                holder.mFromWhom.setText(message.);
             }
 
             @Override

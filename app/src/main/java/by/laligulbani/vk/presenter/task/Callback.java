@@ -6,5 +6,5 @@ import java.util.List;
 import by.laligulbani.vk.presenter.recycleViewMessanger.Message;
 
 public interface Callback {
-    void setText(List<Message listItem);
+    void setText(List<Message> listMessage);
 }

@@ -125,8 +125,8 @@ public class Main2Activity extends AppCompatActivity
             case R.id.nav_messanges:
                 new GetMessageTask(modelManager, mToken, new Callback() {
                     @Override
-                    public void setText(List<Message> listItem) {
-                        Adapter adapterMessage = new Adapter(listItem);
+                    public void setText(List<Message> listMessage) {
+                        Adapter adapterMessage = new Adapter(listMessage);
                         recycle_message.setAdapter(adapterMessage);
 
                     }
