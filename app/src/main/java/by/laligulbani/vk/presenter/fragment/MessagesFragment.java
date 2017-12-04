@@ -3,6 +3,7 @@ package by.laligulbani.vk.presenter.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,18 @@ public class MessagesFragment extends Fragment {
     private SwipeRefreshLayout mSwipeRefreshLayoutMessage;
     private RecyclerView mRecycleViewMessage;
 
+   // @NonNull
+   // public static MessagesFragment newInstance() {
+     //   return new MessagesFragment();
+    // }
+
+    // для AsyncTask уничтожения
+   // @Override
+   // public void onCreate(Bundle savedInstanceState) {
+    //    super.onCreate(savedInstanceState);
+     //   setRetainInstance(true);
+    //}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -34,12 +47,12 @@ public class MessagesFragment extends Fragment {
         mRecycleViewMessage = (RecyclerView) root.findViewById(R.id.recyclerView_messages);
         mRecycleViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        private class MessageHolder extends RecyclerView.ViewHolder {
-            public ImageView mAvatar;
-            public TextView mTextMessage;
-            public TextView mFromWhom;
-            public TextView mTimeMessage;
-            public TextView mCountMessage;
+        class MessageHolder extends RecyclerView.ViewHolder {
+            private ImageView mAvatar;
+            private TextView mTextMessage;
+            private TextView mFromWhom;
+            private TextView mTimeMessage;
+            private TextView mCountMessage;
 
             public MessageHolder(View itemView) {
                 super(itemView);
@@ -51,7 +64,7 @@ public class MessagesFragment extends Fragment {
             }
         }
 
-        private class MessageAdapter extends RecyclerView.Adapter<MessageHolder>{
+        class MessageAdapter extends RecyclerView.Adapter<MessageHolder>{
             private List<Message> mMessage;
             public MessageAdapter(List<Message> message){
                 mMessage = message;
@@ -67,6 +80,10 @@ public class MessagesFragment extends Fragment {
             public void onBindViewHolder(MessageHolder holder, int position) {
                 Message message = mMessage.get(position);
                 holder.mFromWhom.setText(message.);
+                holder.mCountMessage.setText();
+                holder.mTimeMessage.setText();
+                holder.mTextMessage.setText();
+                //Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);
             }
 
             @Override
