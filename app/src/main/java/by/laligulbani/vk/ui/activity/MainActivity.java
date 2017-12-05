@@ -84,7 +84,18 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_notification:
                 break;
             case R.id.nav_messanges:
-                new GetMessageTask(ModelManagementFactory.getModelManager(), mToken, this::replaceMessageFragment);
+                mFragment = new MessagesFragment();
+                new GetMessageTask(ModelManagementFactory.getModelManager(), mToken, (messages)->{
+
+                    final Bundle args = new Bundle();
+                    args.putParcelable(MessagesFragment.MESSAGES, new Wrapp(messages));
+
+                    mFragment.setArguments(args);
+
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_frame_layout, mFragment);
+                    fragmentTransaction.commit();
+                }).execute();
                 break;
             case R.id.nav_friends:
                 break;
