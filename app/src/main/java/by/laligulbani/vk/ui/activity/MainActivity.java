@@ -1,7 +1,7 @@
 package by.laligulbani.vk.ui.activity;
 
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,15 +12,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.entity.message_list.Message;
 import by.laligulbani.vk.model.management.ModelManagementFactory;
-import by.laligulbani.vk.ui.fragment.MessagesFragment;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
+import by.laligulbani.vk.ui.fragment.MessagesFragment;
+
+import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
+import static java.util.Collections.emptyList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private String mToken;
+    private MessagesFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +36,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mToken = LoginActivity.mPreferences.getString(LoginActivity.PREFERENCES_TOKEN, "не определено");
+        mToken = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE)
+                .getString(LoginActivity.PREFERENCES_TOKEN, "не определено");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -39,6 +47,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mFragment = new MessagesFragment();
     }
 
     @Override
@@ -70,18 +80,12 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_news:
-                MessagesFragment fragment = new MessagesFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_frame_layout, fragment);
-                fragmentTransaction.commit();
+                replaceMessageFragment(emptyList());
                 break;
             case R.id.nav_notification:
                 break;
             case R.id.nav_messanges:
-                new GetMessageTask(ModelManagementFactory.getModelManager(), mToken, (messages) -> {
-
-                });
+                new GetMessageTask(ModelManagementFactory.getModelManager(), mToken, this::replaceMessageFragment);
                 break;
             case R.id.nav_friends:
                 break;
@@ -95,5 +99,11 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return true;
+    }
+
+    private void replaceMessageFragment(List<Message> messages) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame_layout, mFragment);
+        fragmentTransaction.commit();
     }
 }

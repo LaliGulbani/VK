@@ -7,26 +7,25 @@ import java.util.Date;
 public class Message {
 
     @SerializedName("id")
-    public long id;
+    public Long id;
     @SerializedName("date")
     public Date date;
     @SerializedName("out")
-    public long out;
+    public Long out;
     @SerializedName("user_id")
-    public long user_id;
+    public Long user_id;
     @SerializedName("read_state")
-    public long read_state;
+    public Long read_state;
     @SerializedName("title")
     public String title;
     @SerializedName("body")
     public String body;
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -38,27 +37,27 @@ public class Message {
         this.date = date;
     }
 
-    public long getOut() {
+    public Long getOut() {
         return out;
     }
 
-    public void setOut(long out) {
+    public void setOut(Long out) {
         this.out = out;
     }
 
-    public long getUser_id() {
+    public Long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUser_id(Long user_id) {
         this.user_id = user_id;
     }
 
-    public long getRead_state() {
+    public Long getRead_state() {
         return read_state;
     }
 
-    public void setRead_state(long read_state) {
+    public void setRead_state(Long read_state) {
         this.read_state = read_state;
     }
 
