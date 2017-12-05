@@ -51,9 +51,9 @@ public class Adapter  extends RecyclerView.Adapter<Adapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textMessage = (TextView) itemView.findViewById(R.id.message);
-            from_whom = (TextView) itemView.findViewById(R.id.from_whom);
-            image = (ImageView) itemView.findViewById(R.id.imgPerson);
+            //textMessage = (TextView) itemView.findViewById(R.id.message);
+            //from_whom = (TextView) itemView.findViewById(R.id.from_whom);
+            //image = (ImageView) itemView.findViewById(R.id.imgPerson);
 
 
         }

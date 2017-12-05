@@ -33,7 +33,7 @@ public class GetMessageTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(final String result) {
-        mCallbackText.setText();
+       // mCallbackText.setText();
 
     }
 }

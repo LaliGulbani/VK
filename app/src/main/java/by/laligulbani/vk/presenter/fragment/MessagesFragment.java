@@ -3,7 +3,6 @@ package by.laligulbani.vk.presenter.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -79,10 +78,10 @@ public class MessagesFragment extends Fragment {
             @Override
             public void onBindViewHolder(MessageHolder holder, int position) {
                 Message message = mMessage.get(position);
-                holder.mFromWhom.setText(message.);
-                holder.mCountMessage.setText();
-                holder.mTimeMessage.setText();
-                holder.mTextMessage.setText();
+               // holder.mFromWhom.setText(message.);
+               // holder.mCountMessage.setText();
+                //holder.mTimeMessage.setText();
+                //holder.mTextMessage.setText();
                 //Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);
             }
 

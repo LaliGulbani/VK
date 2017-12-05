@@ -7,7 +7,7 @@ import java.util.List;
 public class Response {
 
     @SerializedName("count")
-    public long count;
+    private long count;
     @SerializedName("items")
     public List<Item> items;
 
