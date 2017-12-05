@@ -1,21 +1,19 @@
 package by.laligulbani.vk;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
-
-import by.laligulbani.vk.model.management.IModelManagement;
-import by.laligulbani.vk.presenter.recycleViewMessanger.Message;
-import by.laligulbani.vk.presenter.task.Callback;
+import by.laligulbani.vk.model.management.ModelManagementFactory;
+import by.laligulbani.vk.presenter.fragment.MessagesFragment;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
 
 import static by.laligulbani.vk.ui.login.LoginActivity.PREFERENCES_TOKEN;
@@ -24,17 +22,7 @@ import static by.laligulbani.vk.ui.login.LoginActivity.mPreferences;
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private List<Message> list;
-    RecyclerView recycle_message;
     private String mToken;
-
-
-    public IModelManagement modelManager;
-
-
-    //private RecyclerView recycleView;
-    //private LinearLayoutManager verticalLinearLayoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +31,7 @@ public class Main2Activity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //recycle_message = (RecyclerView)findViewById(R.id.recyclerView_message);
         mToken = mPreferences.getString(PREFERENCES_TOKEN, "не определено");
-
-
-        //verticalLinearLayoutManager = new LinearLayoutManager(this);
-        //horizontalLinearLayoutManager = new LinearLayoutManager(this);
-
-        //recycleView.setLayoutManager(verticalLinearLayoutManager);
-        //recycleView.setHasFixedSize(true);
-
-        //MyCustomAdapter adapter = new MyCustomAdapter(initData());
-        //recycleView.setAdapter(adapter);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,9 +42,6 @@ public class Main2Activity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
-
-
 
     @Override
     public void onBackPressed() {
@@ -89,62 +62,40 @@ public class Main2Activity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
 
         switch (id) {
             case R.id.nav_news:
-                /*NewsFragment fragment = new NewsFragment();
-                FragmentManager fragmentManager = getFragmentManager()
+                MessagesFragment fragment = new MessagesFragment();
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame,fragment);
+                fragmentTransaction.replace(R.id.main_frame_layout, fragment);
                 fragmentTransaction.commit();
-                */
-                return true;
+                break;
             case R.id.nav_notification:
-
-                return true;
+                break;
             case R.id.nav_messanges:
-                new GetMessageTask(modelManager, mToken, new Callback() {
-                    @Override
-                    public void setText(List<Message> listMessage) {
-                        //MessageAdapter adapterMessage = new MessageAdapter(listMessage);
-                        //recycle_message.setAdapter(adapterMessage);
+                new GetMessageTask(ModelManagementFactory.getModelManager(), mToken, (messages) -> {
 
-                    }
                 });
-                return true;
+                break;
             case R.id.nav_friends:
-                return true;
+                break;
             case R.id.nav_groups:
-                return true;
+                break;
             case R.id.nav_photo:
-                return true;
-
+                break;
+            default: {
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+            }
         }
-
-
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }

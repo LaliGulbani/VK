@@ -1,9 +1,8 @@
 package by.laligulbani.vk.presenter.fragment;
 
-
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,18 +22,17 @@ public class MessagesFragment extends Fragment {
     private SwipeRefreshLayout mSwipeRefreshLayoutMessage;
     private RecyclerView mRecycleViewMessage;
 
-   // @NonNull
-   // public static MessagesFragment newInstance() {
-     //   return new MessagesFragment();
+    // @NonNull
+    // public static MessagesFragment newInstance() {
+    //   return new MessagesFragment();
     // }
 
     // для AsyncTask уничтожения
-   // @Override
-   // public void onCreate(Bundle savedInstanceState) {
+    // @Override
+    // public void onCreate(Bundle savedInstanceState) {
     //    super.onCreate(savedInstanceState);
-     //   setRetainInstance(true);
+    //   setRetainInstance(true);
     //}
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
@@ -47,13 +45,14 @@ public class MessagesFragment extends Fragment {
         mRecycleViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         class MessageHolder extends RecyclerView.ViewHolder {
+
             private ImageView mAvatar;
             private TextView mTextMessage;
             private TextView mFromWhom;
             private TextView mTimeMessage;
             private TextView mCountMessage;
 
-            public MessageHolder(View itemView) {
+            MessageHolder(View itemView) {
                 super(itemView);
                 mAvatar = (ImageView) itemView.findViewById(R.id.profile_avatar_image_view);
                 mTextMessage = (TextView) itemView.findViewById(R.id.message_text_view);
@@ -63,23 +62,26 @@ public class MessagesFragment extends Fragment {
             }
         }
 
-        class MessageAdapter extends RecyclerView.Adapter<MessageHolder>{
+        class MessageAdapter extends RecyclerView.Adapter<MessageHolder> {
+
             private List<Message> mMessage;
-            public MessageAdapter(List<Message> message){
+
+            public MessageAdapter(List<Message> message) {
                 mMessage = message;
             }
 
             @Override
-            public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType){
+            public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
                 View view = layoutInflater.inflate(R.layout.fragment_item_message, parent, false);
                 return new MessageHolder(view);
             }
+
             @Override
             public void onBindViewHolder(MessageHolder holder, int position) {
                 Message message = mMessage.get(position);
-               // holder.mFromWhom.setText(message.);
-               // holder.mCountMessage.setText();
+                // holder.mFromWhom.setText(message.);
+                // holder.mCountMessage.setText();
                 //holder.mTimeMessage.setText();
                 //holder.mTextMessage.setText();
                 //Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);
@@ -91,11 +93,7 @@ public class MessagesFragment extends Fragment {
             }
         }
 
-
-
         return root;
     }
-
-
 }
 
