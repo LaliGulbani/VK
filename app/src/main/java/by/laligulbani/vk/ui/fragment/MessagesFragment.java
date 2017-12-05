@@ -17,8 +17,11 @@ import java.util.List;
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.entity.message_list.Message;
 
+import static java.util.Collections.emptyList;
+
 public class MessagesFragment extends Fragment {
 
+    public static final String MESSAGES = "messages";
     private SwipeRefreshLayout mSwipeRefreshLayoutMessage;
     private RecyclerView mRecycleViewMessage;
 
@@ -36,13 +39,14 @@ public class MessagesFragment extends Fragment {
         mSwipeRefreshLayoutMessage = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container_message);
         mSwipeRefreshLayoutMessage.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
 
+        final List<Message> messages = (List<Message>) getArguments().get(MESSAGES);
+
         mRecycleViewMessage = (RecyclerView) root.findViewById(R.id.recyclerView_messages);
         mRecycleViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycleViewMessage.setAdapter(new MessageAdapter(null));
+        mRecycleViewMessage.setAdapter(new MessageAdapter(messages == null ? emptyList() : messages));
 
         return root;
     }
-
 
     class MessageHolder extends RecyclerView.ViewHolder {
 

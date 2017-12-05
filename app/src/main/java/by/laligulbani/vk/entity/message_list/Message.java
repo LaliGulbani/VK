@@ -1,10 +1,13 @@
 package by.laligulbani.vk.entity.message_list;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class Message {
+public class Message implements Parcelable {
 
     @SerializedName("id")
     public Long id;
@@ -20,6 +23,43 @@ public class Message {
     public String title;
     @SerializedName("body")
     public String body;
+
+    protected Message(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        if (in.readByte() == 0) {
+            out = null;
+        } else {
+            out = in.readLong();
+        }
+        if (in.readByte() == 0) {
+            user_id = null;
+        } else {
+            user_id = in.readLong();
+        }
+        if (in.readByte() == 0) {
+            read_state = null;
+        } else {
+            read_state = in.readLong();
+        }
+        title = in.readString();
+        body = in.readString();
+    }
+
+    public static final Creator<Message> CREATOR = new Creator<Message>() {
+        @Override
+        public Message createFromParcel(Parcel in) {
+            return new Message(in);
+        }
+
+        @Override
+        public Message[] newArray(int size) {
+            return new Message[size];
+        }
+    };
 
     public Long getId() {
         return id;
@@ -75,5 +115,40 @@ public class Message {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(id);
+        }
+        if (out == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(out);
+        }
+        if (user_id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(user_id);
+        }
+        if (read_state == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(read_state);
+        }
+        dest.writeString(title);
+        dest.writeString(body);
     }
 }

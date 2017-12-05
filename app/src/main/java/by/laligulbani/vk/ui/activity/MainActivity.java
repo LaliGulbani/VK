@@ -3,6 +3,8 @@ package by.laligulbani.vk.ui.activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -47,8 +49,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        mFragment = new MessagesFragment();
     }
 
     @Override
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main2, menu);
         return true;
     }
@@ -102,8 +101,51 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void replaceMessageFragment(List<Message> messages) {
+
+        mFragment = new MessagesFragment();
+
+        final Bundle args = new Bundle();
+        args.putParcelable(MessagesFragment.MESSAGES, new Wrapp(messages));
+
+        mFragment.setArguments(args);
+
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame_layout, mFragment);
         fragmentTransaction.commit();
+    }
+
+    private static final class Wrapp implements Parcelable{
+
+        private final List<Message> mMessages;
+
+        private Wrapp(List<Message> messages) {
+            mMessages = messages;
+        }
+
+        protected Wrapp(Parcel in) {
+            mMessages = in.createTypedArrayList(Message.CREATOR);
+        }
+
+        public static final Creator<Wrapp> CREATOR = new Creator<Wrapp>() {
+            @Override
+            public Wrapp createFromParcel(Parcel in) {
+                return new Wrapp(in);
+            }
+
+            @Override
+            public Wrapp[] newArray(int size) {
+                return new Wrapp[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeTypedList(mMessages);
+        }
     }
 }
