@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import java.util.List;
 
 import by.laligulbani.vk.model.management.IModelManagement;
-import by.laligulbani.vk.presenter.recycleViewMessanger.Adapter;
 import by.laligulbani.vk.presenter.recycleViewMessanger.Message;
 import by.laligulbani.vk.presenter.task.Callback;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
@@ -126,8 +125,8 @@ public class Main2Activity extends AppCompatActivity
                 new GetMessageTask(modelManager, mToken, new Callback() {
                     @Override
                     public void setText(List<Message> listMessage) {
-                        Adapter adapterMessage = new Adapter(listMessage);
-                        recycle_message.setAdapter(adapterMessage);
+                        //MessageAdapter adapterMessage = new MessageAdapter(listMessage);
+                        //recycle_message.setAdapter(adapterMessage);
 
                     }
                 });
