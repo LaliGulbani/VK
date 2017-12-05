@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class Item {
+public class Message {
 
     @SerializedName("id")
     public long id;

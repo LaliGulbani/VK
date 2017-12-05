@@ -4,10 +4,10 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
-import by.laligulbani.vk.entity.message_list.Item;
+import by.laligulbani.vk.entity.message_list.Message;
 import by.laligulbani.vk.model.management.IModelManagement;
 
-public class GetMessageTask extends AsyncTask<List<Item>, Integer, List<Item>> {
+public class GetMessageTask extends AsyncTask<List<Message>, Integer, List<Message>> {
 
     private IModelManagement modelManager;
     private Callback mCallbackText;
@@ -20,12 +20,12 @@ public class GetMessageTask extends AsyncTask<List<Item>, Integer, List<Item>> {
     }
 
     @Override
-    protected List<Item> doInBackground(List<Item>[] lists) {
+    protected List<Message> doInBackground(List<Message>[] lists) {
         return modelManager.getMessages(token);
     }
 
     @Override
-    protected void onPostExecute(final List<Item> result) {
+    protected void onPostExecute(final List<Message> result) {
         mCallbackText.setText(result);
     }
 }
