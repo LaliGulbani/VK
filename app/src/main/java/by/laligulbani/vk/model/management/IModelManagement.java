@@ -3,7 +3,7 @@ package by.laligulbani.vk.model.management;
 
 import java.util.List;
 
-import by.laligulbani.vk.model.entity.message.Item;
+import by.laligulbani.vk.entity.message_list.Item;
 
 public interface IModelManagement {
 
