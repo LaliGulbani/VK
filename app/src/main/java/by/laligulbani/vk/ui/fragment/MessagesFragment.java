@@ -1,4 +1,4 @@
-package by.laligulbani.vk.presenter.fragment;
+package by.laligulbani.vk.ui.fragment;
 
 import android.app.Fragment;
 import android.graphics.Color;

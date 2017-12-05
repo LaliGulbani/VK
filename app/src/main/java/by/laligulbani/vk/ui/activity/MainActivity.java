@@ -1,4 +1,4 @@
-package by.laligulbani.vk;
+package by.laligulbani.vk.ui.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,14 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.management.ModelManagementFactory;
-import by.laligulbani.vk.presenter.fragment.MessagesFragment;
+import by.laligulbani.vk.ui.fragment.MessagesFragment;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
 
-import static by.laligulbani.vk.ui.login.LoginActivity.PREFERENCES_TOKEN;
-import static by.laligulbani.vk.ui.login.LoginActivity.mPreferences;
-
-public class Main2Activity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private String mToken;
@@ -31,7 +29,7 @@ public class Main2Activity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mToken = mPreferences.getString(PREFERENCES_TOKEN, "не определено");
+        mToken = LoginActivity.mPreferences.getString(LoginActivity.PREFERENCES_TOKEN, "не определено");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

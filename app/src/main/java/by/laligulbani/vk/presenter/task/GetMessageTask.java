@@ -15,7 +15,7 @@ public class GetMessageTask extends AsyncTask<List<Message>, Integer, List<Messa
 
     public GetMessageTask(IModelManagement modelManager, String token, Callback callbackText) {
         this.modelManager = modelManager;
-        mCallbackText = callbackText;
+        this.mCallbackText = callbackText;
         this.token = token;
     }
 

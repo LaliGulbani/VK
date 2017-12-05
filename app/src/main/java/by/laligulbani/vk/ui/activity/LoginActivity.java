@@ -1,5 +1,4 @@
-package by.laligulbani.vk.ui.login;
-
+package by.laligulbani.vk.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +13,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import by.laligulbani.vk.Api;
-import by.laligulbani.vk.Main2Activity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,8 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mPreferences = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE);
 
-        webView.setWebViewClient(new WebViewClient()
-        {
+        webView.setWebViewClient(new WebViewClient() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -51,8 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (Api.REDIRECT_URL.equals(currentRedirect)) {
                     final Uri redirect = Uri.parse(uri.toString().replace("#", "?"));
                     token = redirect.getQueryParameter("access_token");
-                    mPreferences.edit().putString(PREFERENCES_TOKEN,token).apply();
-                    Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                    mPreferences.edit().putString(PREFERENCES_TOKEN, token).apply();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                     return true;
