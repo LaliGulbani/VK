@@ -7,9 +7,9 @@ import java.util.List;
 public class Response {
 
     @SerializedName("count")
-    public long count;
+    private long count;
     @SerializedName("items")
-    public List<Item> items;
+    public List<Message> mMessages;
 
     public long getCount() {
         return count;
@@ -19,12 +19,12 @@ public class Response {
         this.count = count;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<Message> getMessages() {
+        return mMessages;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setMessages(List<Message> messages) {
+        this.mMessages = messages;
     }
 
 }

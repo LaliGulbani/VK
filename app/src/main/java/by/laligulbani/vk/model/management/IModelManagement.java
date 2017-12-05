@@ -1,13 +1,12 @@
 package by.laligulbani.vk.model.management;
 
-
 import java.util.List;
 
-import by.laligulbani.vk.entity.message_list.Item;
+import by.laligulbani.vk.entity.message_list.Message;
 
 public interface IModelManagement {
 
-    List<Item> getMessages(String token);
+    List<Message> getMessages(String token);
 
     void sendMessages(String token, String message);
 }

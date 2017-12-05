@@ -3,9 +3,9 @@ package by.laligulbani.vk.model.management;
 import java.util.List;
 
 import by.laligulbani.vk.Api;
+import by.laligulbani.vk.entity.message_list.Message;
 import by.laligulbani.vk.model.client.HttpClient;
 import by.laligulbani.vk.model.client.IClient;
-import by.laligulbani.vk.entity.message_list.Item;
 import by.laligulbani.vk.entity.message_list.Response;
 import by.laligulbani.vk.model.listener.GsonResponseListener;
 import by.laligulbani.vk.model.listener.ResponseListener;
@@ -19,14 +19,14 @@ public class ModelManager implements IModelManagement {
     }
 
     @Override
-    public List<Item> getMessages(final String token) {
+    public List<Message> getMessages(final String token) {
 
         final String url = Api.MESSAGES +
                 "?" + "access_token=" + token
                 + "&" + "count=100";
 
         Response execute = execute(url, Response.class);
-        return execute.items;
+        return execute.mMessages;
     }
 
     @Override

@@ -4,36 +4,30 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
-import by.laligulbani.vk.entity.message_list.Item;
+import by.laligulbani.vk.entity.message_list.Message;
 import by.laligulbani.vk.model.management.IModelManagement;
 
-public class GetMessageTask extends AsyncTask<String, Integer, String> {
+public class GetMessageTask extends AsyncTask<List<Message>, Integer, List<Message>> {
 
     private IModelManagement modelManager;
-    private String token;
     private Callback mCallbackText;
+    private String token;
+    private List<Message> messages;
 
     public GetMessageTask(IModelManagement modelManager, String token, Callback callbackText) {
         this.modelManager = modelManager;
+        this.mCallbackText = callbackText;
         this.token = token;
-        mCallbackText = callbackText;
     }
 
     @Override
-    protected String doInBackground(final String[] tokens) {
-
-        final List<Item> items = modelManager.getMessages(token);
-        final StringBuilder sb = new StringBuilder();
-        for (final Item item : items) {
-            sb.append(item.body);
-            sb.append("\n");
-        }
-        return sb.toString();
+    protected List<Message> doInBackground(List<Message>[] lists) {
+        this.messages = modelManager.getMessages(token);
+        return messages;
     }
 
     @Override
-    protected void onPostExecute(final String result) {
-        mCallbackText.setText();
-
+    protected void onPostExecute(final List<Message> result) {
+        mCallbackText.setText(messages);
     }
 }
