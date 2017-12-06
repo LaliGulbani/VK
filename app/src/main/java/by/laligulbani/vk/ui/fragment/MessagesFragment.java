@@ -1,5 +1,6 @@
 package by.laligulbani.vk.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -81,11 +82,12 @@ public class MessagesFragment extends Fragment {
             return new MessageHolder(view);
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(MessageHolder holder, int position) {
             Message message = mMessage.get(position);
-            holder.mFromWhom.setText(message.getTitle());
-            holder.mCountMessage.setText(Long.toString(message.getId()));
+            holder.mFromWhom.setText(Long.toString(message.getId()));
+            //holder.mCountMessage.setText();
             holder.mTimeMessage.setText(message.getDate().toString());
             holder.mTextMessage.setText(message.getBody());
 //                Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);

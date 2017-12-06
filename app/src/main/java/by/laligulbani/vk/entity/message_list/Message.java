@@ -9,19 +9,22 @@ import java.util.Date;
 
 public class Message implements Parcelable {
 
-    @SerializedName("id")
-    public Long id;
-    @SerializedName("date")
-    public Date date;
-    @SerializedName("out")
-    public Long out;
-    @SerializedName("user_id")
+
+    @SerializedName("user_id") // идентификатор пользователя, в диалоге с которым находится сообщение.
     public Long user_id;
-    @SerializedName("read_state")
+    @SerializedName("from_id") // идентификатор автора сообщения
+    public Long from_id;
+    @SerializedName("id") // идентификатор сообщения
+    public Long id;
+    @SerializedName("date") //дата отправки сообщения в формате Unixtime.
+    public Date date;
+    @SerializedName("out") // тип сообщения (0 — полученное, 1 — отправленное, не возвращается для пересланных сообщений).
+    public Long out;
+    @SerializedName("read_state") // статус сообщения (0 — не прочитано, 1 — прочитано, не возвращается для пересланных сообщений).
     public Long read_state;
-    @SerializedName("title")
+    @SerializedName("title") //заголовок сообщения или беседы.
     public String title;
-    @SerializedName("body")
+    @SerializedName("body") // текст сообщения.
     public String body;
 
     protected Message(Parcel in) {
@@ -67,6 +70,13 @@ public class Message implements Parcelable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    public Long getFrom_id() {
+        return from_id;
+    }
+
+    public void setFrom_id(Long from_id) {
+        this.from_id = from_id;
     }
 
     public Date getDate() {
