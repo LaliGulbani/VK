@@ -1,4 +1,4 @@
-package by.laligulbani.vk.entity.message_list;
+package by.laligulbani.vk.entity.messages;
 
 import com.google.gson.annotations.SerializedName;
 

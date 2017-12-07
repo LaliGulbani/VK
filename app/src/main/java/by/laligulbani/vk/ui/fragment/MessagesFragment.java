@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.entity.message_list.Message;
+import by.laligulbani.vk.entity.messages.Message;
 
 import static java.util.Collections.emptyList;
 

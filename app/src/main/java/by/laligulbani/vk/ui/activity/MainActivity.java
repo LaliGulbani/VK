@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import java.util.List;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.entity.message_list.Message;
+import by.laligulbani.vk.entity.messages.Message;
 import by.laligulbani.vk.model.management.ModelManagementFactory;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;

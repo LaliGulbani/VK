@@ -1,10 +1,10 @@
-package by.laligulbani.vk.entity.message_list;
+package by.laligulbani.vk.entity.messages;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Response {
+public class MessageResponse {
 
     @SerializedName("count")
     private long count;

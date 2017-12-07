@@ -32,7 +32,7 @@ public class GsonParser implements IParser {
         try (final Reader reader = new BufferedReader(new InputStreamReader(mIntputStream))) {
 
             final String str = IOUtils.toString(reader);
-            System.out.println("Response$ " + str);
+            System.out.println("MessageResponse$ " + str);
 
             final Object o = gson.fromJson(new InputStreamReader(new ByteArrayInputStream(str.getBytes())), mClass);
             return o;

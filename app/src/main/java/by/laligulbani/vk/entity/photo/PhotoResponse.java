@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ResponsePhoto {
+public class PhotoResponse {
     @SerializedName("count")
     private Integer count;
 

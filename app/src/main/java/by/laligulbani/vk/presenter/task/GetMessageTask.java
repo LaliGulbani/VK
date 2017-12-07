@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
-import by.laligulbani.vk.entity.message_list.Message;
+import by.laligulbani.vk.entity.messages.Message;
 import by.laligulbani.vk.model.management.IModelManagement;
 
 public class GetMessageTask extends AsyncTask<List<Message>, Integer, List<Message>> {
