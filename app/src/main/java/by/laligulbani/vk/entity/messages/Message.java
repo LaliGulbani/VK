@@ -1,4 +1,4 @@
-package by.laligulbani.vk.entity.message_list;
+package by.laligulbani.vk.entity.messages;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,41 +9,44 @@ import java.util.Date;
 
 public class Message implements Parcelable {
 
-    @SerializedName("id")
-    public Long id;
-    @SerializedName("date")
+
+    @SerializedName("user_id") // идентификатор пользователя, в диалоге с которым находится сообщение.
+    private Integer user_id;
+    @SerializedName("from_id") // идентификатор автора сообщения
+    private Integer from_id;
+    @SerializedName("id") // идентификатор сообщения
+    private Integer id;
+    @SerializedName("date") //дата отправки сообщения в формате Unixtime.
     public Date date;
-    @SerializedName("out")
-    public Long out;
-    @SerializedName("user_id")
-    public Long user_id;
-    @SerializedName("read_state")
-    public Long read_state;
-    @SerializedName("title")
+    @SerializedName("out") // тип сообщения (0 — полученное, 1 — отправленное, не возвращается для пересланных сообщений).
+    private Integer out;
+    @SerializedName("read_state") // статус сообщения (0 — не прочитано, 1 — прочитано, не возвращается для пересланных сообщений).
+    private Integer read_state;
+    @SerializedName("title") //заголовок сообщения или беседы.
     public String title;
-    @SerializedName("body")
-    public String body;
+    @SerializedName("body") // текст сообщения.
+    private String body;
 
     protected Message(Parcel in) {
         if (in.readByte() == 0) {
             id = null;
         } else {
-            id = in.readLong();
+            id = in.readInt();
         }
         if (in.readByte() == 0) {
             out = null;
         } else {
-            out = in.readLong();
+            out = in.readInt();
         }
         if (in.readByte() == 0) {
             user_id = null;
         } else {
-            user_id = in.readLong();
+            user_id = in.readInt();
         }
         if (in.readByte() == 0) {
             read_state = null;
         } else {
-            read_state = in.readLong();
+            read_state = in.readInt();
         }
         title = in.readString();
         body = in.readString();
@@ -61,12 +64,19 @@ public class Message implements Parcelable {
         }
     };
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+    public Integer getFrom_id() {
+        return from_id;
+    }
+
+    public void setFrom_id(Integer from_id) {
+        this.from_id = from_id;
     }
 
     public Date getDate() {
@@ -77,27 +87,27 @@ public class Message implements Parcelable {
         this.date = date;
     }
 
-    public Long getOut() {
+    public Integer getOut() {
         return out;
     }
 
-    public void setOut(Long out) {
+    public void setOut(Integer out) {
         this.out = out;
     }
 
-    public Long getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(Integer user_id) {
         this.user_id = user_id;
     }
 
-    public Long getRead_state() {
+    public Integer getRead_state() {
         return read_state;
     }
 
-    public void setRead_state(Long read_state) {
+    public void setRead_state(Integer read_state) {
         this.read_state = read_state;
     }
 

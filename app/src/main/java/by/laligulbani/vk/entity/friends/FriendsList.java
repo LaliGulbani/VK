@@ -1,4 +1,4 @@
-package by.laligulbani.vk.entity.friends_list;
+package by.laligulbani.vk.entity.friends;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -3,10 +3,10 @@ package by.laligulbani.vk.model.management;
 import java.util.List;
 
 import by.laligulbani.vk.Api;
-import by.laligulbani.vk.entity.message_list.Message;
+import by.laligulbani.vk.entity.messages.Message;
+import by.laligulbani.vk.entity.messages.MessageResponse;
 import by.laligulbani.vk.model.client.HttpClient;
 import by.laligulbani.vk.model.client.IClient;
-import by.laligulbani.vk.entity.message_list.Response;
 import by.laligulbani.vk.model.listener.GsonResponseListener;
 import by.laligulbani.vk.model.listener.ResponseListener;
 
@@ -25,7 +25,7 @@ public class ModelManager implements IModelManagement {
                 "?" + "access_token=" + token
                 + "&" + "count=100";
 
-        Response execute = execute(url, Response.class);
+        MessageResponse execute = execute(url, MessageResponse.class);
         return execute.mMessages;
     }
 

@@ -1,11 +1,11 @@
-package by.laligulbani.vk.entity.user_profile;
+package by.laligulbani.vk.entity.users;
 
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class User {
+public class MyUser {
 
     @SerializedName("id") // идентификатор пользователя.
     public long id;

@@ -1,4 +1,4 @@
-package by.laligulbani.vk.entity.user_profile;
+package by.laligulbani.vk.entity.users;
 
 
 import com.google.gson.annotations.SerializedName;
