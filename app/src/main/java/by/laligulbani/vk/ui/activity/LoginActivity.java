@@ -19,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES_NAME = "pref_name";
     public static final String PREFERENCES_TOKEN = "token";
 
-    private static SharedPreferences mPreferences;
+    public static SharedPreferences mPreferences;
     private String token;
 
     @Override

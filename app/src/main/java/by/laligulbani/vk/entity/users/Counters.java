@@ -1,9 +1,9 @@
-package by.laligulbani.vk.entity.user_profile;
+package by.laligulbani.vk.entity.users;
 
 
 import com.google.gson.annotations.SerializedName;
 
-class Counters {
+public class Counters {
 
     @SerializedName("friends")
     public long friends_count;

@@ -1,13 +1,13 @@
-package by.laligulbani.vk.entity.user_profile;
+package by.laligulbani.vk.entity.users;
 
 
 import com.google.gson.annotations.SerializedName;
 
 public class LastSeen {
     @SerializedName("time")
-    public long time_last_seen;
+    private long time_last_seen;
     @SerializedName("platform ")
-    public long platform;
+    private long platform;
 
 
     public long getTime_last_seen() {
