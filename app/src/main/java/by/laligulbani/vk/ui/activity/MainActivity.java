@@ -23,12 +23,12 @@ import by.laligulbani.vk.presenter.task.GetMessageTask;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;
 
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
+import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 import static java.util.Collections.emptyList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private String mToken;
     private MessagesFragment mFragment;
 
     @Override
@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mToken = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE)
-                .getString(LoginActivity.PREFERENCES_TOKEN, "не определено");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,6 +82,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_messanges:
                 mFragment = new MessagesFragment();
+
+                final String mToken = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE)
+                        .getString(PREFERENCES_TOKEN, "");
+
                 new GetMessageTask(ModelManagementFactory.getModelManager(), mToken, (messages)->{
 
                     final Bundle args = new Bundle();
