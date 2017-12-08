@@ -11,6 +11,7 @@ import by.laligulbani.vk.model.listener.GsonResponseListener;
 import by.laligulbani.vk.model.listener.ResponseListener;
 
 public class ModelManager implements IModelManagement {
+   // private static final String token = mPreferences.getString(PREFERENCES_TOKEN, "");
 
     private IClient mClient;
 
