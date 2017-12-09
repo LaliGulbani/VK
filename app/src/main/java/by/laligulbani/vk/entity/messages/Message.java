@@ -5,22 +5,17 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 public class Message implements Parcelable {
 
-
-    @SerializedName("user_id") // идентификатор пользователя, в диалоге с которым находится сообщение.
-    private Integer user_id;
-    @SerializedName("from_id") // идентификатор автора сообщения
-    private Integer from_id;
-    @SerializedName("id") // идентификатор сообщения
+    @SerializedName("uid") // идентификатор сообщения
     private Integer id;
     @SerializedName("date") //дата отправки сообщения в формате Unixtime.
-    public Date date;
-    @SerializedName("out") // тип сообщения (0 — полученное, 1 — отправленное, не возвращается для пересланных сообщений).
+    public String date;
+    @SerializedName("out")
+    // тип сообщения (0 — полученное, 1 — отправленное, не возвращается для пересланных сообщений).
     private Integer out;
-    @SerializedName("read_state") // статус сообщения (0 — не прочитано, 1 — прочитано, не возвращается для пересланных сообщений).
+    @SerializedName("read_state")
+    // статус сообщения (0 — не прочитано, 1 — прочитано, не возвращается для пересланных сообщений).
     private Integer read_state;
     @SerializedName("title") //заголовок сообщения или беседы.
     public String title;
@@ -37,11 +32,6 @@ public class Message implements Parcelable {
             out = null;
         } else {
             out = in.readInt();
-        }
-        if (in.readByte() == 0) {
-            user_id = null;
-        } else {
-            user_id = in.readInt();
         }
         if (in.readByte() == 0) {
             read_state = null;
@@ -64,27 +54,20 @@ public class Message implements Parcelable {
         }
     };
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-    public Integer getFrom_id() {
-        return from_id;
-    }
-
-    public void setFrom_id(Integer from_id) {
-        this.from_id = from_id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public Integer getOut() {
@@ -93,14 +76,6 @@ public class Message implements Parcelable {
 
     public void setOut(Integer out) {
         this.out = out;
-    }
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
     }
 
     public Integer getRead_state() {
@@ -145,12 +120,6 @@ public class Message implements Parcelable {
         } else {
             dest.writeByte((byte) 1);
             dest.writeLong(out);
-        }
-        if (user_id == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeLong(user_id);
         }
         if (read_state == null) {
             dest.writeByte((byte) 0);

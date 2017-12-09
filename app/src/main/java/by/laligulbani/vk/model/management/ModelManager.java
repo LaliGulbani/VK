@@ -1,21 +1,22 @@
 package by.laligulbani.vk.model.management;
 
+import java.io.InputStream;
 import java.util.List;
 
 import by.laligulbani.vk.Api;
 import by.laligulbani.vk.entity.messages.Message;
 import by.laligulbani.vk.entity.messages.MessageResponse;
-import by.laligulbani.vk.model.client.HttpClient;
 import by.laligulbani.vk.model.client.IClient;
-import by.laligulbani.vk.model.listener.GsonResponseListener;
-import by.laligulbani.vk.model.listener.ResponseListener;
+import by.laligulbani.vk.model.parser.IParser;
 
 public class ModelManager implements IModelManagement {
 
-    private IClient mClient;
+    private final IParser parser;
+    private final IClient client;
 
-    public ModelManager() {
-        this.mClient = new HttpClient();
+    ModelManager(final IClient client, final IParser parser) {
+        this.client = client;
+        this.parser = parser;
     }
 
     @Override
@@ -30,17 +31,11 @@ public class ModelManager implements IModelManagement {
     }
 
     @Override
-    public void sendMessages(String token, String message) {
+    public void sendMessages(final String token, final String message) {
     }
 
     private <T> T execute(final String url, final Class<T> aClass) {
-        final ResponseListener<T> listener = new GsonResponseListener<>(aClass);
-        mClient.request(url, listener);
-
-        if (listener.getException() == null) {
-            return listener.getResult();
-        } else {
-            throw new RuntimeException("We have some problems on connection side.", listener.getException());
-        }
+        final InputStream request = client.request(url);
+        return parser.parse(request, aClass);
     }
 }

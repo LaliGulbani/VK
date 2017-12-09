@@ -3,8 +3,6 @@ package by.laligulbani.vk.ui.activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +16,7 @@ import java.util.List;
 
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.entity.messages.Message;
+import by.laligulbani.vk.entity.messages.Wrapp;
 import by.laligulbani.vk.model.management.ModelManagementFactory;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity
                 final String mToken = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE)
                         .getString(PREFERENCES_TOKEN, "");
 
-                new GetMessageTask(ModelManagementFactory.getModelManager(), mToken, (messages)->{
+                new GetMessageTask(ModelManagementFactory.getInstance(), mToken, (messages) -> {
 
                     final Bundle args = new Bundle();
                     args.putParcelable(MessagesFragment.MESSAGES, new Wrapp(messages));
@@ -124,40 +123,5 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame_layout, mFragment);
         fragmentTransaction.commit();
-    }
-
-    private static final class Wrapp implements Parcelable{
-
-        private final List<Message> mMessages;
-
-        private Wrapp(List<Message> messages) {
-            mMessages = messages;
-        }
-
-        protected Wrapp(Parcel in) {
-            mMessages = in.createTypedArrayList(Message.CREATOR);
-        }
-
-        public static final Creator<Wrapp> CREATOR = new Creator<Wrapp>() {
-            @Override
-            public Wrapp createFromParcel(Parcel in) {
-                return new Wrapp(in);
-            }
-
-            @Override
-            public Wrapp[] newArray(int size) {
-                return new Wrapp[size];
-            }
-        };
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeTypedList(mMessages);
-        }
     }
 }

@@ -17,8 +17,7 @@ import java.util.List;
 
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.entity.messages.Message;
-
-import static java.util.Collections.emptyList;
+import by.laligulbani.vk.entity.messages.Wrapp;
 
 public class MessagesFragment extends Fragment {
 
@@ -40,11 +39,11 @@ public class MessagesFragment extends Fragment {
         mSwipeRefreshLayoutMessage = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container_message);
         mSwipeRefreshLayoutMessage.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
 
-        final List<Message> messages = (List<Message>) getArguments().get(MESSAGES);
+        final Wrapp wrapp = (Wrapp) getArguments().get(MESSAGES);
 
         mRecycleViewMessage = (RecyclerView) root.findViewById(R.id.recyclerView_messages);
         mRecycleViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycleViewMessage.setAdapter(new MessageAdapter(messages == null ? emptyList() : messages));
+        mRecycleViewMessage.setAdapter(new MessageAdapter(wrapp != null ? wrapp.getMessages() : null));
 
         return root;
     }
@@ -88,7 +87,7 @@ public class MessagesFragment extends Fragment {
             Message message = mMessage.get(position);
             holder.mFromWhom.setText(Long.toString(message.getId()));
             //holder.mCountMessage.setText();
-            holder.mTimeMessage.setText(message.getDate().toString());
+            holder.mTimeMessage.setText(message.getDate());
             holder.mTextMessage.setText(message.getBody());
 //                Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);
         }
