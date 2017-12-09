@@ -5,18 +5,9 @@ import by.laligulbani.vk.model.parser.IParserFactory;
 
 public class ModelManagementFactory {
 
-    private static final Object LOCK = new Object();
-    private static IModelManagement INSTANCE;
+    private static IModelManagement INSTANCE  = new ModelManager(IClientFactory.getInstance(), IParserFactory.getInstance());
 
     public static IModelManagement getInstance() {
-        if (INSTANCE == null) {
-            synchronized (LOCK) {
-                if (INSTANCE == null) {
-                    INSTANCE = new ModelManager(IClientFactory.getInstance(), IParserFactory.getInstance());
-                }
-            }
-
-        }
         return INSTANCE;
     }
 }
