@@ -2,7 +2,9 @@ package by.laligulbani.vk.ui.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,8 +23,6 @@ import by.laligulbani.vk.model.management.ModelManagementFactory;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;
 
-import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
-import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 import static java.util.Collections.emptyList;
 
 public class MainActivity extends AppCompatActivity
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         switch (id) {
@@ -80,26 +80,32 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_notification:
                 break;
             case R.id.nav_messanges:
-                mFragment = new MessagesFragment();
-
                 final String mToken = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE)
                         .getString(PREFERENCES_TOKEN, "");
 
+
                 new GetMessageTask(ModelManagementFactory.getInstance(), mToken, (messages) -> {
 
+                    mFragment = new MessagesFragment();
                     final Bundle args = new Bundle();
                     args.putParcelable(MessagesFragment.MESSAGES, new Wrapp(messages));
-
                     mFragment.setArguments(args);
 
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.main_frame_layout, mFragment);
+                    fragmentTransaction.replace(R.id.fragment_container_frame_layout, mFragment);
                     fragmentTransaction.commit();
+
+
+
                 }).execute();
                 break;
             case R.id.nav_friends:
+                Intent intent = new Intent(this, FriendsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_groups:
+                Intent intent2 = new Intent(this, ExampleActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.nav_photo:
                 break;
@@ -121,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         mFragment.setArguments(args);
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame_layout, mFragment);
+        fragmentTransaction.replace(R.id.fragment_container_frame_layout, mFragment);
         fragmentTransaction.commit();
     }
 }

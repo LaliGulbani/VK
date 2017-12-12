@@ -18,8 +18,8 @@ public class GetMessageTask extends AsyncTask<Void, Void, Void> {
                           final String token,
                           final Consumer<List<Message>> consumer) {
         this.modelManager = modelManager;
-        this.consumer = consumer;
         this.token = token;
+        this.consumer = consumer;
     }
 
     @Override

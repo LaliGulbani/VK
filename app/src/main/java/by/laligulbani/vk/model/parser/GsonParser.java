@@ -63,6 +63,6 @@ public class GsonParser implements IParser {
             return response.toString();
         }
 
-        return "";
+        return "{}";
     }
 }
