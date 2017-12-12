@@ -2,7 +2,6 @@ package by.laligulbani.vk.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,8 +26,7 @@ import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 
 public class MessagesFragment extends Fragment {
-
-    final String mToken = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    final String mToken = this.getActivity().getSharedPreferences(APP_PREFERENCES_NAME, 0)
             .getString(PREFERENCES_TOKEN, "");
     public static final String MESSAGES = "messages";
     private SwipeRefreshLayout mSwipeRefreshLayoutMessage;
