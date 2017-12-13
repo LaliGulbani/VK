@@ -9,4 +9,6 @@ public interface IModelManagement {
     List<Message> getMessages(String token);
 
     void sendMessages(String token, String message);
+
+
 }

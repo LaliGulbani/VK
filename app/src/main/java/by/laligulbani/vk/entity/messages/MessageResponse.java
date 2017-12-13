@@ -9,7 +9,7 @@ public class MessageResponse {
     @SerializedName("count")
     private long count;
     @SerializedName("items")
-    public List<Message> mMessages;
+    private List<Message> mMessages;
 
     public long getCount() {
         return count;
