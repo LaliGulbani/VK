@@ -85,7 +85,7 @@ public class MessagesFragment extends Fragment {
         @Override
         public void onBindViewHolder(MessageHolder holder, int position) {
             Message message = mMessage.get(position);
-            holder.mFromWhom.setText(Long.toString(message.getId()));
+            holder.mFromWhom.setText(message.getId());
             //holder.mCountMessage.setText();
             holder.mTimeMessage.setText(message.getDate());
             holder.mTextMessage.setText(message.getBody());
