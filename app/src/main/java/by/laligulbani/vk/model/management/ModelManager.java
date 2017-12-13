@@ -1,5 +1,9 @@
 package by.laligulbani.vk.model.management;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.io.InputStream;
 import java.util.List;
 
@@ -25,6 +29,11 @@ public class ModelManager implements IModelManagement {
     @Override
     public List<Message> getMessages(final String token) {
         //TODO  добавить проверку на наличие интернета, алгоритм
+
+        if (hasConnection()){
+
+        }
+
         final String url = Api.MESSAGES +
                 "?" + "access_token=" + token
                 + "&" + "count=100";
@@ -46,5 +55,14 @@ public class ModelManager implements IModelManagement {
     private <T> T execute(final String url, final Class<T> aClass) {
         final InputStream request = client.request(url);
         return parser.parse(request, aClass);
+    }
+
+    private static boolean hasConnection(final Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
 }

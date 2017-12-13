@@ -66,7 +66,7 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
 
     @Override
     public Message getLastMessage(){
-        //TODO достать последее сообщение из бд 
+        //TODO достать последее сообщение из бд
 
         return null;
     }
