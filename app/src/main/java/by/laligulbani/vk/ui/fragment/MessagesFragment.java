@@ -1,8 +1,10 @@
 package by.laligulbani.vk.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,35 +17,32 @@ import android.widget.TextView;
 import java.util.List;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.entity.message_list.Message;
+import by.laligulbani.vk.entity.messages.Message;
+import by.laligulbani.vk.model.management.ModelManagementFactory;
+import by.laligulbani.vk.presenter.task.GetMessageTask;
 
-import static java.util.Collections.emptyList;
+import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
+import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 
 public class MessagesFragment extends Fragment {
 
-    public static final String MESSAGES = "messages";
-    private SwipeRefreshLayout mSwipeRefreshLayoutMessage;
-    private RecyclerView mRecycleViewMessage;
-
-    // для AsyncTask уничтожения
-    // @Override
-    // public void onCreate(Bundle savedInstanceState) {
-    //    super.onCreate(savedInstanceState);
-    //   setRetainInstance(true);
-    //}
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View root = inflater.inflate(R.layout.fragment_root_message, container, false);
 
-        mSwipeRefreshLayoutMessage = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container_message);
-        mSwipeRefreshLayoutMessage.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
+        SwipeRefreshLayout swipeRefreshLayoutMessage = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container_message);
+        swipeRefreshLayoutMessage.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
 
-        final List<Message> messages = (List<Message>) getArguments().get(MESSAGES);
-
-        mRecycleViewMessage = (RecyclerView) root.findViewById(R.id.recyclerView_messages);
+        RecyclerView mRecycleViewMessage = (RecyclerView) root.findViewById(R.id.recyclerView_messages);
         mRecycleViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycleViewMessage.setAdapter(new MessageAdapter(messages == null ? emptyList() : messages));
+
+        final String mToken = getActivity()
+                .getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_TOKEN, "");
+
+        new GetMessageTask(ModelManagementFactory.getInstance(), mToken, (messages) -> {
+            mRecycleViewMessage.setAdapter(new MessageAdapter(messages));
+        }).execute();
 
         return root;
     }
@@ -70,23 +69,25 @@ public class MessagesFragment extends Fragment {
 
         private List<Message> mMessage;
 
-        public MessageAdapter(List<Message> message) {
-            mMessage = message;
+        MessageAdapter(List<Message> message) {
+            this.mMessage = message;
         }
 
         @Override
         public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater.inflate(R.layout.fragment_item_message, parent, false);
+            View view = LayoutInflater
+                    .from(getActivity())
+                    .inflate(R.layout.fragment_item_message, parent, false);
             return new MessageHolder(view);
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(MessageHolder holder, int position) {
             Message message = mMessage.get(position);
-            holder.mFromWhom.setText(message.getTitle());
-            holder.mCountMessage.setText(Long.toString(message.getId()));
-            holder.mTimeMessage.setText(message.getDate().toString());
+            holder.mFromWhom.setText(Long.toString(message.getId()));
+            //holder.mCountMessage.setText();
+            holder.mTimeMessage.setText(message.getDate());
             holder.mTextMessage.setText(message.getBody());
 //                Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);
         }

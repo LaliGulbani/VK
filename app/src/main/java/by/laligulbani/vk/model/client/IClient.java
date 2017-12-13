@@ -1,8 +1,8 @@
 package by.laligulbani.vk.model.client;
 
-import by.laligulbani.vk.model.listener.ResponseListener;
+import java.io.InputStream;
 
 public interface IClient {
 
-    void request(String url, ResponseListener listener);
+    InputStream request(String url);
 }

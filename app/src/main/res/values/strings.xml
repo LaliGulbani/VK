@@ -6,4 +6,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="NEWS">Новости</string>
+    <string name="ANSWER">Ответы</string>
+    <string name="MESSAGES">Сообщения</string>
+    <string name="FRIENDS">Друзья</string>
+    <string name="GROUPS">Группы</string>
+    <string name="PHOTOS">Фотографии</string>
 </resources>
