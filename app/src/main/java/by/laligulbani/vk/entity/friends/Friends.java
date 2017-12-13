@@ -2,7 +2,7 @@ package by.laligulbani.vk.entity.friends;
 
 import com.google.gson.annotations.SerializedName;
 
-public class FriendsList {
+public class Friends {
     @SerializedName("name")
     private String name;
     @SerializedName("id")
