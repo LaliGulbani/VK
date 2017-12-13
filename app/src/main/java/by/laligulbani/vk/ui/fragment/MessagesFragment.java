@@ -18,7 +18,6 @@ import java.util.List;
 
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.entity.messages.Message;
-import by.laligulbani.vk.entity.messages.Wrapp;
 import by.laligulbani.vk.model.management.ModelManagementFactory;
 import by.laligulbani.vk.presenter.task.GetMessageTask;
 
@@ -26,36 +25,23 @@ import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 
 public class MessagesFragment extends Fragment {
-    final String mToken = this.getActivity().getSharedPreferences(APP_PREFERENCES_NAME, 0)
-            .getString(PREFERENCES_TOKEN, "");
-    public static final String MESSAGES = "messages";
-    private SwipeRefreshLayout mSwipeRefreshLayoutMessage;
-    private RecyclerView mRecycleViewMessage;
 
-    // для AsyncTask уничтожения
-    // @Override
-    // public void onCreate(Bundle savedInstanceState) {
-    //    super.onCreate(savedInstanceState);
-    //   setRetainInstance(true);
-    //}
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle saveInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View root = inflater.inflate(R.layout.fragment_root_message, container, false);
 
-        mSwipeRefreshLayoutMessage = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container_message);
-        mSwipeRefreshLayoutMessage.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
+        SwipeRefreshLayout swipeRefreshLayoutMessage = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container_message);
+        swipeRefreshLayoutMessage.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
 
-
-
-        final Wrapp wrapp = (Wrapp) getArguments().get(MESSAGES);
-
-        mRecycleViewMessage = (RecyclerView) root.findViewById(R.id.recyclerView_messages);
+        RecyclerView mRecycleViewMessage = (RecyclerView) root.findViewById(R.id.recyclerView_messages);
         mRecycleViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        new GetMessageTask(ModelManagementFactory.getInstance(), mToken, (messages) -> {
+        final String mToken = getActivity()
+                .getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_TOKEN, "");
 
-            mRecycleViewMessage.setAdapter(new MessageAdapter(wrapp != null ? wrapp.getMessages() : null));
+        new GetMessageTask(ModelManagementFactory.getInstance(), mToken, (messages) -> {
+            mRecycleViewMessage.setAdapter(new MessageAdapter(messages));
         }).execute();
 
         return root;
@@ -83,15 +69,15 @@ public class MessagesFragment extends Fragment {
 
         private List<Message> mMessage;
 
-        public MessageAdapter(List<Message> message) {
-            mMessage = message;
+        MessageAdapter(List<Message> message) {
+            this.mMessage = message;
         }
 
         @Override
         public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            //TODO: fix this
-            View view = layoutInflater.inflate(R.layout.fragment_item_message, parent, false);
+            View view = LayoutInflater
+                    .from(getActivity())
+                    .inflate(R.layout.fragment_item_message, parent, false);
             return new MessageHolder(view);
         }
 

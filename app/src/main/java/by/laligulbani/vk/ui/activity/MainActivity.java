@@ -1,5 +1,6 @@
 package by.laligulbani.vk.ui.activity;
 
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,18 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
-
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.entity.messages.Message;
-import by.laligulbani.vk.entity.messages.Wrapp;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private MessagesFragment mFragment;
-    private List<Message> messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +69,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_notification:
                 break;
             case R.id.nav_messanges:
-                mFragment = new MessagesFragment();
-                final Bundle args = new Bundle();
-                args.putParcelable(MessagesFragment.MESSAGES, new Wrapp(messages));
-                mFragment.setArguments(args);
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container_frame_layout, mFragment);
-                fragmentTransaction.commit();
+                replaceMessageFragment(new MessagesFragment());
                 break;
             case R.id.nav_friends:
                 Intent intent = new Intent(this, FriendsActivity.class);
@@ -101,17 +89,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void replaceMessageFragment(List<Message> messages) {
-
-        mFragment = new MessagesFragment();
-
-        final Bundle args = new Bundle();
-        args.putParcelable(MessagesFragment.MESSAGES, new Wrapp(messages));
-
-        mFragment.setArguments(args);
-
+    private void replaceMessageFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container_frame_layout, mFragment);
+        fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
         fragmentTransaction.commit();
     }
 }
