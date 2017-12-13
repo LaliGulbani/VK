@@ -63,4 +63,17 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
 
         return messages;
     }
+
+    @Override
+    public Message getLastMessage(){
+        //TODO достать последее сообщение из бд 
+
+        return null;
+    }
+
+    @Override
+    public List<Message> getMessageForId(String id){
+        //TODO достать сообщение по id из бд
+        return null;
+    }
 }

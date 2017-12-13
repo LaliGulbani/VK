@@ -8,4 +8,8 @@ public interface IDataBase {
     void saveMessage(Message message);
 
     List<Message> getMessages();
+
+    Message getLastMessage();
+
+    List<Message> getMessageForId(String id);
 }
