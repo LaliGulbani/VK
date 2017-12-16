@@ -1,5 +1,6 @@
 package by.laligulbani.vk.model.db;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -14,6 +15,8 @@ import by.laligulbani.vk.entity.messages.Message;
 public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
 
     private static final String TABLE_MESSAGE = "message";
+    private static final String KEY_ID = "_id";
+    private static final String KEY_BODY = "_body";
 
     SqLiteDataBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -22,8 +25,8 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_MESSAGE + "("
-                + "id" + " TEXT,"
-                + "body" + " TEXT" + ")");
+                + KEY_ID + " TEXT,"
+                + KEY_BODY + " TEXT" + ")");
     }
 
     @Override
@@ -33,22 +36,27 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
     }
 
     @Override
-    public void saveMessage(Message message) {
+    public void addMessage(Message message) {
+        //TODO положить новое сообщение в базу
+        SQLiteDatabase db = getWritableDatabase();
 
         final ContentValues values = new ContentValues();
-        values.put("id", message.getId());
-        values.put("body", message.getBody());
+        values.put(KEY_ID, message.getId());
+        values.put(KEY_BODY, message.getBody());
 
-        getWritableDatabase().insert(TABLE_MESSAGE, null, values);
+        db.insert(TABLE_MESSAGE, null, values);
+        db.close();
     }
 
     @Override
     public List<Message> getMessages() {
+        //TODO получить list сообщений, все сообщения
         final SQLiteDatabase db = getReadableDatabase();
 
         List<Message> messages = new ArrayList<Message>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_MESSAGE;
+        @SuppressLint("Recycle")
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
@@ -65,15 +73,38 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
     }
 
     @Override
-    public Message getLastMessage(){
+    public Message getLastMessage() {
         //TODO достать последее сообщение из бд
 
-        return null;
+        SQLiteDatabase db = getWritableDatabase();
+        String selectQuery = "SELECT " + KEY_ID + ", "
+                + KEY_BODY + " FROM " + TABLE_MESSAGE;
+        @SuppressLint("Recycle")
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        int item_id = cursor.getInt(cursor.getColumnIndex(KEY_ID));
+        String item_body = cursor.getString(cursor.getColumnIndex(KEY_BODY));
+        db.close();
+
+        return new Message(item_id, item_body);
     }
 
     @Override
-    public List<Message> getMessageForId(String id){
+    public Message getMessageForId(int id){
         //TODO достать сообщение по id из бд
-        return null;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        @SuppressLint("Recycle")
+        Cursor cursor = db.query(TABLE_MESSAGE, new String[] { KEY_ID,
+                        KEY_BODY }, KEY_ID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        assert cursor != null;
+
+        return new Message(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1));
     }
+
 }

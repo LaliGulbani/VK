@@ -42,7 +42,7 @@ public class ModelManager implements IModelManagement {
         final List<Message> messages = execute.getMessages();
 
         for (final Message message : messages) {
-            dataBase.saveMessage(message);
+            dataBase.addMessage(message);
         }
 
         return messages;
