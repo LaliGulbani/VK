@@ -82,29 +82,31 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
         @SuppressLint("Recycle")
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
-        int item_id = cursor.getInt(cursor.getColumnIndex(KEY_ID));
-        String item_body = cursor.getString(cursor.getColumnIndex(KEY_BODY));
+        Message message = new Message();
+        message.setId(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+        message.setBody(cursor.getString(cursor.getColumnIndex(KEY_BODY)));
         db.close();
 
-        return new Message(item_id, item_body);
+        return message;
     }
 
     @Override
     public Message getMessageForId(int id){
         //TODO достать сообщение по id из бд
-
+        Message message = new Message();
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")
         Cursor cursor = db.query(TABLE_MESSAGE, new String[] { KEY_ID,
                         KEY_BODY }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
+        if (cursor != null) {
             cursor.moveToFirst();
 
-        assert cursor != null;
+            message.setId((cursor.getString(0)));
+            message.setBody(cursor.getString(1));
+        }
 
-        return new Message(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1));
+        return message;
     }
 
 }

@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import java.io.InputStream;
 import java.util.List;
 
+
 import by.laligulbani.vk.Api;
 import by.laligulbani.vk.entity.messages.Message;
 import by.laligulbani.vk.entity.messages.MessageResponse;
@@ -29,24 +30,19 @@ public class ModelManager implements IModelManagement {
     @Override
     public List<Message> getMessages(final String token) {
         //TODO  добавить проверку на наличие интернета, алгоритм
-
-        if (hasConnection()){
-
-        }
-
         final String url = Api.MESSAGES +
                 "?" + "access_token=" + token
                 + "&" + "count=100";
 
-        MessageResponse execute = execute(url, MessageResponse.class);
-        final List<Message> messages = execute.getMessages();
-
-        for (final Message message : messages) {
-            dataBase.addMessage(message);
+       try {
+           MessageResponse execute = execute(url, MessageResponse.class);
+           return execute.getMessages();
+       }catch(Exception ex){
+           return dataBase.getMessages();
         }
-
-        return messages;
     }
+
+
 
     @Override
     public void sendMessages(final String token, final String message) {
@@ -57,12 +53,14 @@ public class ModelManager implements IModelManagement {
         return parser.parse(request, aClass);
     }
 
-    private static boolean hasConnection(final Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    private boolean checkInternetConnection(final Context context) {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             return true;
         }
         return false;
+
     }
+
 }

@@ -19,12 +19,6 @@ public class Message {
     @SerializedName("body") // текст сообщения.
     private String body;
 
-    public Message (){
-
-    }
-
-    public Message(int i, String string) {
-    }
 
     public String getDate() {
         return date;

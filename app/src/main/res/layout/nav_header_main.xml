@@ -8,7 +8,7 @@
               android:padding="@dimen/activity_horizontal_margin"
               android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <android.support.v4.widget.CircleImageView
+    <ImageView
         android:id="@+id/drawer_profile_image"
         android:layout_width="@dimen/drawer_header_profile"
         android:layout_height="@dimen/drawer_header_profile"
