@@ -19,6 +19,7 @@ public class Message {
     @SerializedName("body") // текст сообщения.
     private String body;
 
+
     public String getDate() {
         return date;
     }

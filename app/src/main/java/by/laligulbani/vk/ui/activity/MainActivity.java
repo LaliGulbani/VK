@@ -2,7 +2,6 @@ package by.laligulbani.vk.ui.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,6 +15,7 @@ import android.view.MenuItem;
 
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;
+import by.laligulbani.vk.utils.ContextHolder;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        ContextHolder.setContext(this);
     }
 
     @Override
@@ -72,12 +73,8 @@ public class MainActivity extends AppCompatActivity
                 replaceMessageFragment(new MessagesFragment());
                 break;
             case R.id.nav_friends:
-                Intent intent = new Intent(this, FriendsActivity.class);
-                startActivity(intent);
                 break;
             case R.id.nav_groups:
-                Intent intent2 = new Intent(this, ExampleActivity.class);
-                startActivity(intent2);
                 break;
             case R.id.nav_photo:
                 break;
