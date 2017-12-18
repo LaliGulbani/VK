@@ -6,7 +6,7 @@
     android:padding="4dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/profile_avatar_image_view"
         android:layout_width="45dp"
         android:layout_height="45dp"
@@ -15,7 +15,7 @@
         app:srcCompat="@drawable/ic_person_24dp"/>
 
     <TextView
-        android:id="@+id/from_whom_message_text_view"
+        android:id="@+id/name_friend_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/profile_avatar_image_view"
@@ -28,7 +28,7 @@
         android:id="@+id/message_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/from_whom_message_text_view"
+        android:layout_below="@+id/name_friend_text_view"
         android:layout_toEndOf="@+id/profile_avatar_image_view"
         android:layout_toRightOf="@+id/profile_avatar_image_view"
         android:maxLines="2"
@@ -37,7 +37,7 @@
         android:id="@+id/time_message_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/from_whom_message_text_view"
+        android:layout_alignTop="@+id/name_friend_text_view"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         tools:text="20:25"
@@ -63,7 +63,6 @@
         android:layout_below="@+id/message_text_view"
         android:layout_height="1dp"
         android:background="@color/backgroundGray"/>
-
 
 
 </RelativeLayout>

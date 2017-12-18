@@ -26,7 +26,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
     public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_item_message, parent, false);
+                .inflate(R.layout.item_message, parent, false);
         return new MessageHolder(view);
     }
 
@@ -59,7 +59,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
             mAvatar = (ImageView) itemView.findViewById(R.id.profile_avatar_image_view);
             mTextMessage = (TextView) itemView.findViewById(R.id.message_text_view);
             mTimeMessage = (TextView) itemView.findViewById(R.id.time_message_text_view);
-            mFromWhom = (TextView) itemView.findViewById(R.id.from_whom_message_text_view);
+            mFromWhom = (TextView) itemView.findViewById(R.id.name_friend_text_view);
             mCountMessage = (TextView) itemView.findViewById(R.id.count_message_text_view);
         }
     }

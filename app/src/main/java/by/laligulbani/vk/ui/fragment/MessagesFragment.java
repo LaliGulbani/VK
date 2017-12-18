@@ -25,8 +25,8 @@ public class MessagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         View root = inflater.inflate(R.layout.fragment_root_message, container, false);
 
-        SwipeRefreshLayout swipeRefreshLayoutMessage = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container_message);
-        swipeRefreshLayoutMessage.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
+        SwipeRefreshLayout mSwipeRefreshLayoutMessage = (SwipeRefreshLayout) root.findViewById(R.id.swipe_container_message);
+        mSwipeRefreshLayoutMessage.setColorSchemeColors(Color.RED, Color.GREEN, Color.BLUE, Color.CYAN);
 
         RecyclerView mRecycleViewMessage = (RecyclerView) root.findViewById(R.id.recyclerView_messages);
         mRecycleViewMessage.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -38,6 +38,13 @@ public class MessagesFragment extends Fragment {
         new GetMessageTask(ModelManagementFactory.getInstance(), mToken, (messages) -> {
             mRecycleViewMessage.setAdapter(new MessageAdapter(messages));
         }).execute();
+
+
+        mSwipeRefreshLayoutMessage.setOnRefreshListener(() ->
+                new GetMessageTask(ModelManagementFactory.getInstance(), mToken, (messages) -> {
+                    mRecycleViewMessage.setAdapter(new MessageAdapter(messages));
+                }).execute());
+
 
         return root;
     }

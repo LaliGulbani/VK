@@ -36,7 +36,10 @@ public class ModelManager implements IModelManagement {
 
        try {
            MessageResponse execute = execute(url, MessageResponse.class);
-           return execute.getMessages();
+           final List<Message> messages = execute.getMessages();
+           for (final Message message : messages)
+               dataBase.addMessage(message);
+           return messages;
        }catch(Exception ex){
            return dataBase.getMessages();
         }
