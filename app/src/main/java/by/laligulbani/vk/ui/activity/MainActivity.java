@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceMessageFragment(new MessagesFragment());
                 break;
             case R.id.nav_friends:
+               // replaceFriendsFragment(new FriendsFragment());
                 break;
             case R.id.nav_groups:
                 break;

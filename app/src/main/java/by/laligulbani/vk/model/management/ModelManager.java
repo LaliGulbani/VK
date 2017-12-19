@@ -44,7 +44,7 @@ public class ModelManager implements IModelManagement {
             //конвертер.трансорм(респонс), аналогия с парсером.
             final List<Message> messages = response.getMessages();
             dataBase.addMessages(messages);
-            //проверка на уникальность
+            //проверка на уникальность сообщения в бд
         }
 
         return dataBase.getMessages();
@@ -71,9 +71,7 @@ public class ModelManager implements IModelManagement {
         if (cm == null) {
             return false;
         }
-
         final NetworkInfo netInfo = cm.getActiveNetworkInfo();
-
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
