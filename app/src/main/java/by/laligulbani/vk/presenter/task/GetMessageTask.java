@@ -9,9 +9,10 @@ import by.laligulbani.vk.model.management.IModelManagement;
 
 public class GetMessageTask extends AsyncTask<Void, Void, Void> {
 
-    private IModelManagement modelManager;
-    private Consumer<List<Message>> consumer;
-    private String token;
+    private final Consumer<List<Message>> consumer;
+    private final IModelManagement modelManager;
+    private final String token;
+
     private List<Message> messages;
 
     public GetMessageTask(final IModelManagement modelManager,

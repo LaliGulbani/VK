@@ -1,8 +1,6 @@
 package by.laligulbani.vk.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,51 +10,59 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import by.laligulbani.vk.Api;
+import static android.net.Uri.parse;
+import static by.laligulbani.vk.Api.AUTHORIZATION_URL;
+import static by.laligulbani.vk.Api.REDIRECT_URL;
 
 public class LoginActivity extends AppCompatActivity {
 
     public static final String APP_PREFERENCES_NAME = "pref_name";
     public static final String PREFERENCES_TOKEN = "token";
 
-    public static SharedPreferences mPreferences;
-    private String token;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WebView webView = new WebView(this);
+
+        final WebView webView = new WebView(this);
+        webView.setWebViewClient(new LoginWebViewClient());
+        webView.loadUrl(AUTHORIZATION_URL);
+
         setContentView(webView);
+    }
 
-        mPreferences = getSharedPreferences(APP_PREFERENCES_NAME, Context.MODE_PRIVATE);
+    private class LoginWebViewClient extends WebViewClient {
 
-        webView.setWebViewClient(new WebViewClient() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return handleRedirect(request.getUrl());
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public boolean shouldOverrideUrlLoading(final WebView view, final WebResourceRequest request) {
+            return handleRedirect(request.getUrl());
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
+            return handleRedirect(parse(url));
+        }
+
+        private boolean handleRedirect(final Uri uri) {
+
+            if (REDIRECT_URL.endsWith(uri.getSchemeSpecificPart())) {
+
+                getSharedPreferences(APP_PREFERENCES_NAME, MODE_PRIVATE)
+                        .edit()
+                        .putString(PREFERENCES_TOKEN, getToken(uri))
+                        .apply();
+
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finish();
+
+                return true;
             }
+            return false;
+        }
 
-            @SuppressWarnings("deprecation")
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return handleRedirect(Uri.parse(url));
-            }
-
-            private boolean handleRedirect(Uri uri) {
-                final String currentRedirect = uri.getScheme() + ":" + uri.getSchemeSpecificPart();
-                if (Api.REDIRECT_URL.equals(currentRedirect)) {
-                    final Uri redirect = Uri.parse(uri.toString().replace("#", "?"));
-                    token = redirect.getQueryParameter("access_token");
-                    mPreferences.edit().putString(PREFERENCES_TOKEN, token).apply();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                }
-                return false;
-            }
-        });
-        webView.loadUrl(Api.AUTHORIZATION_URL);
+        private String getToken(final Uri uri) {
+            return parse(uri.toString().replace("#", "?"))
+                    .getQueryParameter("access_token");
+        }
     }
 }

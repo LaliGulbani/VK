@@ -13,13 +13,13 @@ public class FriendsResponse {
     private Integer count;
 
     @SerializedName("items")
-    private List<FriendsList> items;
+    private List<Friends> items;
 
     public Integer getCount() {
         return count;
     }
 
-    public List<FriendsList> getItems() {
+    public List<Friends> getItems() {
         return items;
     }
 }

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Counters {
 
-    @SerializedName("friends")
+    @SerializedName("item_friends")
     public long friends_count;
     @SerializedName("followers ")
     public long followers_count;

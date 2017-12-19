@@ -2,6 +2,7 @@ package by.laligulbani.vk.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,54 +14,55 @@ import java.util.List;
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.entity.messages.Message;
 
-
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
 
-    private List<Message> mMessage;
+    private final List<Message> messages;
 
-    public MessageAdapter(List<Message> message) {
-        this.mMessage = message;
+    public MessageAdapter(final List<Message> message) {
+        this.messages = message;
     }
 
     @Override
-    public MessageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater
+    public MessageHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+
+        final View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_item_message, parent, false);
+                .inflate(R.layout.item_message, parent, false);
+
         return new MessageHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(MessageHolder holder, int position) {
-        Message message = mMessage.get(position);
-        holder.mFromWhom.setText(message.getId());
-        //holder.mCountMessage.setText();
-        holder.mTimeMessage.setText(message.getDate());
-        holder.mTextMessage.setText(message.getBody());
-//                Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);
+    public void onBindViewHolder(final MessageHolder holder, final int position) {
+
+        final Message message = messages.get(position);
+
+        holder.from.setText(message.getId());
+        holder.time.setText(message.getDate());
+        holder.message.setText(message.getBody());
     }
 
     @Override
     public int getItemCount() {
-        return mMessage.size();
+        return messages.size();
     }
 
-    class MessageHolder extends RecyclerView.ViewHolder {
+    class MessageHolder extends ViewHolder {
 
-        ImageView mAvatar;
-        TextView mTextMessage;
-        TextView mFromWhom;
-        TextView mTimeMessage;
-        TextView mCountMessage;
+        private final ImageView avatar;
+        private final TextView message;
+        private final TextView from;
+        private final TextView time;
+        //private fin//al TextView count;
 
-        MessageHolder(View itemView) {
+        MessageHolder(final View itemView) {
             super(itemView);
-            mAvatar = (ImageView) itemView.findViewById(R.id.profile_avatar_image_view);
-            mTextMessage = (TextView) itemView.findViewById(R.id.message_text_view);
-            mTimeMessage = (TextView) itemView.findViewById(R.id.time_message_text_view);
-            mFromWhom = (TextView) itemView.findViewById(R.id.from_whom_message_text_view);
-            mCountMessage = (TextView) itemView.findViewById(R.id.count_message_text_view);
+            this.avatar = (ImageView) itemView.findViewById(R.id.profile_avatar_image_view);
+            this.message = (TextView) itemView.findViewById(R.id.message_text_view);
+            this.time = (TextView) itemView.findViewById(R.id.time_message_text_view);
+            this.from = (TextView) itemView.findViewById(R.id.name_friend_text_view);
+          // this.count = (TextView) itemView.findViewById(R.id.count_message_text_view);
         }
     }
 }

@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import java.io.InputStream;
 import java.util.List;
 
-
 import by.laligulbani.vk.Api;
 import by.laligulbani.vk.entity.messages.Message;
 import by.laligulbani.vk.entity.messages.MessageResponse;
@@ -15,34 +14,39 @@ import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.db.IDataBase;
 import by.laligulbani.vk.model.parser.IParser;
 
+import static android.content.Context.CONNECTIVITY_SERVICE;
+
 public class ModelManager implements IModelManagement {
 
     private final IParser parser;
     private final IClient client;
+    private final Context context;
     private final IDataBase dataBase;
 
-    ModelManager(final IClient client, final IParser parser, IDataBase dataBase) {
+    ModelManager(final Context context, final IClient client, final IParser parser, IDataBase dataBase) {
         this.client = client;
         this.parser = parser;
+        this.context = context;
         this.dataBase = dataBase;
     }
 
     @Override
     public List<Message> getMessages(final String token) {
-        //TODO  добавить проверку на наличие интернета, алгоритм
+
         final String url = Api.MESSAGES +
                 "?" + "access_token=" + token
                 + "&" + "count=100";
 
-       try {
-           MessageResponse execute = execute(url, MessageResponse.class);
-           return execute.getMessages();
-       }catch(Exception ex){
-           return dataBase.getMessages();
+        if (checkInternetConnection(context)) {
+            final MessageResponse response = execute(url, MessageResponse.class);
+            //конвертер.трансорм(респонс), аналогия с парсером.
+            final List<Message> messages = response.getMessages();
+            dataBase.addMessages(messages);
+            //проверка на уникальность
         }
+
+        return dataBase.getMessages();
     }
-
-
 
     @Override
     public void sendMessages(final String token, final String message) {
@@ -54,13 +58,15 @@ public class ModelManager implements IModelManagement {
     }
 
     private boolean checkInternetConnection(final Context context) {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            return true;
+
+        final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+        if (cm == null) {
+            return false;
         }
-        return false;
 
+        final NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
-
 }
+
