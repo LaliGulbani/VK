@@ -2,12 +2,12 @@ package by.laligulbani.vk.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-import by.laligulbani.vk.ui.fragment.FriendsFragment;
+import by.laligulbani.vk.ui.fragment.FriendsListFragment;
 
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -18,11 +18,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         if (position == 0)
         {
-            fragment = new FriendsFragment();
+            fragment = new FriendsListFragment();
         }
         else if (position == 1)
         {
-            fragment = new FriendsFragment();
+            fragment = new FriendsListFragment();
         }
 
         return fragment;

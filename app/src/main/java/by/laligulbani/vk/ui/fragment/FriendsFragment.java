@@ -14,12 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.ui.adapter.ViewPagerAdapter;
 
 public class FriendsFragment extends Fragment {
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,12 +31,11 @@ public class FriendsFragment extends Fragment {
         View root  = inflater.inflate(R.layout.fragment_root_friends, container, false);
 
         Toolbar toolbar = (Toolbar) root.findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
-        viewPager = (ViewPager)root.findViewById(R.id.viewpager);
-        //ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        //viewPager.setAdapter(viewPagerAdapter);
-        tabLayout = (TabLayout)root.findViewById(R.id.tablayout);
+        ViewPager viewPager = (ViewPager)root.findViewById(R.id.viewpager);
+        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
+
+        TabLayout tabLayout = (TabLayout)root.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
         RecyclerView mRecycleViewFriends = (RecyclerView) root.findViewById(R.id.recycleView_friends);
@@ -47,10 +43,10 @@ public class FriendsFragment extends Fragment {
 
 
 
-
         return root;
 
     }
+
 
 }
 

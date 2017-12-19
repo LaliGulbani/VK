@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.ui.fragment.FriendsFragment;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;
 import by.laligulbani.vk.utils.ContextHolder;
 
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity
                 replaceMessageFragment(new MessagesFragment());
                 break;
             case R.id.nav_friends:
+                replaceFriendsFragment(new FriendsFragment());
                 break;
             case R.id.nav_groups:
                 break;
@@ -86,9 +88,24 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void replaceFriendsFragment(FriendsFragment friendsFragment) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction.
+        fragmentTransaction.replace(R.id.fragment_container_frame_layout, friendsFragment);
+        fragmentTransaction.commit();
+
+    }
+
     private void replaceMessageFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void replaceFriendsFragment(Fragment fragment){
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
+        fragmentTransaction.commit();
+
     }
 }
