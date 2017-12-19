@@ -1,5 +1,4 @@
-package by.laligulbani.vk.utils;
-
+package by.laligulbani.vk.model.context;
 
 import android.content.Context;
 

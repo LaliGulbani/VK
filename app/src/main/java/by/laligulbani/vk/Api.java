@@ -1,6 +1,5 @@
 package by.laligulbani.vk;
 
-
 public class Api {
 
     public static final String REDIRECT_URL = "https://oauth.vk.com/blank.html";
@@ -23,5 +22,4 @@ public class Api {
     public static final String PHOTOS_GET = BASE_PATH_METHOD + "photos.get";
 
     public static final String MESSAGES = BASE_PATH_METHOD + "messages.getDialogs";
-
 }

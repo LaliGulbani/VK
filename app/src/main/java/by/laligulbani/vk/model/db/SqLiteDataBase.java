@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import by.laligulbani.vk.entity.messages.Message;
@@ -36,9 +37,9 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
     }
 
     @Override
-    public void addMessage(Message message) {
-        //TODO положить новое сообщение в базу
-        SQLiteDatabase db = getWritableDatabase();
+    public void addMessage(final Message message) {
+
+        final SQLiteDatabase db = getWritableDatabase();
 
         final ContentValues values = new ContentValues();
         values.put(KEY_ID, message.getId());
@@ -46,6 +47,13 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
 
         db.insert(TABLE_MESSAGE, null, values);
         db.close();
+    }
+
+    @Override
+    public void addMessages(final Collection<Message> messages) {
+        for (final Message message : messages) {
+            addMessage(message);
+        }
     }
 
     @Override
@@ -91,14 +99,14 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
     }
 
     @Override
-    public Message getMessageForId(int id){
+    public Message getMessageForId(int id) {
         //TODO достать сообщение по id из бд
         Message message = new Message();
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")
-        Cursor cursor = db.query(TABLE_MESSAGE, new String[] { KEY_ID,
-                        KEY_BODY }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_MESSAGE, new String[]{KEY_ID,
+                        KEY_BODY}, KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
 

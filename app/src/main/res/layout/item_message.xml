@@ -33,6 +33,7 @@
         android:layout_toRightOf="@+id/profile_avatar_image_view"
         android:maxLines="2"
         tools:text="сообщение"/>
+
     <TextView
         android:id="@+id/time_message_text_view"
         android:layout_width="wrap_content"
@@ -43,19 +44,6 @@
         tools:text="20:25"
         android:paddingTop="4sp"
         android:textSize="14sp"/>
-
-    <TextView
-
-        android:id="@+id/count_message_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="22sp"
-        android:background="@drawable/ic_checkbox_blank_circle_outline"
-        android:gravity="center"
-        android:textColor="#000000"
-        tools:text="2"/>
 
     <View
         android:layout_width="wrap_content"
