@@ -19,6 +19,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         if (position == 0)
         {
             fragment = new FriendsListFragment();
+            //транзакция?
         }
         else if (position == 1)
         {

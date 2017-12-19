@@ -1,5 +1,6 @@
 package by.laligulbani.vk.model.db;
 
+import java.util.Collection;
 import java.util.List;
 
 import by.laligulbani.vk.entity.messages.Message;
@@ -12,5 +13,7 @@ public interface IDataBase {
     Message getLastMessage();
 
     Message getMessageForId(int id);
+
+    void addMessages(Collection<Message> message);
     
 }

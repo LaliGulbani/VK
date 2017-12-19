@@ -16,10 +16,10 @@ import by.laligulbani.vk.entity.messages.Message;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
 
-    private List<Message> mMessage;
+    private List<Message> messages;
 
     public MessageAdapter(List<Message> message) {
-        this.mMessage = message;
+        this.messages = message;
     }
 
     @Override
@@ -32,35 +32,35 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(MessageHolder holder, int position) {
-        Message message = mMessage.get(position);
-        holder.mFromWhom.setText(message.getId());
-        //holder.mCountMessage.setText();
-        holder.mTimeMessage.setText(message.getDate());
-        holder.mTextMessage.setText(message.getBody());
-//                Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);
+    public void onBindViewHolder(final MessageHolder holder, int position) {
+        Message message = messages.get(position);
+        holder.fromWhom.setText(message.getId());
+//      holder.countMessage.setText();
+        holder.timeMessage.setText(message.getDate());
+        holder.textMessage.setText(message.getBody());
+//      Malevich.INSTANCE.load(messageModel.getUrl()).into(pHolder.mImageView);
     }
 
     @Override
     public int getItemCount() {
-        return mMessage.size();
+        return messages.size();
     }
 
     class MessageHolder extends RecyclerView.ViewHolder {
 
-        ImageView mAvatar;
-        TextView mTextMessage;
-        TextView mFromWhom;
-        TextView mTimeMessage;
-        TextView mCountMessage;
+        private final ImageView avatar;
+        private final TextView textMessage;
+        private final TextView fromWhom;
+        private final TextView timeMessage;
+        private final TextView countMessage;
 
         MessageHolder(View itemView) {
             super(itemView);
-            mAvatar = (ImageView) itemView.findViewById(R.id.profile_avatar_image_view);
-            mTextMessage = (TextView) itemView.findViewById(R.id.message_text_view);
-            mTimeMessage = (TextView) itemView.findViewById(R.id.time_message_text_view);
-            mFromWhom = (TextView) itemView.findViewById(R.id.name_friend_text_view);
-            mCountMessage = (TextView) itemView.findViewById(R.id.count_message_text_view);
+            avatar = (ImageView) itemView.findViewById(R.id.profile_avatar_image_view);
+            textMessage = (TextView) itemView.findViewById(R.id.message_text_view);
+            timeMessage = (TextView) itemView.findViewById(R.id.time_message_text_view);
+            fromWhom = (TextView) itemView.findViewById(R.id.name_friend_text_view);
+            countMessage = (TextView) itemView.findViewById(R.id.count_message_text_view);
         }
     }
 }

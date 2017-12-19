@@ -15,10 +15,10 @@ import by.laligulbani.vk.entity.friends.Friends;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsHolder> {
 
-    private List<Friends> mFriends;
+    private List<Friends> friends;
 
     public FriendsAdapter(List<Friends> friends) {
-        this.mFriends = friends;
+        this.friends = friends;
     }
 
     @Override
@@ -29,8 +29,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
 
     @Override
     public void onBindViewHolder(FriendsHolder holder, int position) {
-        Friends friend = mFriends.get(position);
-        holder.mNameFriend.setText(friend.getName());
+        Friends friend = friends.get(position);
+        holder.nameFriend.setText(friend.getName());
     }
 
     @Override
@@ -40,16 +40,16 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
 
     @Override
     public int getItemCount() {
-        return mFriends.size();
+        return friends.size();
     }
 
 
     class FriendsHolder extends RecyclerView.ViewHolder {
-        TextView mNameFriend;
+        TextView nameFriend;
 
         FriendsHolder(View itemView) {
             super(itemView);
-            mNameFriend = (TextView) itemView.findViewById(R.id.name_friend_text_view);
+            nameFriend = (TextView) itemView.findViewById(R.id.name_friend_text_view);
 
         }
     }

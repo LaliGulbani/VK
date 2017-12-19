@@ -88,15 +88,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void replaceFriendsFragment(FriendsFragment friendsFragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        FragmentTransaction.
-        fragmentTransaction.replace(R.id.fragment_container_frame_layout, friendsFragment);
-        fragmentTransaction.commit();
 
-    }
 
-    private void replaceMessageFragment(Fragment fragment) {
+    private void replaceMessageFragment(final Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
         fragmentTransaction.commit();
