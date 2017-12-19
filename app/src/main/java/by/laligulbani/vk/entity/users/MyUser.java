@@ -8,34 +8,33 @@ import java.util.List;
 public class MyUser {
 
     @SerializedName("id") // идентификатор пользователя.
-    public long id;
+    private long id;
     @SerializedName("first_name") // имя
-    public String  first_name;
+    private String  first_name;
     @SerializedName("last_name") //фамилия
-    public long last_name;
+    private long last_name;
     @SerializedName("bdate") //дата др
-    public String birthday_date;
+    private String birthday_date;
     @SerializedName("city") // информация о городе, указанном на странице пользователя в разделе «Контакты».
-    public List<City> city;
+    private List<City> city;
     @SerializedName("home_town") // название родного города.
-    public String home_town;
+    private String home_town;
     @SerializedName("can_write_private_message")  //информация о том, может ли текущий пользователь отправить личное сообщение.
-    public long can_write_private_message; //integer, [0,1]; 1 — может; 0 — не может.
+    private long can_write_private_message; //integer, [0,1]; 1 — может; 0 — не может.
     @SerializedName("common_count") // количество общих друзей с текущим пользователем.
-    public long common_count;
+    private long common_count;
     @SerializedName("followers_count") // количество подписчиков пользователя.
-    public long followers_count;
+    private long followers_count;
     @SerializedName("counters") // количество различных объектов у пользователя
-    public List<Counters> counters;
+    private List<Counters> counters;
     @SerializedName("is_friend") // информация о том, является ли пользователь другом текущего пользователя
-    public long is_friend; //1 — да; 0 — нет.
+    private long is_friend; //1 — да; 0 — нет.
     @SerializedName("last_seen") // время последнего посещения. Объект, содержащий следующие поля:
-    public List<LastSeen> last_seen;
+    private List<LastSeen> last_seen;
     @SerializedName("online") // информация о том, находится ли пользователь сейчас на сайте
-    public long online; //integer, [0,1]
+    private long online; //integer, [0,1]
     @SerializedName("photo_50") // url квадратной фотографии пользователя, имеющей ширину 50 пикселей
-    public String photo;
-
+    private String photo;
 
     public long getId() {
         return id;
