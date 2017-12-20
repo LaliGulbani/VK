@@ -1,4 +1,4 @@
 package by.laligulbani.vk.ui.fragment;
 
-public class NewsFragment {
+public class FriendsOnlineFragment {
 }

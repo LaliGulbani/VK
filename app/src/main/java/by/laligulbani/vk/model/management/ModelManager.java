@@ -13,7 +13,7 @@ import by.laligulbani.vk.entity.friends.FriendsResponse;
 import by.laligulbani.vk.entity.messages.Message;
 import by.laligulbani.vk.entity.messages.MessageResponse;
 import by.laligulbani.vk.model.client.IClient;
-import by.laligulbani.vk.model.db.IDataBase;
+import by.laligulbani.vk.model.db.IMessageDataBase;
 import by.laligulbani.vk.model.parser.IParser;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
@@ -23,9 +23,9 @@ public class ModelManager implements IModelManagement {
     private final IParser parser;
     private final IClient client;
     private final Context context;
-    private final IDataBase dataBase;
+    private final IMessageDataBase dataBase;
 
-    ModelManager(final Context context, final IClient client, final IParser parser, IDataBase dataBase) {
+    ModelManager(final Context context, final IClient client, final IParser parser, IMessageDataBase dataBase) {
         this.client = client;
         this.parser = parser;
         this.context = context;
