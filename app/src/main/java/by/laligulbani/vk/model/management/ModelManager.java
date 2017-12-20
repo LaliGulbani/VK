@@ -60,6 +60,13 @@ public class ModelManager implements IModelManagement {
         return execute(url, FriendsResponse.class).getFriends();
     }
 
+    @Override
+    public List<Friends> getFriendsOnline(String token) {
+        final String url = Api.FRIENDS_ONLINE;
+        return execute(url, FriendsResponse.class).getFriends();
+    }
+
+
     private <T> T execute(final String url, final Class<T> aClass) {
         final InputStream request = client.request(url);
         return parser.parse(request, aClass);

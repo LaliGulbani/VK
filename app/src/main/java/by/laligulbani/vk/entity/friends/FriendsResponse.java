@@ -6,9 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class FriendsResponse {
-    /**
-     * Total communities number
-     */
+
     @SerializedName("count")
     private Integer count;
 

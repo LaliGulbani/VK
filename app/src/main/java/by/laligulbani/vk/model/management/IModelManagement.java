@@ -11,4 +11,6 @@ public interface IModelManagement {
 
     void sendMessages(String token, String message);
     List<Friends> getFriends(String token);
+
+    List<Friends> getFriendsOnline(String token);
 }
