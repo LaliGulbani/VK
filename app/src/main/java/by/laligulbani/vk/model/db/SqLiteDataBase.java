@@ -18,7 +18,7 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
     private static final String TABLE_MESSAGE = "message";
     private static final String KEY_ID = "_id";
     private static final String KEY_BODY = "_body";
-    public static final String KEY_DATA = "_data";
+    private static final String KEY_DATA = "_data";
 
     SqLiteDataBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

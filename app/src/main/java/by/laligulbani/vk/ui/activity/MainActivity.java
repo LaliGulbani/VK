@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.context.ContextHolder;
+import by.laligulbani.vk.ui.fragment.FriendsFragment;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;
 
 import static android.support.v4.view.GravityCompat.START;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceMessageFragment(new MessagesFragment());
                 break;
             case R.id.nav_friends:
-               // replaceFriendsFragment(new FriendsFragment());
+               replaceFriendsFragment(new FriendsFragment());
                 break;
             case R.id.nav_groups:
                 break;
@@ -93,10 +94,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void replaceFriendsFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+    private void replaceFriendsFragment(final FriendsFragment fragment){
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
         fragmentTransaction.commit();
-
     }
 }
