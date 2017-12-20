@@ -18,6 +18,7 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
     private static final String TABLE_MESSAGE = "message";
     private static final String KEY_ID = "_id";
     private static final String KEY_BODY = "_body";
+    public static final String KEY_DATA = "_data";
 
     SqLiteDataBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -27,7 +28,7 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_MESSAGE + "("
                 + KEY_ID + " TEXT,"
-                + KEY_BODY + " TEXT" + ")");
+                + KEY_BODY + " TEXT," + KEY_DATA + " TEXT" + ")");
     }
 
     @Override
@@ -44,6 +45,7 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
         final ContentValues values = new ContentValues();
         values.put(KEY_ID, message.getId());
         values.put(KEY_BODY, message.getBody());
+        values.put(KEY_DATA,message.getDate());
 
         db.insert(TABLE_MESSAGE, null, values);
         db.close();
@@ -72,6 +74,7 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
                 Message message = new Message();
                 message.setId(cursor.getString(0));
                 message.setBody(cursor.getString(1));
+                message.setDate(cursor.getString(2));
 
                 messages.add(message);
             } while (cursor.moveToNext());
@@ -85,14 +88,17 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
         //TODO достать последее сообщение из бд
 
         SQLiteDatabase db = getWritableDatabase();
+
         String selectQuery = "SELECT " + KEY_ID + ", "
-                + KEY_BODY + " FROM " + TABLE_MESSAGE;
+                + KEY_BODY + ", " + KEY_DATA + " FROM " + TABLE_MESSAGE;
+
         @SuppressLint("Recycle")
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
         Message message = new Message();
         message.setId(cursor.getString(cursor.getColumnIndex(KEY_ID)));
         message.setBody(cursor.getString(cursor.getColumnIndex(KEY_BODY)));
+        message.setDate(cursor.getString(cursor.getColumnIndex(KEY_DATA)));
         db.close();
 
         return message;
@@ -105,13 +111,14 @@ public class SqLiteDataBase extends SQLiteOpenHelper implements IDataBase {
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")
         Cursor cursor = db.query(TABLE_MESSAGE, new String[]{KEY_ID,
-                        KEY_BODY}, KEY_ID + "=?",
+                        KEY_BODY, KEY_DATA}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
 
             message.setId((cursor.getString(0)));
             message.setBody(cursor.getString(1));
+            message.setDate(cursor.getString(2));
         }
 
         return message;
