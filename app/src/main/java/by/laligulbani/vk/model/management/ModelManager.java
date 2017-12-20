@@ -56,13 +56,13 @@ public class ModelManager implements IModelManagement {
 
     @Override
     public List<Friends> getFriends(String token) {
-        final String url = Api.FRIENDS_GET;
+        final String url = Api.FRIENDS_GET; // получает id
         return execute(url, FriendsResponse.class).getFriends();
     }
 
     @Override
     public List<Friends> getFriendsOnline(String token) {
-        final String url = Api.FRIENDS_ONLINE;
+        final String url = Api.FRIENDS_ONLINE; // получает id  по документации
         return execute(url, FriendsResponse.class).getFriends();
     }
 

@@ -39,7 +39,7 @@ public class MessagesFragment extends Fragment {
 
         final SwipeRefreshLayout layout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_message);
         layout.setColorSchemeColors(RED, GREEN, BLUE, CYAN);
-        layout.setOnRefreshListener(this::updateMessages);
+        layout.setOnRefreshListener(this::updateMessages); // удалить старве данные и поместить новые
 
         updateMessages();
     }
