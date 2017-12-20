@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,7 @@ import android.view.ViewGroup;
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.ui.adapter.ViewPagerAdapter;
 
-public class FriendsFragment extends Fragment {
+public class FriendsViewPagerFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,15 +36,9 @@ public class FriendsFragment extends Fragment {
         TabLayout tabLayout = (TabLayout)root.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
 
-        RecyclerView mRecycleViewFriends = (RecyclerView) root.findViewById(R.id.recycleView_friends);
-        mRecycleViewFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-
         return root;
 
     }
-
 
 }
 

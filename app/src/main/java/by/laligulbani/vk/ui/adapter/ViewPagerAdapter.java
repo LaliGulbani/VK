@@ -4,7 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import by.laligulbani.vk.ui.fragment.FriendsListFragment;
+import by.laligulbani.vk.ui.fragment.FriendsFragment;
+import by.laligulbani.vk.ui.fragment.FriendsOnlineFragment;
 
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -18,12 +19,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = null;
         if (position == 0)
         {
-            fragment = new FriendsListFragment();
-            //транзакция?
+            fragment = new FriendsFragment();
+
         }
         else if (position == 1)
         {
-            fragment = new FriendsListFragment();
+            fragment = new FriendsOnlineFragment();
         }
 
         return fragment;
