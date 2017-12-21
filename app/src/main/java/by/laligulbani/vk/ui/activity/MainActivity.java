@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this::onSelected);
 
-        ContextHolder.setContext(this);
+        ContextHolder.setContext(this);//todo in Application
     }
 
     @Override

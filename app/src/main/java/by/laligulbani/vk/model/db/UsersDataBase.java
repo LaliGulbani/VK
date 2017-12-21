@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+// TODO: 21-Dec-17 should be another table, not entire db
 public class UsersDataBase extends SQLiteOpenHelper  {
 
     private static final String TABLE_USERS = "users";

@@ -13,11 +13,13 @@ import by.laligulbani.vk.entity.friends.FriendsResponse;
 import by.laligulbani.vk.entity.messages.Message;
 import by.laligulbani.vk.entity.messages.MessageResponse;
 import by.laligulbani.vk.model.client.IClient;
+import by.laligulbani.vk.model.context.ContextHolder;
 import by.laligulbani.vk.model.db.IMessageDataBase;
 import by.laligulbani.vk.model.parser.IParser;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
+// TODO: 21-Dec-17 split to concreate manager classes
 public class ModelManager implements IModelManagement {
 
     private final IParser parser;
@@ -25,6 +27,7 @@ public class ModelManager implements IModelManagement {
     private final Context context;
     private final IMessageDataBase dataBase;
 
+    // TODO: 21-Dec-17 remove context
     ModelManager(final Context context, final IClient client, final IParser parser, IMessageDataBase dataBase) {
         this.client = client;
         this.parser = parser;
@@ -39,7 +42,7 @@ public class ModelManager implements IModelManagement {
                 "?" + "access_token=" + token
                 + "&" + "count=100";
 
-        if (checkInternetConnection(context)) {
+        if (checkInternetConnection(ContextHolder.getContext())) {
             final MessageResponse response = execute(url, MessageResponse.class);
             //конвертер.трансорм(респонс), аналогия с парсером.
             final List<Message> messages = response.getMessages();

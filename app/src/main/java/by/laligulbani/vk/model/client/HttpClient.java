@@ -20,7 +20,9 @@ public class HttpClient implements IClient {
             final URL netUrl = new URL(url);
             con = (HttpURLConnection) netUrl.openConnection();
 
+
             try (final Reader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                // TODO: 21-Dec-17 remove apache utils
                 final String response = IOUtils.toString(reader);
                 return new ByteArrayInputStream(response.getBytes());
             }

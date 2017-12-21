@@ -9,8 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.presenter.task.GetMessageTask;
+import by.laligulbani.vk.entity.messages.Message;
+import by.laligulbani.vk.presenter.task.GetMessageTask1;
 import by.laligulbani.vk.ui.adapter.MessageAdapter;
 
 import static android.graphics.Color.BLUE;
@@ -45,13 +48,24 @@ public class MessagesFragment extends Fragment {
     }
 
     private void updateMessages() {
-        new GetMessageTask(
-                getInstance(),
-                getActivity()
-                        .getSharedPreferences(APP_PREFERENCES_NAME, 0)
-                        .getString(PREFERENCES_TOKEN, ""),
-                (messages) -> this.recyclerView.setAdapter(new MessageAdapter(messages)))
-                .execute();
+        new GetMessageTask1<Void, List<Message>>(aVoid -> {
+            //in background
+            return getInstance().getMessages(getToken());
+        }, messages -> {
+            this.recyclerView.setAdapter(new MessageAdapter(messages));
+        }).execute();
+
+//        new GetMessageTask(
+//                getInstance(),
+//                getToken(),
+//                (messages) -> this.recyclerView.setAdapter(new MessageAdapter(messages)))
+//                .execute();
+    }
+
+    private String getToken() {
+        return getActivity()
+                .getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_TOKEN, "");
     }
 }
 
