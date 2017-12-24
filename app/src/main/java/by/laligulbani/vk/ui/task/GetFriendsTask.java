@@ -1,21 +1,22 @@
-package by.laligulbani.vk.presenter.task;
+package by.laligulbani.vk.ui.task;
 
 import android.os.AsyncTask;
 
 import java.util.List;
 
 import by.laligulbani.vk.entity.friends.Friends;
-import by.laligulbani.vk.model.management.IModelManagement;
+import by.laligulbani.vk.model.function.Consumer;
+import by.laligulbani.vk.model.service.dialog.IDialogService;
 
-public class GetFriendsOnlineTask extends AsyncTask<Void, Void, Void> {
+public class GetFriendsTask extends AsyncTask<Void, Void, Void> {
 
     private final Consumer<List<Friends>> consumer;
-    private final IModelManagement modelManager;
+    private final IDialogService modelManager;
     private final String token;
 
-    private List<Friends> friendsOnline;
+    private List<Friends> friends;
 
-    public GetFriendsOnlineTask(final IModelManagement modelManager,
+    public GetFriendsTask(final IDialogService modelManager,
                           final String token,
                           final Consumer<List<Friends>> consumer) {
         this.modelManager = modelManager;
@@ -25,12 +26,12 @@ public class GetFriendsOnlineTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(final Void... params) {
-        this.friendsOnline = modelManager.getFriendsOnline(token);
+//        this.friends = modelManager.getFriends(token);
         return null;
     }
 
     @Override
     protected void onPostExecute(final Void result) {
-        consumer.accept(friendsOnline);
+        consumer.accept(friends);
     }
 }

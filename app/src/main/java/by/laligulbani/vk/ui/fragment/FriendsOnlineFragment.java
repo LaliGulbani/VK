@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.presenter.task.GetFriendsOnlineTask;
+import by.laligulbani.vk.ui.task.GetFriendsOnlineTask;
 import by.laligulbani.vk.ui.adapter.FriendsAdapter;
 
-import static by.laligulbani.vk.model.management.ModelManagementFactory.getInstance;
+import static by.laligulbani.vk.model.service.dialog.IDialogServiceFactory.getInstance;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 

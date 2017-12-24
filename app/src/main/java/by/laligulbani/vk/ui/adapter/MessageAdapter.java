@@ -12,14 +12,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.entity.messages.Message;
+import by.laligulbani.vk.ui.facade.dto.DialogDto;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
 
-    private final List<Message> messages;
+    private final List<DialogDto> dialogs;
 
-    public MessageAdapter(final List<Message> message) {
-        this.messages = message;
+    public MessageAdapter(final List<DialogDto> dialogs) {
+        this.dialogs = dialogs;
     }
 
     @Override
@@ -36,16 +36,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
     @Override
     public void onBindViewHolder(final MessageHolder holder, final int position) {
 
-        final Message message = messages.get(position);
+        final DialogDto dialog = this.dialogs.get(position);
 
-        holder.from.setText(message.getId());
-        holder.time.setText(message.getDate());
-        holder.message.setText(message.getBody());
+        holder.from.setText(dialog.getFrom());
+        holder.time.setText(dialog.getDate());
+        holder.message.setText(dialog.getBody());
+        holder.avatar.setImageBitmap(dialog.getImage());
     }
 
     @Override
     public int getItemCount() {
-        return messages.size();
+        return dialogs.size();
     }
 
     class MessageHolder extends ViewHolder {
@@ -54,7 +55,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
         private final TextView message;
         private final TextView from;
         private final TextView time;
-        //private fin//al TextView count;
 
         MessageHolder(final View itemView) {
             super(itemView);
@@ -62,7 +62,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
             this.message = (TextView) itemView.findViewById(R.id.message_text_view);
             this.time = (TextView) itemView.findViewById(R.id.time_message_text_view);
             this.from = (TextView) itemView.findViewById(R.id.name_friend_text_view);
-          // this.count = (TextView) itemView.findViewById(R.id.count_message_text_view);
         }
     }
 }

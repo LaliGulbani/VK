@@ -9,19 +9,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.presenter.task.GetMessageTask;
+import by.laligulbani.vk.model.function.Consumer;
+import by.laligulbani.vk.model.function.Runnable;
 import by.laligulbani.vk.ui.adapter.MessageAdapter;
+import by.laligulbani.vk.ui.facade.dto.DialogDto;
+import by.laligulbani.vk.ui.task.Task;
 
 import static android.graphics.Color.BLUE;
 import static android.graphics.Color.CYAN;
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
-import static by.laligulbani.vk.model.management.ModelManagementFactory.getInstance;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
+import static by.laligulbani.vk.ui.facade.dialog.IDialogFacadeFactory.getInstance;
 
-public class MessagesFragment extends Fragment {
+public class DialogFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
@@ -39,18 +44,19 @@ public class MessagesFragment extends Fragment {
 
         final SwipeRefreshLayout layout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_message);
         layout.setColorSchemeColors(RED, GREEN, BLUE, CYAN);
-        layout.setOnRefreshListener(this::updateMessages); // удалить старве данные и поместить новые
+        layout.setOnRefreshListener(this::updateMessages);
 
         updateMessages();
     }
 
     private void updateMessages() {
-        new GetMessageTask(
-                getInstance(),
-                getActivity()
-                        .getSharedPreferences(APP_PREFERENCES_NAME, 0)
-                        .getString(PREFERENCES_TOKEN, ""),
-                (messages) -> this.recyclerView.setAdapter(new MessageAdapter(messages)))
+
+        final String token = getActivity()
+                .getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_TOKEN, "");
+
+        new Task((Runnable<List<DialogDto>>) () -> getInstance().getDialogs(token),
+                (Consumer<List<DialogDto>>) (messages) -> this.recyclerView.setAdapter(new MessageAdapter(messages)))
                 .execute();
     }
 }
