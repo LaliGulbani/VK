@@ -1,4 +1,4 @@
-package by.laligulbani.vk.ui.facade.dialog;
+package by.laligulbani.vk.model.facade.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import by.laligulbani.vk.model.converter.IConverter;
 import by.laligulbani.vk.model.service.dialog.IDialogService;
 import by.laligulbani.vk.model.service.image.IImageService;
 import by.laligulbani.vk.model.service.user.IUserService;
-import by.laligulbani.vk.ui.facade.dto.DialogDto;
+import by.laligulbani.vk.model.facade.dto.DialogDto;
 
 public class DialogFacade implements IDialogFacade {
 

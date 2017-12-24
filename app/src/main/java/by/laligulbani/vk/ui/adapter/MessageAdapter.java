@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.ui.facade.dto.DialogDto;
+import by.laligulbani.vk.model.facade.dto.DialogDto;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
 

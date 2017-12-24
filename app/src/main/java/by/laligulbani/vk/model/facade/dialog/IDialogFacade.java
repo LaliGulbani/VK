@@ -1,8 +1,8 @@
-package by.laligulbani.vk.ui.facade.dialog;
+package by.laligulbani.vk.model.facade.dialog;
 
 import java.util.List;
 
-import by.laligulbani.vk.ui.facade.dto.DialogDto;
+import by.laligulbani.vk.model.facade.dto.DialogDto;
 
 public interface IDialogFacade {
 

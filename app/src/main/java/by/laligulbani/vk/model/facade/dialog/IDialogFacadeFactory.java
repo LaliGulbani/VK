@@ -1,4 +1,4 @@
-package by.laligulbani.vk.ui.facade.dialog;
+package by.laligulbani.vk.model.facade.dialog;
 
 import by.laligulbani.vk.entity.messages.Dialog;
 import by.laligulbani.vk.model.converter.IConverterFactory;

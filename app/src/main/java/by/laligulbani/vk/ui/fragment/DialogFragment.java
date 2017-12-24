@@ -15,7 +15,7 @@ import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.function.Consumer;
 import by.laligulbani.vk.model.function.Runnable;
 import by.laligulbani.vk.ui.adapter.MessageAdapter;
-import by.laligulbani.vk.ui.facade.dto.DialogDto;
+import by.laligulbani.vk.model.facade.dto.DialogDto;
 import by.laligulbani.vk.ui.task.Task;
 
 import static android.graphics.Color.BLUE;
@@ -24,7 +24,7 @@ import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
-import static by.laligulbani.vk.ui.facade.dialog.IDialogFacadeFactory.getInstance;
+import static by.laligulbani.vk.model.facade.dialog.IDialogFacadeFactory.getInstance;
 
 public class DialogFragment extends Fragment {
 

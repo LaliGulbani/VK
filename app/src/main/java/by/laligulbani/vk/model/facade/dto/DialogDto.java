@@ -1,4 +1,4 @@
-package by.laligulbani.vk.ui.facade.dto;
+package by.laligulbani.vk.model.facade.dto;
 
 import android.graphics.Bitmap;
 
