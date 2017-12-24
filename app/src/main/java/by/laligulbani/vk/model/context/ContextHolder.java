@@ -7,10 +7,15 @@ public class ContextHolder {
     private static Context context;
 
     public static Context getContext() {
+        if (context == null) {
+            throw new RuntimeException("Context does not be initiated");
+        }
         return context;
     }
 
-    public static void setContext(Context context) {
-        ContextHolder.context = context;
+    public static void setContext(final Context context) {
+        if (ContextHolder.context == null) {
+            ContextHolder.context = context;
+        }
     }
 }
