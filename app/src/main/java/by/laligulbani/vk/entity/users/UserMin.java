@@ -54,4 +54,23 @@ public class UserMin {
         return hidden;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setDeactivated(String deactivated) {
+        this.deactivated = deactivated;
+    }
+
+    public void setHidden(Integer hidden) {
+        this.hidden = hidden;
+    }
 }
