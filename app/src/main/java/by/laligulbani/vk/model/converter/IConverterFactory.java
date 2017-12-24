@@ -1,10 +1,22 @@
 package by.laligulbani.vk.model.converter;
 
-public interface IConverterFactory {
+import by.laligulbani.vk.entity.friends.Friends;
+import by.laligulbani.vk.entity.messages.Dialog;
 
-    //private static IConverter INSTANCE = new Converter();
+public class IConverterFactory {
 
-    //public static IConverter getInstance() {
-        //return INSTANCE;
+    public static <R, T extends IConverter<R>> T getInstance(final Class<R> aClass) {
+
+        if (aClass == null) {
+            throw new IllegalArgumentException("input params shoud not be null");
+        }
+
+        if (aClass.equals(Friends.class)) {
+            return (T) new FriendsConverter();
+        } else if (aClass.equals(Dialog.class)) {
+            return (T) new DialogConverter();
+        }
+
+        throw new UnsupportedOperationException("this class is unsupported");
     }
-
+}
