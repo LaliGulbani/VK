@@ -11,5 +11,5 @@ public interface IUserService {
 
     List<Friends> getFriendsOnline(String token);
 
-    User getUser(String id);
+    User getUserName(String id);
 }

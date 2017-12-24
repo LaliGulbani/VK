@@ -62,5 +62,9 @@ public class LoginActivity extends AppCompatActivity {
             return parse(uri.toString().replace("#", "?"))
                     .getQueryParameter("access_token");
         }
+        private String getId(final Uri uri) {
+            return parse(uri.toString().replace("#", "?"))
+                    .getQueryParameter("user_id");
+        }
     }
 }

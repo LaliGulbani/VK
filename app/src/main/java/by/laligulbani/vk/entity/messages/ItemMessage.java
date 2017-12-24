@@ -4,22 +4,22 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class Item {
+public class ItemMessage {
 
     @SerializedName("id")
-    public long id;
+    private long id;
     @SerializedName("date")
-    public Date date;
+    private Date date;
     @SerializedName("out")
-    public long out;
+    private long out;
     @SerializedName("user_id")
-    public long user_id;
+    private long user_id;
     @SerializedName("read_state")
-    public long read_state;
+    private long read_state;
     @SerializedName("title")
-    public String title;
+    private String title;
     @SerializedName("body")
-    public String body;
+    private String body;
 
 
     public long getId() {

@@ -25,6 +25,6 @@ public class Api {
 
     public static final String MESSAGES = BASE_PATH_METHOD + "messages.getDialogs";
 
-    public static final String FRIENDS_GET = BASE_PATH_METHOD + "friends.get?fields=photo_100";
+    public static final String FRIENDS_GET = BASE_PATH_METHOD + "friends.get";
     public static final String FRIENDS_ONLINE= BASE_PATH_METHOD+ "friends.getOnline";
 }

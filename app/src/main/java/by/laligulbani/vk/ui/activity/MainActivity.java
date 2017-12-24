@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.nav_news:
+
                 break;
             case R.id.nav_notification:
                 break;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceMessageFragment(new DialogFragment());
                 break;
             case R.id.nav_friends:
-               replaceFriendsFragment(new FriendsViewPagerFragment());
+                replaceFriendsFragment(new FriendsViewPagerFragment());
                 break;
             case R.id.nav_groups:
                 break;

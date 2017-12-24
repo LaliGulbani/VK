@@ -22,7 +22,7 @@ public class UserService extends AbstractService implements IUserService {
 
     @Override
     public List<Friends> getFriends(final String token) {
-        final String url = Api.FRIENDS_GET;
+        final String url = "https://api.vk.com/method/friends.get?user_id=";
         return execute(url, FriendsResponse.class).getFriends();
     }
 
@@ -33,7 +33,7 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     @Override
-    public User getUser(final String id) {
+    public User getUserName(final String id) {
 
         final User user = new User();
         user.setLastName("Last name");

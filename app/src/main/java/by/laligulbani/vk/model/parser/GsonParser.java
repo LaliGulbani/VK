@@ -38,7 +38,7 @@ public class GsonParser implements IParser {
 
         final String source = getSourceString(is);
 
-        try (final Reader reader = new InputStreamReader(new ByteArrayInputStream(normalize(source, mClass).getBytes()))) {
+c        try (final Reader reader = new InputStreamReader(new ByteArrayInputStream(normalize(source, mClass).getBytes()))) {
             return gson.fromJson(reader, mClass);
         } catch (final IOException | JSONException e) {
             throw new RuntimeException("Trouble with parsing", e);

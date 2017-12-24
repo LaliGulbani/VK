@@ -8,11 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import by.laligulbani.vk.R;
-import by.laligulbani.vk.ui.task.GetFriendsTask;
-import by.laligulbani.vk.ui.adapter.FriendsAdapter;
+import java.util.List;
 
-import static by.laligulbani.vk.model.service.dialog.IDialogServiceFactory.getInstance;
+import by.laligulbani.vk.R;
+import by.laligulbani.vk.entity.friends.Friends;
+import by.laligulbani.vk.model.function.Consumer;
+import by.laligulbani.vk.model.function.Runnable;
+import by.laligulbani.vk.ui.adapter.FriendsAdapter;
+import by.laligulbani.vk.ui.task.Task;
+
+import static by.laligulbani.vk.model.service.user.IUserServiceFactory.getInstance;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 
@@ -37,11 +42,16 @@ public class FriendsFragment extends Fragment {
     }
 
     private void updateFriends() {
-        new GetFriendsTask(getInstance(),
-                           getActivity()
-                                   .getSharedPreferences(APP_PREFERENCES_NAME, 0)
-                                   .getString(PREFERENCES_TOKEN, ""),
-                (friends) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends))).execute();
+        final String token = getActivity()
+                .getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_TOKEN, "");
+
+        new Task((Runnable<List<Friends>>)()-> getInstance().getFriends(token),
+                (Consumer<List<Friends>>) (friends) ->  this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends)))
+                .execute();
+
+
+
     }
 
 }

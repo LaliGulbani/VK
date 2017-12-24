@@ -8,7 +8,7 @@ public class IConverterFactory {
     public static <R, T extends IConverter<R>> T getInstance(final Class<R> aClass) {
 
         if (aClass == null) {
-            throw new IllegalArgumentException("input params shoud not be null");
+            throw new IllegalArgumentException("input params should not be null");
         }
 
         if (aClass.equals(Friends.class)) {

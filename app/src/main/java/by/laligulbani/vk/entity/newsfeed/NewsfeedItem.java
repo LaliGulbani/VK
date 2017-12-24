@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class NewsfeedItem {
     /**
-     * Item type
+     * ItemMessage type
      */
     @SerializedName("type")
     private NewsfeedItemType type;
 
     /**
-     * Item source ID
+     * ItemMessage source ID
      */
     @SerializedName("source_id")
     private Integer sourceId;
