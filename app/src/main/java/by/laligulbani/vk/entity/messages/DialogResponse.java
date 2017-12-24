@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MessageResponse {
+public class DialogResponse {
 
     @SerializedName("count")
     private long count;
     @SerializedName("items")
-    private List<Message> mMessages;
+    private List<Dialog> mDialogs;
 
     public long getCount() {
         return count;
@@ -19,12 +19,12 @@ public class MessageResponse {
         this.count = count;
     }
 
-    public List<Message> getMessages() {
-        return mMessages;
+    public List<Dialog> getDialogs() {
+        return mDialogs;
     }
 
-    public void setMessages(List<Message> messages) {
-        this.mMessages = messages;
+    public void setMessages(List<Dialog> dialogs) {
+        this.mDialogs = dialogs;
     }
 
 }
