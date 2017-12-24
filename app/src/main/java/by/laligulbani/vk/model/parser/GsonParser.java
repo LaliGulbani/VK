@@ -6,23 +6,25 @@ import android.support.annotation.RequiresApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import by.laligulbani.vk.entity.messages.MessageResponse;
+import by.laligulbani.vk.entity.messages.DialogResponse;
+
+import static java.nio.charset.Charset.defaultCharset;
 
 public class GsonParser implements IParser {
 
-    private Gson gson;
+    private static final int BUFFER_SIZE = 1024;
+
+    private final Gson gson;
 
     GsonParser() {
         this.gson = new GsonBuilder()
@@ -34,20 +36,39 @@ public class GsonParser implements IParser {
     @Override
     public <T> T parse(final InputStream is, final Class<T> mClass) {
 
-        try (final Reader reader = new BufferedReader(new InputStreamReader(is))) {
+        final String source = getSourceString(is);
 
-            final String str = normalize(IOUtils.toString(reader), mClass);
+        try (final Reader reader = new InputStreamReader(new ByteArrayInputStream(normalize(source, mClass).getBytes()))) {
+            return gson.fromJson(reader, mClass);
+        } catch (final IOException | JSONException e) {
+            throw new RuntimeException("Trouble with parsing", e);
+        }
+    }
 
-            return gson.fromJson(new InputStreamReader(new ByteArrayInputStream(str.getBytes())), mClass);
+    private String getSourceString(final InputStream is) {
 
-        } catch (IOException | JSONException e) {
+        try (final Reader reader = new InputStreamReader(is, defaultCharset())) {
+
+            final StringBuilder sb = new StringBuilder();
+
+            final char[] buffer = new char[BUFFER_SIZE];
+
+            int i;
+            do {
+                i = reader.read(buffer, 0, buffer.length);
+                sb.append(buffer);
+            } while (i >= 0);
+
+            return sb.toString();
+
+        } catch (final IOException e) {
             throw new RuntimeException("Trouble with parsing", e);
         }
     }
 
     private <T> String normalize(final String source, final Class<T> mClass) throws JSONException {
 
-        if (mClass.equals(MessageResponse.class)) {
+        if (mClass.equals(DialogResponse.class)) {
             final JSONObject object = new JSONObject(source);
             final JSONArray array = object.getJSONArray("response");
 

@@ -1,17 +1,17 @@
 package by.laligulbani.vk.model.client;
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static java.net.HttpURLConnection.HTTP_OK;
+
 public class HttpClient implements IClient {
+
+    private static final int BUFFER_SIZE = 1024;
 
     @Override
     public InputStream request(final String url) {
@@ -20,9 +20,21 @@ public class HttpClient implements IClient {
             final URL netUrl = new URL(url);
             con = (HttpURLConnection) netUrl.openConnection();
 
-            try (final Reader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-                final String response = IOUtils.toString(reader);
-                return new ByteArrayInputStream(response.getBytes());
+            try (final InputStream in = con.getInputStream();
+                 final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+
+                if (con.getResponseCode() != HTTP_OK) {
+                    throw new IOException(con.getResponseMessage() + ": with " + url);
+                }
+
+                final byte[] buffer = new byte[BUFFER_SIZE];
+                int length = 0;
+
+                while ((length = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
+
+                return new ByteArrayInputStream(out.toByteArray());
             }
 
         } catch (final IOException e) {
