@@ -36,7 +36,7 @@ public class DialogFacade implements IDialogFacade {
         final List<DialogDto> result = new ArrayList<>();
         for (final Dialog message : dialogs) {
             final Dialog dialog = converter.convert(message);
-            final User user = userService.getUserName("");
+            final User user = userService.getUser("");
             result.add(new DialogDto(
                     user.getFirstName() + " " + user.getLastName(),
                     dialog.getDate(),

@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String APP_PREFERENCES_NAME = "pref_name";
     public static final String PREFERENCES_TOKEN = "token";
+    public static final String PREFERENCES_ID_USER = "id_user";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -46,10 +47,14 @@ public class LoginActivity extends AppCompatActivity {
         private boolean handleRedirect(final Uri uri) {
 
             if (REDIRECT_URL.endsWith(uri.getSchemeSpecificPart())) {
-                getSharedPreferences(APP_PREFERENCES_NAME, MODE_PRIVATE)
-                        .edit()
-                        .putString(PREFERENCES_TOKEN, getToken(uri))
-                        .apply();
+
+                Uri parse = getToken(uri);
+                String id = parse.getQueryParameter("user_id");
+                String token = parse.getQueryParameter("access_token");
+
+                getPreferences(PREFERENCES_TOKEN, token);
+                getPreferences(PREFERENCES_ID_USER, id);
+
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
 
@@ -58,13 +63,17 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
-        private String getToken(final Uri uri) {
-            return parse(uri.toString().replace("#", "?"))
-                    .getQueryParameter("access_token");
+        private Uri getToken(final Uri uri) {
+            return parse(uri.toString().replace("#", "?"));
         }
-        private String getId(final Uri uri) {
-            return parse(uri.toString().replace("#", "?"))
-                    .getQueryParameter("user_id");
+
+        private void getPreferences(String namePreferences, String value) {
+            getSharedPreferences(APP_PREFERENCES_NAME, MODE_PRIVATE)
+                    .edit()
+                    .putString(namePreferences, value)
+                    .apply();
         }
+
     }
+
 }
