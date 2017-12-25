@@ -3,22 +3,22 @@ package by.laligulbani.vk.ui.task;
 import android.os.AsyncTask;
 
 import by.laligulbani.vk.model.function.Consumer;
-import by.laligulbani.vk.model.function.Runnable;
+import by.laligulbani.vk.model.function.Supplier;
 
-public class Task<T> extends AsyncTask<T, T, T> {
+public class Task<T> extends AsyncTask<Void, T, T> {
 
     private final Consumer<T> consumer;
-    private final Runnable<T> runnable;
+    private final Supplier<T> supplier;
 
-    public Task(final Runnable<T> runnable,
+    public Task(final Supplier<T> supplier,
                 final Consumer<T> consumer) {
         this.consumer = consumer;
-        this.runnable = runnable;
+        this.supplier = supplier;
     }
 
     @Override
-    protected T doInBackground(final T... params) {
-        return runnable.run();
+    protected T doInBackground(final Void... params) {
+        return supplier.get();
     }
 
     @Override

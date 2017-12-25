@@ -2,6 +2,8 @@ package by.laligulbani.vk;
 
 public class Api {
 
+    public static final String EMPTY = "";
+
     public static final String REDIRECT_URL = "https://oauth.vk.com/blank.html";
     public static final String VERSION_VALUE = "5.69";
     public static final String VERSION_PARAM = "v";
