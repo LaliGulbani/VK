@@ -1,5 +1,5 @@
 package by.laligulbani.vk.model.function;
 
-public interface Runnable {
-    void run();
+public interface Supplier<T> {
+    T get();
 }
