@@ -1,6 +1,5 @@
 package by.laligulbani.vk.ui.adapter;
 
-import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -32,7 +31,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
         return new MessageHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final MessageHolder holder, final int position) {
 
