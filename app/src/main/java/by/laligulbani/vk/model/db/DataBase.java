@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import by.laligulbani.vk.entity.friends.Friends;
 import by.laligulbani.vk.entity.messages.Dialog;
+import by.laligulbani.vk.entity.users.User;
+import by.laligulbani.vk.model.function.Consumer;
+import by.laligulbani.vk.model.function.Function;
 
-import static java.lang.String.valueOf;
 import static java.util.Collections.emptyList;
 
 public class DataBase extends SQLiteOpenHelper implements IDataBase {
@@ -70,7 +73,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
 
     @Override
     public void addDialog(final Dialog dialog) {
-        try (final SQLiteDatabase db = getWritableDatabase()) {
+        executeWritable((db) -> {
 
             final ContentValues values = new ContentValues();
             values.put(KEY_ID_USER, dialog.getId());
@@ -78,7 +81,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
             values.put(KEY_DATA, dialog.getDate());
 
             db.insert(TABLE_MESSAGE, null, values);
-        }
+        });
     }
 
     @Override
@@ -95,11 +98,9 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
             return emptyList();
         }
 
-        final String selectQuery = "SELECT  * FROM " + TABLE_MESSAGE;
+        final String query = "SELECT  * FROM " + TABLE_MESSAGE;
 
-        try (final SQLiteDatabase db = getReadableDatabase();
-             final Cursor cursor = db.rawQuery(selectQuery, null)) {
-
+        return executeReadable(query, (cursor) -> {
             if (cursor.moveToFirst()) {
 
                 final List<Dialog> dialogs = new ArrayList<Dialog>();
@@ -116,7 +117,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
                 return dialogs;
             }
             return emptyList();
-        }
+        });
     }
 
     @Override
@@ -136,9 +137,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
                 + "GROUP BY " + KEY_DATA
                 + ")";
 
-        try (final SQLiteDatabase db = getReadableDatabase();
-             final Cursor cursor = db.rawQuery(query, null)) {
-
+        return executeReadable(query, (cursor) -> {
             if (cursor.moveToLast()) {
 
                 final Dialog dialog = new Dialog();
@@ -150,16 +149,16 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
             }
 
             return null;
-        }
+        });
     }
 
     @Override
     public Dialog getDialogById(int id) {
 
-        try (final SQLiteDatabase db = getReadableDatabase();
-             final Cursor cursor = db.query(TABLE_MESSAGE,
-                     new String[]{KEY_ID_USER, KEY_BODY, KEY_DATA}, KEY_ID_USER + "=?",
-                     new String[]{valueOf(id)}, null, null, null, null)) {
+        final String query = "SELECT  * FROM " + TABLE_MESSAGE
+                + " WHERE " + KEY_ID_USER + "=" + id;
+
+        return executeReadable(query, (cursor) -> {
 
             if (cursor.moveToFirst()) {
 
@@ -171,22 +170,57 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
                 return dialog;
             }
             return null;
-        }
+        });
     }
 
     @Override
     public Long getDialogCount() {
 
-        final String query = "SELECT COUNT(" + KEY_DATA + ")"
-                + " FROM " + TABLE_MESSAGE;
+        final String query = "SELECT COUNT(" + KEY_DATA + ")" + " FROM " + TABLE_MESSAGE;
 
-        try (final SQLiteDatabase db = getReadableDatabase();
-             final Cursor cursor = db.rawQuery(query, null)) {
-
+        return executeReadable(query, (cursor) -> {
             if (cursor.moveToLast()) {
                 return cursor.getLong(0);
             }
             return 0L;
+        });
+    }
+
+    @Override
+    public void addFriends(final Collection<Friends> dialogs) {
+
+    }
+
+    @Override
+    public List<Friends> getFriends() {
+        return emptyList();
+    }
+
+    @Override
+    public Long getFriendsAmount() {
+        return 0L;
+    }
+
+    @Override
+    public User getUser(final String id) {
+        return null;
+    }
+
+    @Override
+    public void addUser(final User user) {
+
+    }
+
+    private <T> T executeReadable(final String query, final Function<T, Cursor> function) {
+        try (final SQLiteDatabase db = getReadableDatabase();
+             final Cursor cursor = db.rawQuery(query, null)) {
+            return function.apply(cursor);
+        }
+    }
+
+    private void executeWritable(final Consumer<SQLiteDatabase> consumer) {
+        try (final SQLiteDatabase db = getWritableDatabase()) {
+            consumer.accept(db);
         }
     }
 }
