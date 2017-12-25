@@ -9,7 +9,7 @@ public interface IUserService {
 
     List<Friends> getFriends(String token);
 
-    List<Friends> getFriendsOnline(String token);
+    List<User> getFriendsOnline(String token);
 
-    User getUserName(String id);
+    User getUser(String id);
 }
