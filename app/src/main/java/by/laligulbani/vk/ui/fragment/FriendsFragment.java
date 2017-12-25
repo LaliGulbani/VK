@@ -8,19 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.entity.friends.Friends;
-import by.laligulbani.vk.model.function.Consumer;
-import by.laligulbani.vk.model.function.Runnable;
+import by.laligulbani.vk.model.service.user.IUserServiceFactory;
 import by.laligulbani.vk.ui.adapter.FriendsAdapter;
 import by.laligulbani.vk.ui.task.Task;
 
-import static by.laligulbani.vk.model.service.user.IUserServiceFactory.getInstance;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
-
 
 public class FriendsFragment extends Fragment {
 
@@ -30,28 +24,25 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle saveInstanceState) {
         return inflater.inflate(R.layout.fragment_root_friends, container, false);
     }
+
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerViewFriends = (RecyclerView) view.findViewById(R.id.recycleView_friends);
-        recyclerViewFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
+        this.recyclerViewFriends = (RecyclerView) view.findViewById(R.id.recycleView_friends);
+        this.recyclerViewFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateFriends();
-
     }
 
     private void updateFriends() {
+
         final String token = getActivity()
                 .getSharedPreferences(APP_PREFERENCES_NAME, 0)
                 .getString(PREFERENCES_TOKEN, "");
 
-        new Task((Runnable<List<Friends>>)()-> getInstance().getFriends(token),
-                (Consumer<List<Friends>>) (friends) ->  this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends)))
+        new Task<>(() -> IUserServiceFactory.getInstance().getFriends(token),
+                (friends) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends)))
                 .execute();
-
-
-
     }
-
 }
