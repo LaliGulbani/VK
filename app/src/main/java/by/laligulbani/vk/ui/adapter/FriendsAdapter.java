@@ -9,13 +9,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.entity.friends.Friends;
+import by.laligulbani.vk.entity.users.UserFull;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsHolder> {
 
-    private final List<Friends> friends;
+    private final List<UserFull> friends;
 
-    public FriendsAdapter(final List<Friends> friends) {
+    public FriendsAdapter(final List<UserFull> friends) {
         this.friends = friends;
     }
 
@@ -32,9 +32,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
     @Override
     public void onBindViewHolder(final FriendsHolder holder, final int position) {
 
-        final Friends friend = friends.get(position);
+        final UserFull friend = friends.get(position);
 
-        holder.nameFriend.setText(friend.getName());
+        holder.nameFriend.setText(String.format("%s %s", friend.getFirstName(), friend.getLastName()));
     }
 
     @Override

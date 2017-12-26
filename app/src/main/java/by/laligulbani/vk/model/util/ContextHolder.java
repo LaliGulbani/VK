@@ -1,4 +1,4 @@
-package by.laligulbani.vk.model.context;
+package by.laligulbani.vk.model.util;
 
 import android.content.Context;
 

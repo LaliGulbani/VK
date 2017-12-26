@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.model.context.ContextHolder;
+import by.laligulbani.vk.model.util.ContextHolder;
 import by.laligulbani.vk.ui.fragment.FriendsViewPagerFragment;
 import by.laligulbani.vk.ui.fragment.DialogFragment;
 

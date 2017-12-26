@@ -1,6 +1,6 @@
 package by.laligulbani.vk.model.db;
 
-import static by.laligulbani.vk.model.context.ContextHolder.getContext;
+import static by.laligulbani.vk.model.util.ContextHolder.getContext;
 
 public class DataBaseFactory {
 

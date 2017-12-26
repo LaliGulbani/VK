@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import by.laligulbani.vk.model.function.Consumer;
 import by.laligulbani.vk.model.function.Supplier;
 
-public class Task<T> extends AsyncTask<Void, T, T> {
+public class Task<T> extends AsyncTask<T, T, T> {
 
     private final Consumer<T> consumer;
     private final Supplier<T> supplier;
@@ -17,7 +17,7 @@ public class Task<T> extends AsyncTask<Void, T, T> {
     }
 
     @Override
-    protected T doInBackground(final Void... params) {
+    protected T doInBackground(final T... params) {
         return supplier.get();
     }
 

@@ -6,15 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.laligulbani.vk.Api;
-import by.laligulbani.vk.entity.friends.Friends;
 import by.laligulbani.vk.entity.friends.FriendsResponse;
 import by.laligulbani.vk.entity.users.User;
 import by.laligulbani.vk.entity.users.UserFull;
 import by.laligulbani.vk.model.client.IClient;
-import by.laligulbani.vk.model.context.ContextHolder;
 import by.laligulbani.vk.model.db.IDataBase;
 import by.laligulbani.vk.model.parser.IParser;
 import by.laligulbani.vk.model.service.AbstractService;
+import by.laligulbani.vk.model.util.ContextHolder;
 
 import static by.laligulbani.vk.Api.EMPTY;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
@@ -34,34 +33,34 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     @Override
-    public List<Friends> getFriends(final String token) {
+    public List<UserFull> getFriends(final String token) {
         final String id_user = ContextHolder.getContext().getSharedPreferences(APP_PREFERENCES_NAME, 0)
                 .getString(PREFERENCES_ID_USER, EMPTY);
 
 
         if (checkInternetConnection()) {
 
-           // final String getFriendsAmountUrl = "https://api.vk.com/method/friends.get?user_id=";
+            // final String getFriendsAmountUrl = "https://api.vk.com/method/friends.get?user_id=";
 
-           // final Long actualAmount = execute(getFriendsAmountUrl, Long.class);
-           // final Long dbAmount = dataBase.getFriendsAmount();
+            // final Long actualAmount = execute(getFriendsAmountUrl, Long.class);
+            // final Long dbAmount = dataBase.getFriendsAmount();
 
             //if (!dbAmount.equals(actualAmount)) {
 
-                final String getFriendsUrl = Api.FRIENDS_GET_ID + id_user;
+            final String getFriendsUrl = Api.FRIENDS_GET_ID + id_user;
 
-                final List<String> friends = execute(getFriendsUrl, FriendsResponse.class).getFriends();
-                for(String id: friends){
-                    String getFriendsInfoUrl = Api.USERS_GET + id;
-                    List<UserFull> listUsers = execute(getFriendsInfoUrl, UserFull.class);
-
-                }
-
-               // dataBase.addFriends(friends);
+            final List<String> friends = execute(getFriendsUrl, FriendsResponse.class).getFriends();
+            for (String id : friends) {
+                String getFriendsInfoUrl = Api.USERS_GET + id;
+                UserFull listUsers = execute(getFriendsInfoUrl, UserFull.class);
             }
-      //  }
 
-        return dataBase.getFriends();
+            // dataBase.addFriends(friends);
+        }
+        //  }
+
+        return null;
+        //return dataBase.getUsers();
     }
 
     @Override
@@ -85,7 +84,7 @@ public class UserService extends AbstractService implements IUserService {
 
         if (dbUser == null) {
             final String getUserInfoUrl = "https://api.vk.com/method/friends.get?user_id=";
-            final User user = execute(getUserInfoUrl, User.class);
+            final UserFull user = execute(getUserInfoUrl, UserFull.class);
             dataBase.addUser(user);
             return user;
         }

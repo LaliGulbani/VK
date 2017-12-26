@@ -1,7 +1,7 @@
 package by.laligulbani.vk.model.converter;
 
-import by.laligulbani.vk.entity.friends.Friends;
 import by.laligulbani.vk.entity.messages.Dialog;
+import by.laligulbani.vk.entity.users.UserFull;
 
 public class IConverterFactory {
 
@@ -11,7 +11,7 @@ public class IConverterFactory {
             throw new IllegalArgumentException("input params should not be null");
         }
 
-        if (aClass.equals(Friends.class)) {
+        if (aClass.equals(UserFull.class)) {
             return (T) new FriendsConverter();
         } else if (aClass.equals(Dialog.class)) {
             return (T) new DialogConverter();
