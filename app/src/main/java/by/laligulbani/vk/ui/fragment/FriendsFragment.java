@@ -32,7 +32,6 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
 
         ViewPager viewPager = (ViewPager)view.findViewById(R.id.viewpager);
         viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
