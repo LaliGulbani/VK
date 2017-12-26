@@ -26,4 +26,6 @@ public interface IDataBase {
     User getUser(String id);
 
     void addUser(UserFull user);
+
+    List<UserFull> getUsers();
 }

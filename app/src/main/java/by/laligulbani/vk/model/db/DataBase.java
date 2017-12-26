@@ -50,14 +50,14 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
     public void onCreate(final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_MESSAGE
                 + "("
-                + KEY_ID_USER + " TEXT UNIQUE,"
+                + KEY_ID_USER + " TEXT,"
                 + KEY_BODY + " TEXT,"
                 + KEY_DATA + " TEXT"
                 + ")");
 
         db.execSQL("CREATE TABLE " + TABLE_USERS
                 + "("
-                + KEY_ID_USER + " TEXT UNIQUE,"
+                + KEY_ID_USER + " TEXT,"
                 + KEY_BODY + " TEXT,"
                 + KEY_DATA + " TEXT"
                 + ")");
@@ -217,6 +217,11 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
         });
 
 
+    }
+
+    @Override
+    public List<UserFull> getUsers() {
+        return emptyList();
     }
 
     private <T> T executeReadable(final String query, final Function<T, Cursor> function) {
