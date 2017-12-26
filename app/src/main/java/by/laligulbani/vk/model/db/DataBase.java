@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import by.laligulbani.vk.entity.friends.Friends;
 import by.laligulbani.vk.entity.messages.Dialog;
 import by.laligulbani.vk.entity.users.User;
+import by.laligulbani.vk.entity.users.UserFull;
 import by.laligulbani.vk.model.function.Consumer;
 import by.laligulbani.vk.model.function.Function;
 
@@ -186,15 +186,6 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
         });
     }
 
-    @Override
-    public void addFriends(final Collection<Friends> dialogs) {
-
-    }
-
-    @Override
-    public List<Friends> getFriends() {
-        return emptyList();
-    }
 
     @Override
     public Long getFriendsAmount() {
@@ -207,7 +198,24 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
     }
 
     @Override
-    public void addUser(final User user) {
+    public void addUser(final UserFull user) {
+        executeWritable((db) -> {
+
+            final ContentValues values = new ContentValues();
+            values.put(KEY_USER_ID, user.getId());
+            values.put(KEY_NAME, user.getFirstName());
+            values.put(KEY_LASTNAME, user.getLastName());
+            values.put(KEY_CITY, String.valueOf(user.getCity()));
+            values.put(KEY_BIRTHDAY, user.getBdate());
+            //values.put(KEY_COUNT_FRIENDS, user.);
+            //values.put(KEY_COUNT_COMMON, user.);
+            //values.put(KEY_COUNT_VIDEOS, user.);
+            //values.put(KEY_COUNT_FOLLOWERS, user.);
+            //values.put(KEY_COUNT_PHOTO, user.;
+
+            db.insert(TABLE_USERS, null, values);
+        });
+
 
     }
 

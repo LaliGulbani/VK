@@ -3,9 +3,9 @@ package by.laligulbani.vk.model.db;
 import java.util.Collection;
 import java.util.List;
 
-import by.laligulbani.vk.entity.friends.Friends;
 import by.laligulbani.vk.entity.messages.Dialog;
 import by.laligulbani.vk.entity.users.User;
+import by.laligulbani.vk.entity.users.UserFull;
 
 public interface IDataBase {
 
@@ -21,13 +21,9 @@ public interface IDataBase {
 
     Long getDialogCount();
 
-    void addFriends(Collection<Friends> dialogs);
-
-    List<Friends> getFriends();
-
     Long getFriendsAmount();
 
     User getUser(String id);
 
-    void addUser(User user);
+    void addUser(UserFull user);
 }

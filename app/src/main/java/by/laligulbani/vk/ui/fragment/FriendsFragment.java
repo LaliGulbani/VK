@@ -42,7 +42,7 @@ public class FriendsFragment extends Fragment {
                 .getString(PREFERENCES_TOKEN, "");
 
         new Task<>(() -> IUserServiceFactory.getInstance().getFriends(token),
-                (friends) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends)))
+                (user) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(user)))
                 .execute();
     }
 }

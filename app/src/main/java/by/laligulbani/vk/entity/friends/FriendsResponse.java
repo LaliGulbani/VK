@@ -7,17 +7,10 @@ import java.util.List;
 
 public class FriendsResponse {
 
-    @SerializedName("count")
-    private Integer count;
+    @SerializedName("response")
+    private List<String> friendsId;
 
-    @SerializedName("items")
-    private List<Friends> friends;
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public List<Friends> getFriends() {
-        return friends;
+    public List<String> getFriends() {
+        return friendsId;
     }
 }
