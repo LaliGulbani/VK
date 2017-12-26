@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -41,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingTop="8sp"
-                    android:src="@drawable/ic_cake_black_24dp"/>
+                    app:srcCompat="@drawable/ic_cake_black_24dp"/>
 
                 <ImageView
                     android:id="@+id/location_city_image_view"
@@ -49,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingTop="12sp"
-                    android:src="@drawable/ic_location_city_black_24dp"/>
+                    app:srcCompat="@drawable/ic_location_city_black_24dp"/>
             </LinearLayout>
 
             <LinearLayout
