@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
 import by.laligulbani.vk.model.service.user.IUserServiceFactory;
 import by.laligulbani.vk.ui.adapter.FriendsAdapter;
 import by.laligulbani.vk.ui.task.Task;
@@ -41,8 +42,8 @@ public class FriendsFragment extends Fragment {
                 .getSharedPreferences(APP_PREFERENCES_NAME, 0)
                 .getString(PREFERENCES_TOKEN, "");
 
-        new Task<>(() -> IUserServiceFactory.getInstance().getFriends(token),
-                (user) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(user)))
-                .execute();
+        IExecutorServiceFactory.getInstance().executeOnExecutor(new Task<>(
+                () -> IUserServiceFactory.getInstance().getFriends(token),
+                (friends) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends))));
     }
 }

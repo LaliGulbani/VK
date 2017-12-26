@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.model.facade.dialog.IDialogFacade;
 import by.laligulbani.vk.model.facade.dialog.IDialogFacadeFactory;
+import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
 import by.laligulbani.vk.ui.adapter.MessageAdapter;
 import by.laligulbani.vk.ui.task.Task;
 
@@ -51,8 +53,11 @@ public class DialogFragment extends Fragment {
                 .getSharedPreferences(APP_PREFERENCES_NAME, 0)
                 .getString(PREFERENCES_TOKEN, EMPTY);
 
-        new Task<>(() -> IDialogFacadeFactory.getInstance().getDialogs(token),
-                (messages) -> this.recyclerView.setAdapter(new MessageAdapter(messages))).execute();
+        final IDialogFacade dialogFacade = IDialogFacadeFactory.getInstance();
+
+        IExecutorServiceFactory.getInstance().executeOnExecutor(new Task<>(
+                () -> dialogFacade.getDialogs(token),
+                (messages) -> this.recyclerView.setAdapter(new MessageAdapter(dialogFacade, messages))));
     }
 }
 
