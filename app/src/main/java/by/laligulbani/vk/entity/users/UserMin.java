@@ -7,7 +7,7 @@ public class UserMin {
     /**
      * MyUser ID
      */
-    @SerializedName("id")
+    @SerializedName("uid")
     private Integer id;
 
     /**
