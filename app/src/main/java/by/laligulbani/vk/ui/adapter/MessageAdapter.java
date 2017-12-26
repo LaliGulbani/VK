@@ -11,13 +11,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.model.facade.dialog.IDialogFacade;
 import by.laligulbani.vk.model.facade.dto.DialogDto;
+import by.laligulbani.vk.model.service.image.entity.ImageRequest;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
 
     private final List<DialogDto> dialogs;
+    private final IDialogFacade dialogFacade;
 
-    public MessageAdapter(final List<DialogDto> dialogs) {
+    public MessageAdapter(final IDialogFacade dialogFacade, final List<DialogDto> dialogs) {
+        this.dialogFacade = dialogFacade;
         this.dialogs = dialogs;
     }
 
@@ -39,7 +43,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
         holder.from.setText(dialog.getFrom());
         holder.time.setText(dialog.getDate());
         holder.message.setText(dialog.getBody());
-        holder.avatar.setImageBitmap(dialog.getImage());
+
+        dialogFacade.getImage(new ImageRequest.Builder()
+                .load(dialog.getImage())
+                .into(holder.avatar)
+                .build());
     }
 
     @Override
