@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -15,10 +16,18 @@ public class HttpClient implements IClient {
 
     @Override
     public InputStream request(final String url) {
+        try {
+            return request(new URL(url));
+        } catch (final MalformedURLException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
+    public InputStream request(final URL url) {
         HttpURLConnection con = null;
         try {
-            final URL netUrl = new URL(url);
-            con = (HttpURLConnection) netUrl.openConnection();
+            con = (HttpURLConnection) url.openConnection();
 
             try (final InputStream in = con.getInputStream();
                  final ByteArrayOutputStream out = new ByteArrayOutputStream()) {
