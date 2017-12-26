@@ -1,8 +1,8 @@
-package by.laligulbani.vk.model.service.image.imageloader.streams;
+package by.laligulbani.vk.model.service.image.streams;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public interface StreamProvider<T> {
+public interface IStreamProvider<T> {
     InputStream get(T path) throws IOException;
 }

@@ -1,8 +1,7 @@
 package by.laligulbani.vk.model.service.image;
 
-import android.graphics.Bitmap;
+import by.laligulbani.vk.model.service.image.entity.ImageRequest;
 
 public interface IImageService {
-
-    Bitmap getImage(String imageId);
+    void enqueue(ImageRequest request);
 }

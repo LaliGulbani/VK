@@ -1,4 +1,4 @@
-package by.laligulbani.vk.model.service.image.imageloader.util;
+package by.laligulbani.vk.model.util;
 
 import android.util.Log;
 
