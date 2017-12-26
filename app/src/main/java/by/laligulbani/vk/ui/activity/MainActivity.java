@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.nav_news:
-
                 break;
             case R.id.nav_notification:
                 break;
@@ -95,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void replaceFriendsFragment(final FriendsViewPagerFragment fragment){
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+    private void replaceFriendsFragment(final android.support.v4.app.Fragment fragment) {
+        final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
         fragmentTransaction.commit();
     }
