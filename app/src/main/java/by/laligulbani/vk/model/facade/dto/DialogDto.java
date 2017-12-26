@@ -1,18 +1,16 @@
 package by.laligulbani.vk.model.facade.dto;
 
-import android.graphics.Bitmap;
-
 public class DialogDto {
 
     private final String from;
     private final String date;
     private final String body;
-    private final Bitmap image;
+    private final String image;
 
     public DialogDto(final String from,
                      final String date,
                      final String body,
-                     final Bitmap image) {
+                     final String image) {
         this.from = from;
         this.date = date;
         this.body = body;
@@ -31,7 +29,7 @@ public class DialogDto {
         return body;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 }

@@ -6,10 +6,12 @@ import java.util.List;
 import by.laligulbani.vk.entity.messages.Dialog;
 import by.laligulbani.vk.entity.users.User;
 import by.laligulbani.vk.model.converter.IConverter;
+import by.laligulbani.vk.model.facade.dto.DialogDto;
 import by.laligulbani.vk.model.service.dialog.IDialogService;
 import by.laligulbani.vk.model.service.image.IImageService;
+import by.laligulbani.vk.model.service.image.entity.ImageRequest;
 import by.laligulbani.vk.model.service.user.IUserService;
-import by.laligulbani.vk.model.facade.dto.DialogDto;
+
 
 public class DialogFacade implements IDialogFacade {
 
@@ -37,12 +39,18 @@ public class DialogFacade implements IDialogFacade {
         for (final Dialog message : dialogs) {
             final Dialog dialog = converter.convert(message);
             final User user = userService.getUser("");
+
             result.add(new DialogDto(
                     user.getFirstName() + " " + user.getLastName(),
                     dialog.getDate(),
                     dialog.getBody(),
-                    imageService.getImage(dialog.getImage())));
+                    dialog.getImage()));
         }
         return result;
+    }
+
+    @Override
+    public void getImage(final ImageRequest request) {
+        imageService.enqueue(request);
     }
 }
