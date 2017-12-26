@@ -49,18 +49,23 @@ public class UserService extends AbstractService implements IUserService {
 
             final String getFriendsUrl = Api.FRIENDS_GET_ID + id_user;
 
-            final List<String> friends = execute(getFriendsUrl, FriendsResponse.class).getFriends();
-            for (String id : friends) {
-                String getFriendsInfoUrl = Api.USERS_GET + id;
-                UserFull listUsers = execute(getFriendsInfoUrl, UserFull.class);
+            final List<String> friendsIds = execute(getFriendsUrl, FriendsResponse.class).getFriends();
+
+            final List<UserFull> users = new ArrayList<>();
+            for (final String id : friendsIds) {
+                final String getFriendsInfoUrl = Api.USERS_GET + id;
+                final UserFull user = execute(getFriendsInfoUrl, UserFull.class);
+                if (user != null) {
+                    users.add(user);
+                }
             }
 
-            // dataBase.addFriends(friends);
+            return users;
+            // dataBase.addFriends(friendsIds);
         }
         //  }
 
-        return null;
-        //return dataBase.getUsers();
+        return dataBase.getUsers();
     }
 
     @Override
