@@ -13,6 +13,15 @@ import by.laligulbani.vk.ui.adapter.ViewPagerAdapter;
 
 public class FriendsViewPagerFragment extends Fragment {
 
+    private ViewPagerAdapter adapter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        this.adapter = new ViewPagerAdapter(getChildFragmentManager());
+    }
+
     @Override
     public View onCreateView(final LayoutInflater inflater,
                              final ViewGroup container,
@@ -25,7 +34,7 @@ public class FriendsViewPagerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        viewPager.setAdapter(new ViewPagerAdapter(getActivity().getSupportFragmentManager()));
+        viewPager.setAdapter(adapter);
 
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);

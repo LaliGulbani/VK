@@ -24,14 +24,14 @@ public class FriendsOnlineFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle saveInstanceState) {
-        return inflater.inflate(R.layout.fragment_root_friends, container, false);
+        return inflater.inflate(R.layout.fragment_recycle, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.recyclerViewFriends = (RecyclerView) view.findViewById(R.id.recycleView_friends);
+        this.recyclerViewFriends = (RecyclerView) view.findViewById(R.id.recyclerView_friends);
         this.recyclerViewFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateFriends();
