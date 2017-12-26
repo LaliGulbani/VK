@@ -11,7 +11,8 @@ public class IDialogFacadeFactory {
     private static IDialogFacade INSTANCE = new DialogFacade(
             IConverterFactory.getInstance(Dialog.class),
             IDialogServiceFactory.getInstance(),
-            IImageServiceFactory.getInstance(),
+            null,
+            //IImageServiceFactory.getInstance(),
             IUserServiceFactory.getInstance());
 
     public static IDialogFacade getInstance() {

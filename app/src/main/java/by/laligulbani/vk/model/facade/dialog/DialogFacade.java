@@ -51,6 +51,6 @@ public class DialogFacade implements IDialogFacade {
 
     @Override
     public void getImage(final ImageRequest request) {
-        imageService.enqueue(request);
+//        imageService.enqueue(request);
     }
 }

@@ -31,18 +31,17 @@ public class DialogService extends AbstractService implements IDialogService {
 
             final Dialog last = dataBase.getLastDialog();
 
-            final StringBuilder sb = new StringBuilder();
-            sb.append(Api.MESSAGES)
-                    .append("?")
-                    .append("access_token=").append(token)
-                    .append("&")
-                    .append("count=100");
+            final String sb = Api.MESSAGES
+                    + "?"
+                    + "access_token=" + token
+                    + "&"
+                    + "count=100";
 
             if (last != null && last.getId() != null) {
-                sb.append("&").append("unread=0");
+//                sb.append("&").append("unread=0");
             }
 
-            final List<Dialog> dialogs = execute(sb.toString(), DialogResponse.class).getDialogs();
+            final List<Dialog> dialogs = execute(sb, DialogResponse.class).getDialogs();
             dataBase.addDialogs(dialogs);
         }
 

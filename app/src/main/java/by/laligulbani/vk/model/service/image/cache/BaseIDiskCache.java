@@ -95,7 +95,7 @@ public class BaseIDiskCache implements IDiskCache {
 
             final File[] files = cacheDir.listFiles();
 
-            sort(files, (lhs, rhs) -> Long.valueOf(lhs.lastModified()).compareTo(rhs.lastModified()));
+            sort(files, (lhs, rhs) -> Long.compare(lhs.lastModified(), rhs.lastModified()));
 
             int i = 0;
             do {

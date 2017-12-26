@@ -16,7 +16,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+import by.laligulbani.vk.entity.friends.FriendsResponse;
 import by.laligulbani.vk.entity.messages.DialogResponse;
+import by.laligulbani.vk.entity.users.UserFull;
 
 import static java.nio.charset.Charset.defaultCharset;
 
@@ -82,6 +84,11 @@ public class GsonParser implements IParser {
             response.put("items", items);
 
             return response.toString();
+        } else if (FriendsResponse.class.equals(mClass)) {
+            return source.substring(0, source.indexOf("]}") + 2);
+        } else if (UserFull.class.equals(mClass)) {
+            final JSONObject object = new JSONObject(source.substring(0, source.indexOf("]}") + 2));
+            return object.getJSONArray("response").get(0).toString();
         }
 
         return "{}";
