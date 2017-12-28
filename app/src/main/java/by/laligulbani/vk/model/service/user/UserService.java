@@ -53,8 +53,7 @@ public class UserService extends AbstractService implements IUserService {
 
             final List<UserFull> users = new ArrayList<>();
             for (final String id : friendsIds) {
-                final String getFriendsInfoUrl = Api.USERS_GET + id;
-                final UserFull user = execute(getFriendsInfoUrl, UserFull.class);
+                final UserFull user = getUser(id);
                 if (user != null) {
                     users.add(user);
                 }
@@ -69,12 +68,12 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     @Override
-    public List<User> getFriendsOnline(String token) {
+    public List<UserFull> getFriendsOnline(String token) {
 
         final String url = Api.FRIENDS_ONLINE;
         final List<String> ids = execute(url, List.class);
 
-        final List<User> friends = new ArrayList<>();
+        final List<UserFull> friends = new ArrayList<>();
         for (final String id : ids) {
             friends.add(getUser(id));
         }
@@ -83,18 +82,18 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     @Override
-    public User getUser(final String id) {
+    public UserFull getUser(final String id) {
 
         final User dbUser = dataBase.getUser(id);
 
         if (dbUser == null) {
-            final String getUserInfoUrl = "https://api.vk.com/method/friends.get?user_id=";
+            final String getUserInfoUrl = Api.USERS_GET + id;
             final UserFull user = execute(getUserInfoUrl, UserFull.class);
             dataBase.addUser(user);
             return user;
         }
 
-        final User user = new User();
+        final UserFull user = new UserFull();
         user.setLastName("Last name");
         user.setFirstName("First name");
 
