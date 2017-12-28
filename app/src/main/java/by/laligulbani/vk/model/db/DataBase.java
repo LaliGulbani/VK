@@ -58,8 +58,15 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
         db.execSQL("CREATE TABLE " + TABLE_USERS
                 + "("
                 + KEY_ID_USER + " TEXT,"
-                + KEY_BODY + " TEXT,"
-                + KEY_DATA + " TEXT"
+                + KEY_NAME + " TEXT,"
+                + KEY_LASTNAME + " TEXT,"
+                + KEY_CITY + " TEXT,"
+                + KEY_BIRTHDAY  + " TEXT,"
+                + KEY_COUNT_FRIENDS + " TEXT,"
+                + KEY_COUNT_COMMON + " TEXT,"
+                + KEY_COUNT_VIDEOS  + " TEXT,"
+                + KEY_COUNT_FOLLOWERS + " TEXT,"
+                + KEY_COUNT_PHOTO + " TEXT"
                 + ")");
     }
 

@@ -37,9 +37,9 @@ public class DialogService extends AbstractService implements IDialogService {
                     + "&"
                     + "count=100";
 
-            if (last != null && last.getId() != null) {
+       //     if (last != null && last.getId() != null) {
 //                sb.append("&").append("unread=0");
-            }
+      //      }
 
             final List<Dialog> dialogs = execute(sb, DialogResponse.class).getDialogs();
             dataBase.addDialogs(dialogs);

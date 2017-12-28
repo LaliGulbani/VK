@@ -15,7 +15,7 @@ public class AbstractService {
 
     private final IParser parser;
     private final IClient client;
-    private final Context context;
+    protected final Context context;
 
     public AbstractService(final Context context,
                            final IParser parser,

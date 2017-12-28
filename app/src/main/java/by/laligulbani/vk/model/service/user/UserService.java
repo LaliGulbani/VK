@@ -34,9 +34,8 @@ public class UserService extends AbstractService implements IUserService {
 
     @Override
     public List<UserFull> getFriends(final String token) {
-        final String id_user = ContextHolder.getContext().getSharedPreferences(APP_PREFERENCES_NAME, 0)
+        final String id_user = context.getSharedPreferences(APP_PREFERENCES_NAME, 0)
                 .getString(PREFERENCES_ID_USER, EMPTY);
-
 
         if (checkInternetConnection()) {
 
@@ -69,8 +68,11 @@ public class UserService extends AbstractService implements IUserService {
 
     @Override
     public List<UserFull> getFriendsOnline(String token) {
+        final Context context = ContextHolder.getContext();
+        final String id_user = context.getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_ID_USER, EMPTY);
 
-        final String url = Api.FRIENDS_ONLINE;
+        final String url = Api.FRIENDS_ONLINE + id_user;
         final List<String> ids = execute(url, List.class);
 
         final List<UserFull> friends = new ArrayList<>();
