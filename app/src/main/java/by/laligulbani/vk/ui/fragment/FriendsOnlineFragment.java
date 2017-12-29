@@ -44,7 +44,7 @@ public class FriendsOnlineFragment extends Fragment {
                 .getString(PREFERENCES_TOKEN, EMPTY);
 
         IExecutorServiceFactory.getInstance().executeOnExecutor(new Task<>(
-                () -> IUserServiceFactory.getInstance().getFriends(token),
+                () -> IUserServiceFactory.getInstance().getFriendsOnline(),
                 (friends) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends))));
     }
 
