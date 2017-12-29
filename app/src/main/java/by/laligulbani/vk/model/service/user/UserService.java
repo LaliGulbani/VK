@@ -34,9 +34,9 @@ public class UserService extends AbstractService implements IUserService {
 
     @Override
     public List<UserFull> getFriends(final String token) {
+        final Context context = ContextHolder.getContext();
         final String id_user = context.getSharedPreferences(APP_PREFERENCES_NAME, 0)
                 .getString(PREFERENCES_ID_USER, EMPTY);
-
         if (checkInternetConnection()) {
 
             // final String getFriendsAmountUrl = "https://api.vk.com/method/friends.get?user_id=";
@@ -50,15 +50,15 @@ public class UserService extends AbstractService implements IUserService {
 
             final List<String> friendsIds = execute(getFriendsUrl, FriendsResponse.class).getFriends();
 
-            final List<UserFull> users = new ArrayList<>();
+            final List<UserFull> friends = new ArrayList<>();
             for (final String id : friendsIds) {
                 final UserFull user = getUser(id);
                 if (user != null) {
-                    users.add(user);
+                    friends.add(user);
                 }
             }
 
-            return users;
+            return friends;
             // dataBase.addFriends(friendsIds);
         }
         //  }
@@ -67,19 +67,15 @@ public class UserService extends AbstractService implements IUserService {
     }
 
     @Override
-    public List<UserFull> getFriendsOnline(String token) {
-        final Context context = ContextHolder.getContext();
-        final String id_user = context.getSharedPreferences(APP_PREFERENCES_NAME, 0)
-                .getString(PREFERENCES_ID_USER, EMPTY);
+    public List<UserFull> getFriendsOnline() {
 
-        final String url = Api.FRIENDS_ONLINE + id_user;
-        final List<String> ids = execute(url, List.class);
+        final String url = Api.FRIENDS_ONLINE ;
+        final List<String> ids = execute(url, FriendsResponse.class).getFriends();
 
         final List<UserFull> friends = new ArrayList<>();
         for (final String id : ids) {
             friends.add(getUser(id));
         }
-
         return friends;
     }
 

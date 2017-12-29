@@ -23,14 +23,14 @@ public class FriendsFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle saveInstanceState) {
-        return inflater.inflate(R.layout.fragment_recycle, container, false);
+        return inflater.inflate(R.layout.fragment_root_recycle_view, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.recyclerViewFriends = (RecyclerView) view.findViewById(R.id.recyclerView_friends);
+        this.recyclerViewFriends = (RecyclerView) view.findViewById(R.id.recycler_view);
         this.recyclerViewFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateFriends();

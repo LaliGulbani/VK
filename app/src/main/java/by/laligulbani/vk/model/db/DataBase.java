@@ -212,8 +212,8 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
             values.put(KEY_USER_ID, user.getId());
             values.put(KEY_NAME, user.getFirstName());
             values.put(KEY_LASTNAME, user.getLastName());
-            values.put(KEY_CITY, String.valueOf(user.getCity()));
-            values.put(KEY_BIRTHDAY, user.getBdate());
+            //values.put(KEY_CITY, String.valueOf(user.getCity()));
+            //values.put(KEY_BIRTHDAY, user.getBdate());
             //values.put(KEY_COUNT_FRIENDS, user.);
             //values.put(KEY_COUNT_COMMON, user.);
             //values.put(KEY_COUNT_VIDEOS, user.);
@@ -222,14 +222,41 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
 
             db.insert(TABLE_USERS, null, values);
         });
-
-
     }
 
     @Override
-    public List<UserFull> getUsers() {
-        return emptyList();
+    public List<UserFull> getUsers(){
+
+        if (getUsersCount() == 0) {
+            return emptyList();
+        }
+
+        final String query = "SELECT  * FROM " + TABLE_USERS;
+
+        return executeReadable(query, (cursor) -> {
+            if (cursor.moveToFirst()) {
+
+                final List<UserFull> users = new ArrayList<UserFull>();
+
+                do {
+                    final UserFull user = new UserFull();
+                    user.setId(cursor.getString(0));
+                    user.setFirstName(cursor.getString(1));
+                    user.setLastName(cursor.getString(2));
+
+                    users.add(user);
+                } while (cursor.moveToNext());
+
+                return users;
+            }
+            return emptyList();
+        });
     }
+
+    private Long getUsersCount() {
+        return  null;
+    }
+
 
     private <T> T executeReadable(final String query, final Function<T, Cursor> function) {
         try (final SQLiteDatabase db = getReadableDatabase();

@@ -8,7 +8,7 @@ public class UserMin {
      * MyUser ID
      */
     @SerializedName("uid")
-    private Integer id;
+    private String id;
 
     /**
      * MyUser first name
@@ -34,7 +34,7 @@ public class UserMin {
     @SerializedName("hidden")
     private Integer hidden;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -54,7 +54,7 @@ public class UserMin {
         return hidden;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -30,14 +30,14 @@ public class DialogFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle saveInstanceState) {
-        return inflater.inflate(R.layout.fragment_root_message, container, false);
+        return inflater.inflate(R.layout.fragment_root_recycle_view, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_messages);
+        this.recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         final SwipeRefreshLayout layout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_message);

@@ -26,7 +26,7 @@ public class FriendsViewPagerFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater,
                              final ViewGroup container,
                              final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_root_friends, container, false);
+        return inflater.inflate(R.layout.fragment_view_pager, container, false);
     }
 
     @Override
