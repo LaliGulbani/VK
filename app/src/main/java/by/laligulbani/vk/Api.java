@@ -23,7 +23,7 @@ public class Api {
     public static final String MESSAGES = BASE_PATH_METHOD + "messages.getDialogs";
 
     public static final String FRIENDS_GET_ID = BASE_PATH_METHOD + "friends.get?user_id=";
-    public static final String FRIENDS_ONLINE= BASE_PATH_METHOD + "friends.getOnline?user_id=";
+    public static final String FRIENDS_ONLINE= BASE_PATH_METHOD + "friends.getOnline";
 
 
     public static final String STATUS = BASE_PATH_METHOD + "status.get?user_id=";

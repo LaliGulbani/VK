@@ -1,5 +1,6 @@
 package by.laligulbani.vk.model.service.user;
 
+import java.util.Collection;
 import java.util.List;
 
 import by.laligulbani.vk.entity.users.UserFull;
@@ -11,5 +12,7 @@ public interface IUserService {
     List<UserFull> getFriendsOnline();
 
     UserFull getUser(String id);
+
+    List<UserFull> getUsers(Collection<String> ids);
 }
 

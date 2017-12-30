@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 
 import by.laligulbani.vk.entity.messages.Dialog;
-import by.laligulbani.vk.entity.users.User;
 import by.laligulbani.vk.entity.users.UserFull;
 
 public interface IDataBase {
@@ -23,9 +22,11 @@ public interface IDataBase {
 
     Long getFriendsAmount();
 
-    User getUser(String id);
+    UserFull getUser(String id);
 
     void addUser(UserFull user);
 
     List<UserFull> getUsers();
+
+    List<UserFull> getFriends();
 }

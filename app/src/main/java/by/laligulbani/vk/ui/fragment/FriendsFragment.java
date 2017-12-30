@@ -14,6 +14,7 @@ import by.laligulbani.vk.model.service.user.IUserServiceFactory;
 import by.laligulbani.vk.ui.adapter.FriendsAdapter;
 import by.laligulbani.vk.ui.task.Task;
 
+import static by.laligulbani.vk.Api.EMPTY;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 
@@ -40,7 +41,7 @@ public class FriendsFragment extends Fragment {
 
         final String token = getActivity()
                 .getSharedPreferences(APP_PREFERENCES_NAME, 0)
-                .getString(PREFERENCES_TOKEN, "");
+                .getString(PREFERENCES_TOKEN, EMPTY);
 
         IExecutorServiceFactory.getInstance().executeOnExecutor(new Task<>(
                 () -> IUserServiceFactory.getInstance().getFriends(token),

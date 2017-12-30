@@ -10,13 +10,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import by.laligulbani.vk.entity.messages.Dialog;
-import by.laligulbani.vk.entity.users.User;
 import by.laligulbani.vk.entity.users.UserFull;
 import by.laligulbani.vk.model.function.Consumer;
 import by.laligulbani.vk.model.function.Function;
 
+import static by.laligulbani.vk.Api.EMPTY;
+import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
+import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_ID_USER;
 import static java.util.Collections.emptyList;
 
 public class DataBase extends SQLiteOpenHelper implements IDataBase {
@@ -27,7 +30,6 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
     private static final String KEY_DATA = "_data";
 
     private static final String TABLE_USERS = "users";
-    private static final String KEY_USER_ID = "_user_id";
     private static final String KEY_NAME = "_name";
     private static final String KEY_LASTNAME = "_lastname";
     private static final String KEY_CITY = "_city";
@@ -38,35 +40,37 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
     private static final String KEY_COUNT_FOLLOWERS = "_count_followers";
     private static final String KEY_COUNT_PHOTO = "_count_photo";
 
+    private final Context context;
 
     DataBase(final Context context,
              final String name,
              final CursorFactory factory,
              final int version) {
         super(context, name, factory, version);
+        this.context = context;
     }
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_MESSAGE
+        db.execSQL("CREATE TABLE " + TABLE_MESSAGE + " "
                 + "("
                 + KEY_ID_USER + " TEXT,"
                 + KEY_BODY + " TEXT,"
                 + KEY_DATA + " TEXT"
                 + ")");
 
-        db.execSQL("CREATE TABLE " + TABLE_USERS
+        db.execSQL("CREATE TABLE " + TABLE_USERS + " "
                 + "("
-                + KEY_ID_USER + " TEXT,"
-                + KEY_NAME + " TEXT,"
-                + KEY_LASTNAME + " TEXT,"
-                + KEY_CITY + " TEXT,"
-                + KEY_BIRTHDAY  + " TEXT,"
-                + KEY_COUNT_FRIENDS + " TEXT,"
-                + KEY_COUNT_COMMON + " TEXT,"
-                + KEY_COUNT_VIDEOS  + " TEXT,"
-                + KEY_COUNT_FOLLOWERS + " TEXT,"
-                + KEY_COUNT_PHOTO + " TEXT"
+                + KEY_ID_USER + " TEXT, "
+                + KEY_NAME + " TEXT, "
+                + KEY_LASTNAME + " TEXT, "
+                + KEY_CITY + " TEXT, "
+                + KEY_BIRTHDAY + " TEXT, "
+                + KEY_COUNT_FRIENDS + " TEXT, "
+                + KEY_COUNT_COMMON + " TEXT, "
+                + KEY_COUNT_VIDEOS + " TEXT, "
+                + KEY_COUNT_FOLLOWERS + " TEXT, "
+                + KEY_COUNT_PHOTO + " TEXT "
                 + ")");
     }
 
@@ -196,20 +200,45 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
 
     @Override
     public Long getFriendsAmount() {
-        return 0L;
+
+        final String query = "SELECT COUNT(" + KEY_ID_USER + ")" + " FROM " + TABLE_MESSAGE + " WHERE " + KEY_ID_USER + "!=" + getUserId();
+
+        return executeReadable(query, (cursor) -> {
+            if (cursor.moveToLast()) {
+                return cursor.getLong(0);
+            }
+            return 0L;
+        });
     }
 
     @Override
-    public User getUser(final String id) {
-        return null;
+    public UserFull getUser(final String id) {
+
+        final String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_ID_USER + "=" + id;
+
+        return executeReadable(query, (cursor) -> {
+            if (cursor.moveToLast()) {
+
+                final UserFull user = new UserFull();
+                user.setId(cursor.getString(0));
+                user.setFirstName(cursor.getString(1));
+                user.setLastName(cursor.getString(2));
+
+                return user;
+            }
+
+            return null;
+        });
     }
 
     @Override
     public void addUser(final UserFull user) {
         executeWritable((db) -> {
 
+            final String id = user.getId();
+
             final ContentValues values = new ContentValues();
-            values.put(KEY_USER_ID, user.getId());
+            values.put(KEY_ID_USER, id == null || id.isEmpty() ? UUID.randomUUID().toString() : id);
             values.put(KEY_NAME, user.getFirstName());
             values.put(KEY_LASTNAME, user.getLastName());
             //values.put(KEY_CITY, String.valueOf(user.getCity()));
@@ -225,13 +254,16 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
     }
 
     @Override
-    public List<UserFull> getUsers(){
+    public List<UserFull> getUsers() {
+        return getUserFulls("");
+    }
 
+    private List<UserFull> getUserFulls(final String filter) {
         if (getUsersCount() == 0) {
             return emptyList();
         }
 
-        final String query = "SELECT  * FROM " + TABLE_USERS;
+        final String query = "SELECT  * FROM " + TABLE_USERS + " " + filter;
 
         return executeReadable(query, (cursor) -> {
             if (cursor.moveToFirst()) {
@@ -253,21 +285,37 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
         });
     }
 
-    private Long getUsersCount() {
-        return  null;
+    @Override
+    public List<UserFull> getFriends() {
+        return getUserFulls("WHERE " + KEY_ID_USER + "!=" + getUserId());
     }
 
+    private Long getUsersCount() {
+
+        final String query = "SELECT COUNT(" + KEY_ID_USER + ")" + " FROM " + TABLE_USERS;
+
+        return executeReadable(query, (cursor) -> {
+            if (cursor.moveToLast()) {
+                return cursor.getLong(0);
+            }
+            return 0L;
+        });
+    }
+
+    private String getUserId() {
+        return context
+                .getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_ID_USER, EMPTY);
+    }
 
     private <T> T executeReadable(final String query, final Function<T, Cursor> function) {
-        try (final SQLiteDatabase db = getReadableDatabase();
-             final Cursor cursor = db.rawQuery(query, null)) {
-            return function.apply(cursor);
-        }
+        final SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery(query, null);
+        return function.apply(cursor);
     }
 
     private void executeWritable(final Consumer<SQLiteDatabase> consumer) {
-        try (final SQLiteDatabase db = getWritableDatabase()) {
-            consumer.accept(db);
-        }
+        final SQLiteDatabase db = getWritableDatabase();
+        consumer.accept(db);
     }
 }

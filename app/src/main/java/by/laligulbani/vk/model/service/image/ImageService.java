@@ -29,7 +29,6 @@ import by.laligulbani.vk.ui.task.Task;
 public class ImageService implements IImageService {
 
     private static final Drawable EMPTY_DRAWABLE = new ColorDrawable(255);
-    private static final Object LOCK = new Object();
 
     private final IExecutorService executorService;
     private final IDiskCache diskCache;
@@ -77,7 +76,7 @@ public class ImageService implements IImageService {
             final ImageRequest request = queue.takeFirst();
 
             final String url = request.getUrl();
-            synchronized (LOCK) {
+            synchronized (this) {
                 final Bitmap bitmap = cache.get(url);
                 if (bitmap != null) {
                     return new ImageResult(request, bitmap);
@@ -220,7 +219,7 @@ public class ImageService implements IImageService {
 
     private void cacheBitmap(final ImageRequest request, final Bitmap bitmap) throws IOException {
 
-        synchronized (LOCK) {
+        synchronized (this) {
             cache.put(request.getUrl(), bitmap);
         }
 

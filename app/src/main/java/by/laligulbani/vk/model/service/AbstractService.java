@@ -10,12 +10,15 @@ import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.parser.IParser;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
+import static by.laligulbani.vk.Api.EMPTY;
+import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
+import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_ID_USER;
 
 public class AbstractService {
 
     private final IParser parser;
     private final IClient client;
-    protected final Context context;
+    private final Context context;
 
     public AbstractService(final Context context,
                            final IParser parser,
@@ -38,5 +41,11 @@ public class AbstractService {
         }
         final NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    protected String getUserId() {
+        return context
+                .getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_ID_USER, EMPTY);
     }
 }

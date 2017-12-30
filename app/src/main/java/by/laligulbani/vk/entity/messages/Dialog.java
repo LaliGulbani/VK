@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Dialog {
 
-    @SerializedName("uid") // идентификатор сообщения
+    @SerializedName("uid") // идентификатор пользователя id
     private String id;
     @SerializedName("date") //дата отправки сообщения в формате Unixtime.
     private String date;

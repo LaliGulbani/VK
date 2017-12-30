@@ -11,6 +11,8 @@ import java.util.List;
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.entity.users.UserFull;
 
+import static java.lang.String.format;
+
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsHolder> {
 
     private final List<UserFull> friends;
@@ -34,7 +36,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
 
         final UserFull friend = friends.get(position);
 
-        holder.nameFriend.setText(String.format("%s %s", friend.getFirstName(), friend.getLastName()));
+        holder.nameFriend.setText(format("%s %s", friend.getFirstName(), friend.getLastName()));
     }
 
     @Override
