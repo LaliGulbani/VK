@@ -5,7 +5,7 @@ import java.util.List;
 
 import by.laligulbani.vk.entity.messages.Message;
 
-public interface IDataBase {
+public interface IMessageDataBase {
 
     void addMessage(Message message);
 

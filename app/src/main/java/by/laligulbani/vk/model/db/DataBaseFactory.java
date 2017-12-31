@@ -6,8 +6,8 @@ public class DataBaseFactory {
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "My Database";
 
-    public static IDataBase getInstance() {
-        return new SqLiteDataBase(getContext(), DB_NAME, null, DB_VERSION);
+    public static IMessageDataBase getInstance() {
+        return new MessageDataBase(getContext(), DB_NAME, null, DB_VERSION);
     }
 }
 

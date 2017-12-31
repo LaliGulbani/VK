@@ -46,12 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         private boolean handleRedirect(final Uri uri) {
 
             if (REDIRECT_URL.endsWith(uri.getSchemeSpecificPart())) {
-
                 getSharedPreferences(APP_PREFERENCES_NAME, MODE_PRIVATE)
                         .edit()
                         .putString(PREFERENCES_TOKEN, getToken(uri))
                         .apply();
-
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
 

@@ -13,19 +13,22 @@ import by.laligulbani.vk.entity.friends.FriendsResponse;
 import by.laligulbani.vk.entity.messages.Message;
 import by.laligulbani.vk.entity.messages.MessageResponse;
 import by.laligulbani.vk.model.client.IClient;
-import by.laligulbani.vk.model.db.IDataBase;
+import by.laligulbani.vk.model.context.ContextHolder;
+import by.laligulbani.vk.model.db.IMessageDataBase;
 import by.laligulbani.vk.model.parser.IParser;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
+// TODO: 21-Dec-17 split to concreate manager classes
 public class ModelManager implements IModelManagement {
 
     private final IParser parser;
     private final IClient client;
     private final Context context;
-    private final IDataBase dataBase;
+    private final IMessageDataBase dataBase;
 
-    ModelManager(final Context context, final IClient client, final IParser parser, IDataBase dataBase) {
+    // TODO: 21-Dec-17 remove context
+    ModelManager(final Context context, final IClient client, final IParser parser, IMessageDataBase dataBase) {
         this.client = client;
         this.parser = parser;
         this.context = context;
@@ -39,12 +42,12 @@ public class ModelManager implements IModelManagement {
                 "?" + "access_token=" + token
                 + "&" + "count=100";
 
-        if (checkInternetConnection(context)) {
+        if (checkInternetConnection(ContextHolder.getContext())) {
             final MessageResponse response = execute(url, MessageResponse.class);
             //конвертер.трансорм(респонс), аналогия с парсером.
             final List<Message> messages = response.getMessages();
             dataBase.addMessages(messages);
-            //проверка на уникальность
+            //проверка на уникальность сообщения в бд
         }
 
         return dataBase.getMessages();
@@ -60,6 +63,13 @@ public class ModelManager implements IModelManagement {
         return execute(url, FriendsResponse.class).getFriends();
     }
 
+    @Override
+    public List<Friends> getFriendsOnline(String token) {
+        final String url = Api.FRIENDS_ONLINE;
+        return execute(url, FriendsResponse.class).getFriends();
+    }
+
+
     private <T> T execute(final String url, final Class<T> aClass) {
         final InputStream request = client.request(url);
         return parser.parse(request, aClass);
@@ -71,9 +81,7 @@ public class ModelManager implements IModelManagement {
         if (cm == null) {
             return false;
         }
-
         final NetworkInfo netInfo = cm.getActiveNetworkInfo();
-
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.context.ContextHolder;
+import by.laligulbani.vk.ui.fragment.FriendsViewPagerFragment;
 import by.laligulbani.vk.ui.fragment.MessagesFragment;
 
 import static android.support.v4.view.GravityCompat.START;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this::onSelected);
 
-        ContextHolder.setContext(this);
+        ContextHolder.setContext(this);//todo in Application
     }
 
     @Override
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceMessageFragment(new MessagesFragment());
                 break;
             case R.id.nav_friends:
+               replaceFriendsFragment(new FriendsViewPagerFragment());
                 break;
             case R.id.nav_groups:
                 break;
@@ -92,10 +94,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void replaceFriendsFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+    private void replaceFriendsFragment(final FriendsViewPagerFragment fragment){
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
         fragmentTransaction.commit();
-
     }
 }

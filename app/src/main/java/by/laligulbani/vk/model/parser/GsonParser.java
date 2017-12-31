@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -38,13 +37,14 @@ public class GsonParser implements IParser {
 
             final String str = normalize(IOUtils.toString(reader), mClass);
 
-            return gson.fromJson(new InputStreamReader(new ByteArrayInputStream(str.getBytes())), mClass);
+            return gson.fromJson(str, mClass);
 
         } catch (IOException | JSONException e) {
             throw new RuntimeException("Trouble with parsing", e);
         }
     }
 
+    // TODO: 21-Dec-17 use gson type adapter
     private <T> String normalize(final String source, final Class<T> mClass) throws JSONException {
 
         if (mClass.equals(MessageResponse.class)) {

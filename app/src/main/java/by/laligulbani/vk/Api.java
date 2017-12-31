@@ -15,11 +15,16 @@ public class Api {
 
     public static final String BASE_PATH_METHOD = "https://api.vk.com/method/";
 
-    public static final String FRIENDS_GET = BASE_PATH_METHOD + "item_friends.get?fields=photo_200_orig,online,nickname\"";
+    public static final String FRIENDS_GET = BASE_PATH_METHOD + "friends.get?fields=photo_200_orig,nickname";
+
     public static final String WALL_GET = BASE_PATH_METHOD + "wall.get?filters=owner&fields=photo_100&extended=1";
     public static final String NEWS_GET = BASE_PATH_METHOD + "newsfeed.get?filters=post&fields=photo_130\"+\"&count=50";
+
     public static final String USERS_GET = BASE_PATH_METHOD + "users.get";
     public static final String PHOTOS_GET = BASE_PATH_METHOD + "photos.get";
 
+
     public static final String MESSAGES = BASE_PATH_METHOD + "messages.getDialogs";
+
+    public static final String FRIENDS_ONLINE= BASE_PATH_METHOD+ "friends.getOnline";
 }
