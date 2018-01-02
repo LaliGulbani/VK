@@ -19,6 +19,7 @@ import java.io.Reader;
 import by.laligulbani.vk.entity.friends.FriendsResponse;
 import by.laligulbani.vk.entity.messages.DialogResponse;
 import by.laligulbani.vk.entity.users.UserFull;
+import by.laligulbani.vk.model.parser.typeadapter.DialogTypeAdapter;
 
 import static java.nio.charset.Charset.defaultCharset;
 
@@ -26,12 +27,15 @@ public class GsonParser implements IParser {
 
     private static final int BUFFER_SIZE = 1024;
 
-    private final Gson gson;
+    private Gson gson;
 
     GsonParser() {
-        this.gson = new GsonBuilder()
-                .setLenient()
-                .create();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(DialogResponse.class, new DialogTypeAdapter());
+        gsonBuilder.setPrettyPrinting ();
+        gson = gsonBuilder.create();
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

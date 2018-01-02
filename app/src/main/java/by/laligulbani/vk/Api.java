@@ -28,4 +28,6 @@ public class Api {
 
     public static final String STATUS = BASE_PATH_METHOD + "status.get?user_id=";
 
+    public static final String GET_USER_NEWS = "https://api.vk.com/method/newsfeed.get?filters=post&end_time&access_token=";
+
 }

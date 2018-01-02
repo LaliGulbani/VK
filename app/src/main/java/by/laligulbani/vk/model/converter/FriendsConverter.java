@@ -6,7 +6,7 @@ public class FriendsConverter implements IConverter<UserFull> {
 
     @Override
     public UserFull convert(final UserFull source) {
-        // TODO: 28.12.2017 добавить код трансформации айди в друга
+        // TODO: 28.12.2017 добавить код айди в друга
         return source;
     }
 }

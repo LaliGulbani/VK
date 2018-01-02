@@ -7,15 +7,15 @@ import java.util.List;
 public class DialogResponse {
 
     @SerializedName("count")
-    private long count;
+    private String count;
     @SerializedName("items")
     private List<Dialog> mDialogs;
 
-    public long getCount() {
+    public String getCount() {
         return count;
     }
 
-    public void setCount(long count) {
+    public void setCount(String count) {
         this.count = count;
     }
 
