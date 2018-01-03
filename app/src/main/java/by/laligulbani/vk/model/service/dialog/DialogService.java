@@ -1,7 +1,5 @@
 package by.laligulbani.vk.model.service.dialog;
 
-import android.content.Context;
-
 import java.util.List;
 
 import by.laligulbani.vk.Api;
@@ -16,11 +14,10 @@ public class DialogService extends AbstractService implements IDialogService {
 
     private final IDataBase dataBase;
 
-    DialogService(final Context context,
-                  final IClient client,
+    DialogService(final IClient client,
                   final IParser parser,
                   final IDataBase dataBase) {
-        super(context, parser, client);
+        super(parser, client);
         this.dataBase = dataBase;
     }
 

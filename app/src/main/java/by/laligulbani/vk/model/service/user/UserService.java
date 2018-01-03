@@ -1,7 +1,5 @@
 package by.laligulbani.vk.model.service.user;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,12 +18,11 @@ public class UserService extends AbstractService implements IUserService {
     private final IExecutorService executorService;
     private final IDataBase dataBase;
 
-    UserService(final Context context,
-                final IClient client,
+    UserService(final IClient client,
                 final IParser parser,
                 final IDataBase dataBase,
                 final IExecutorService executorService) {
-        super(context, parser, client);
+        super(parser, client);
         this.dataBase = dataBase;
         this.executorService = executorService;
     }

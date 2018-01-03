@@ -1,6 +1,5 @@
 package by.laligulbani.vk.model.service;
 
-import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -8,6 +7,7 @@ import java.io.InputStream;
 
 import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.parser.IParser;
+import by.laligulbani.vk.model.util.ContextHolder;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 import static by.laligulbani.vk.Api.EMPTY;
@@ -18,12 +18,9 @@ public class AbstractService {
 
     private final IParser parser;
     private final IClient client;
-    private final Context context;
 
-    public AbstractService(final Context context,
-                           final IParser parser,
+    public AbstractService(final IParser parser,
                            final IClient client) {
-        this.context = context;
         this.parser = parser;
         this.client = client;
     }
@@ -35,7 +32,7 @@ public class AbstractService {
 
     protected boolean checkInternetConnection() {
 
-        final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+        final ConnectivityManager cm = (ConnectivityManager) ContextHolder.getContext().getSystemService(CONNECTIVITY_SERVICE);
         if (cm == null) {
             return false;
         }
@@ -44,7 +41,7 @@ public class AbstractService {
     }
 
     protected String getUserId() {
-        return context
+        return ContextHolder.getContext()
                 .getSharedPreferences(APP_PREFERENCES_NAME, 0)
                 .getString(PREFERENCES_ID_USER, EMPTY);
     }
