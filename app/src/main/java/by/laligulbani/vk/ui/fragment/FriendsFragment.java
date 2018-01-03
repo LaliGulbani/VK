@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
 import by.laligulbani.vk.model.service.user.IUserServiceFactory;
+import by.laligulbani.vk.ui.adapter.ClickListener;
 import by.laligulbani.vk.ui.adapter.FriendsAdapter;
 import by.laligulbani.vk.ui.task.Task;
 
@@ -18,7 +19,7 @@ import static by.laligulbani.vk.Api.EMPTY;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 
-public class FriendsFragment extends Fragment {
+public class FriendsFragment extends Fragment implements ClickListener {
 
     private RecyclerView recyclerViewFriends;
 
@@ -33,6 +34,7 @@ public class FriendsFragment extends Fragment {
 
         this.recyclerViewFriends = (RecyclerView) view.findViewById(R.id.recycler_view);
         this.recyclerViewFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
+        FriendsAdapter friendsAdapter = new FriendsAdapter(friends);
 
         updateFriends();
     }
@@ -46,5 +48,12 @@ public class FriendsFragment extends Fragment {
         IExecutorServiceFactory.getInstance().executeOnExecutor(new Task<>(
                 () -> IUserServiceFactory.getInstance().getFriends(token),
                 (friends) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends))));
+
+        friendsAdapter.setClickListener(this);
+    }
+
+    @Override
+    public void itemClicked(View view, int position) {
+
     }
 }

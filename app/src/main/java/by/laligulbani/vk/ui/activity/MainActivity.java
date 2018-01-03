@@ -21,6 +21,7 @@ import static android.support.v4.view.GravityCompat.START;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
+    private CharSequence title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +69,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.nav_news:
+                getSupportActionBar().setTitle("Новости");
                 break;
             case R.id.nav_notification:
                 break;
             case R.id.nav_messanges:
+                getSupportActionBar().setTitle("Сообщения");
                 replaceMessageFragment(new DialogFragment());
                 break;
             case R.id.nav_friends:
+                getSupportActionBar().setTitle("Друзья");
                 replaceFriendsFragment(new FriendsViewPagerFragment());
                 break;
             case R.id.nav_groups:

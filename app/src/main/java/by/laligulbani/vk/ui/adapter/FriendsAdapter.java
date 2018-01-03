@@ -16,6 +16,7 @@ import static java.lang.String.format;
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsHolder> {
 
     private final List<UserFull> friends;
+    private ClickListener clicklistener = null;
 
     public FriendsAdapter(final List<UserFull> friends) {
         this.friends = friends;
@@ -44,13 +45,21 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
         return friends.size();
     }
 
-    class FriendsHolder extends RecyclerView.ViewHolder {
+    class FriendsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView nameFriend;
 
         FriendsHolder(final View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             nameFriend = (TextView) itemView.findViewById(R.id.name_friend_text_view);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (clicklistener != null) {
+                clicklistener.itemClicked(v, getAdapterPosition());
+            }
         }
     }
 }

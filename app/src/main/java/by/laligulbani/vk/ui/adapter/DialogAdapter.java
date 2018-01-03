@@ -15,12 +15,12 @@ import by.laligulbani.vk.model.facade.dialog.IDialogFacade;
 import by.laligulbani.vk.model.facade.dto.DialogDto;
 import by.laligulbani.vk.model.service.image.entity.ImageRequest;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
+public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.MessageHolder> {
 
     private final List<DialogDto> dialogs;
     private final IDialogFacade dialogFacade;
 
-    public MessageAdapter(final IDialogFacade dialogFacade, final List<DialogDto> dialogs) {
+    public DialogAdapter(final IDialogFacade dialogFacade, final List<DialogDto> dialogs) {
         this.dialogFacade = dialogFacade;
         this.dialogs = dialogs;
     }
@@ -30,7 +30,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
 
         final View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.item_message, parent, false);
+                .inflate(R.layout.item_dialog, parent, false);
 
         return new MessageHolder(view);
     }
