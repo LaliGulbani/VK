@@ -1,6 +1,5 @@
 package by.laligulbani.vk.model.client;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,16 +14,16 @@ public class HttpClient implements IClient {
     private static final int BUFFER_SIZE = 1024;
 
     @Override
-    public InputStream request(final String url) {
+    public String request(final String url) {
         try {
-            return request(new URL(url));
+            return new String(request(new URL(url)));
         } catch (final MalformedURLException e) {
             throw new IllegalStateException(e);
         }
     }
 
     @Override
-    public InputStream request(final URL url) {
+    public byte[] request(final URL url) {
         HttpURLConnection con = null;
         try {
             con = (HttpURLConnection) url.openConnection();
@@ -43,7 +42,7 @@ public class HttpClient implements IClient {
                     out.write(buffer, 0, length);
                 }
 
-                return new ByteArrayInputStream(out.toByteArray());
+                return out.toByteArray();
             }
 
         } catch (final IOException e) {
