@@ -3,8 +3,6 @@ package by.laligulbani.vk.model.service;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import java.io.InputStream;
-
 import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.parser.IParser;
 import by.laligulbani.vk.model.util.ContextHolder;
@@ -26,7 +24,7 @@ public class AbstractService {
     }
 
     protected <T> T execute(final String url, final Class<T> aClass) {
-        final InputStream request = client.request(url);
+        final String request = client.request(url);
         return parser.parse(request, aClass);
     }
 

@@ -28,7 +28,7 @@ public class DialogService extends AbstractService implements IDialogService {
 
             final Dialog last = dataBase.getLastDialog();
 
-            final String sb = Api.MESSAGES
+            final String sb = Api.DIALOGS_GET
                     + "?"
                     + "access_token=" + token
                     + "&"

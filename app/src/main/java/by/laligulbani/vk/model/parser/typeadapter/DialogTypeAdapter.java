@@ -9,7 +9,7 @@ import java.io.IOException;
 import by.laligulbani.vk.entity.messages.DialogResponse;
 
 
-public class DialogTypeAdapter extends TypeAdapter {
+public class DialogTypeAdapter extends TypeAdapter{
     @Override
     public void write(JsonWriter out, Object value) throws IOException {
 

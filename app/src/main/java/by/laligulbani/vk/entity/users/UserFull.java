@@ -43,12 +43,6 @@ public class UserFull extends User {
     private String photo400Orig;
 
     /**
-     * URL of user's photo of maximum size
-     */
-    @SerializedName("photo_max_orig")
-    private String photoMaxOrig;
-
-    /**
      * ID of the user's main photo
      */
     @SerializedName("photo_id")
@@ -168,32 +162,6 @@ public class UserFull extends User {
     @SerializedName("home_town")
     private String homeTown;
 
-
-    /**
-     * MyUser's interests
-     */
-    @SerializedName("interests")
-    private String interests;
-
-    /**
-     * MyUser's favorite music
-     */
-    @SerializedName("music")
-    private String music;
-
-    /**
-     * MyUser's activities
-     */
-    @SerializedName("activities")
-    private String activities;
-
-    /**
-     * Favorite quotes
-     */
-    @SerializedName("quotes")
-    private String quotes;
-
-
     public String getBdate() {
         return bdate;
     }
@@ -216,10 +184,6 @@ public class UserFull extends User {
 
     public String getPhoto400Orig() {
         return photo400Orig;
-    }
-
-    public String getPhotoMaxOrig() {
-        return photoMaxOrig;
     }
 
     public String getPhotoId() {
@@ -302,19 +266,4 @@ public class UserFull extends User {
         return homeTown;
     }
 
-    public String getInterests() {
-        return interests;
-    }
-
-    public String getMusic() {
-        return music;
-    }
-
-    public String getActivities() {
-        return activities;
-    }
-
-    public String getQuotes() {
-        return quotes;
-    }
 }

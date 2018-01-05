@@ -16,7 +16,7 @@ import static java.lang.String.format;
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsHolder> {
 
     private final List<UserFull> friends;
-    private ClickListener clicklistener = null;
+    private IClickListener mClicklistener = null;
 
     public FriendsAdapter(final List<UserFull> friends) {
         this.friends = friends;
@@ -57,8 +57,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
 
         @Override
         public void onClick(View v) {
-            if (clicklistener != null) {
-                clicklistener.itemClicked(v, getAdapterPosition());
+            if (mClicklistener != null) {
+                mClicklistener.itemClicked(v, getAdapterPosition());
             }
         }
     }

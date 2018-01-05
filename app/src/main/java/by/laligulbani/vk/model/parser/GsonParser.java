@@ -30,17 +30,17 @@ public class GsonParser implements IParser {
     private Gson gson;
 
     GsonParser() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(DialogResponse.class, new DialogTypeAdapter());
-        gsonBuilder.setPrettyPrinting ();
-        gson = gsonBuilder.create();
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(DialogResponse.class, new DialogTypeAdapter())
+                .setPrettyPrinting()
+                .create();
 
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    public <T> T parse(final InputStream is, final Class<T> mClass) {
+    public <T> T parse(final String is, final Class<T> mClass) {
 
         final String source = getSourceString(is);
 
@@ -51,7 +51,7 @@ public class GsonParser implements IParser {
         }
     }
 
-    private String getSourceString(final InputStream is) {
+    private String getSourceString(final String is) {
 
         try (final Reader reader = new InputStreamReader(is, defaultCharset())) {
 

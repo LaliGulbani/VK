@@ -31,16 +31,17 @@ public class UserService extends AbstractService implements IUserService {
     public List<UserFull> getFriends(final String token) {
 
         if (checkInternetConnection()) {
-            final String getFriendsUrl = Api.FRIENDS_GET_ID + getUserId();
-            return getUsers(execute(getFriendsUrl, FriendsResponse.class).getFriends());
+            final String friendsUrl = Api.FRIENDS_GET_ID + getUserId() + "&" + "access_token=" + token;
+            return getUsers(execute(friendsUrl, FriendsResponse.class).getFriends());
         }
 
         return dataBase.getFriends();
     }
 
     @Override
-    public List<UserFull> getFriendsOnline() {
-        return getUsers(execute(Api.FRIENDS_ONLINE, FriendsResponse.class).getFriends());
+    public List<UserFull> getFriendsOnline(final String token) {
+        final String friendsOnlineUrl = Api.FRIENDS_ONLINE + token;
+        return getUsers(execute(friendsOnlineUrl, FriendsResponse.class).getFriends());
     }
 
     @Override

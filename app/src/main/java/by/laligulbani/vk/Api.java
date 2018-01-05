@@ -20,16 +20,18 @@ public class Api {
 
     public static final String USERS_GET = BASE_PATH_METHOD + "users.get?user_ids=";
 
-    public static final String MESSAGES = BASE_PATH_METHOD + "messages.getDialogs";
+    public static final String DIALOGS_GET = BASE_PATH_METHOD + "messages.getDialogs";
 
     public static final String FRIENDS_GET_ID = BASE_PATH_METHOD + "friends.get?user_id=";
-    public static final String FRIENDS_ONLINE= BASE_PATH_METHOD + "friends.getOnline";
+    public static final String FRIENDS_ONLINE= BASE_PATH_METHOD + "friends.getOnline?access_token=";
 
 
     public static final String STATUS = BASE_PATH_METHOD + "status.get?user_id=";
 
     public static final String GET_USER_NEWS = BASE_PATH_METHOD + "newsfeed.get?filters=post&end_time&access_token=";
 
-    public static final String GET_MESSAGE_HISTORY = BASE_PATH_METHOD + "messages.getHistory?user_id=";
+    public static final String MESSAGE_HISTORY_GET = BASE_PATH_METHOD + "messages.getHistory?user_id=";
+
+    public static final String SEND_MESSAGE = BASE_PATH_METHOD + "messages.send?user_id=";
 
 }

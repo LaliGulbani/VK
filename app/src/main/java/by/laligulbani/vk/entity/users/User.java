@@ -13,12 +13,6 @@ public class User extends UserMin {
     private Sex sex;
 
     /**
-     * Domain name of the user's page
-     */
-    @SerializedName("screen_name")
-    private String screenName;
-
-    /**
      * URL of square photo of the user with 50 pixels in width
      */
     @SerializedName("photo_50")
@@ -50,10 +44,6 @@ public class User extends UserMin {
 
     public Sex getSex() {
         return sex;
-    }
-
-    public String getScreenName() {
-        return screenName;
     }
 
     public String getPhoto50() {

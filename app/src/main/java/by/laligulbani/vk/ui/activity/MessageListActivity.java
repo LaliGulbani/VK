@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import by.laligulbani.vk.ui.adapter.MessageListAdapter;
+import by.laligulbani.vk.ui.adapter.MessageAdapter;
 
 public class MessageListActivity extends AppCompatActivity {
 //TODO сделать фрагментом
     private RecyclerView messageRecycler;
-    private MessageListAdapter messageAdapter;
+    private MessageAdapter messageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class MessageListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message_list);
 
         messageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
-        messageAdapter = new MessageListAdapter(this, messageList);
+        messageAdapter = new MessageAdapter(this, messageList);
         messageRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 }
