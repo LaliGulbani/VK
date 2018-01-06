@@ -11,20 +11,18 @@ import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.db.IDataBase;
 import by.laligulbani.vk.model.parser.IParser;
 import by.laligulbani.vk.model.service.AbstractService;
-import by.laligulbani.vk.model.service.executor.IExecutorService;
+
+import static java.util.Collections.emptyList;
 
 public class UserService extends AbstractService implements IUserService {
 
-    private final IExecutorService executorService;
     private final IDataBase dataBase;
 
     UserService(final IClient client,
                 final IParser parser,
-                final IDataBase dataBase,
-                final IExecutorService executorService) {
+                final IDataBase dataBase) {
         super(parser, client);
         this.dataBase = dataBase;
-        this.executorService = executorService;
     }
 
     @Override
@@ -62,20 +60,14 @@ public class UserService extends AbstractService implements IUserService {
     @Override
     public List<UserFull> getUsers(final Collection<String> ids) {
 
-        final List<UserFull> users = new ArrayList<>();
-
-        final List<Runnable> tasks = new ArrayList<>();
-        for (final String id : ids) {
-            tasks.add(() -> {
-                final UserFull user = getUser(id);
-                synchronized (this) {
-                    users.add(user);
-                }
-            });
+        if (ids == null || ids.isEmpty()) {
+            return emptyList();
         }
 
-        executorService.invokeAll(tasks);
-
+        final List<UserFull> users = new ArrayList<>();
+        for (final String id : ids) {
+            users.add(getUser(id));
+        }
         return users;
     }
 }

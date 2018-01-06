@@ -3,8 +3,8 @@ package by.laligulbani.vk.model.service.dialog;
 import java.util.List;
 
 import by.laligulbani.vk.Api;
-import by.laligulbani.vk.entity.messages.Dialog;
-import by.laligulbani.vk.entity.messages.DialogResponse;
+import by.laligulbani.vk.entity.dialog.Dialog;
+import by.laligulbani.vk.entity.dialog.DialogResponse;
 import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.db.IDataBase;
 import by.laligulbani.vk.model.parser.IParser;
@@ -34,12 +34,11 @@ public class DialogService extends AbstractService implements IDialogService {
                     + "&"
                     + "count=100";
 
-       //     if (last != null && last.getId() != null) {
+//            if (last != null && last.getId() != null) {
 //                sb.append("&").append("unread=0");
-      //      }
+//            }
 
-            final List<Dialog> dialogs = execute(sb, DialogResponse.class).getDialogs();
-            dataBase.addDialogs(dialogs);
+            dataBase.addDialogs(execute(sb, DialogResponse.class).getDialogs());
         }
 
         return dataBase.getDialogs();

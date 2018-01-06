@@ -1,6 +1,6 @@
 package by.laligulbani.vk.model.converter;
 
-import by.laligulbani.vk.entity.messages.Dialog;
+import by.laligulbani.vk.entity.dialog.Dialog;
 import by.laligulbani.vk.entity.users.UserFull;
 
 public class IConverterFactory {

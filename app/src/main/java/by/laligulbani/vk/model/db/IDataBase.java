@@ -3,7 +3,7 @@ package by.laligulbani.vk.model.db;
 import java.util.Collection;
 import java.util.List;
 
-import by.laligulbani.vk.entity.messages.Dialog;
+import by.laligulbani.vk.entity.dialog.Dialog;
 import by.laligulbani.vk.entity.users.UserFull;
 
 public interface IDataBase {

@@ -3,7 +3,7 @@ package by.laligulbani.vk.model.facade.dialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.laligulbani.vk.entity.messages.Dialog;
+import by.laligulbani.vk.entity.dialog.Dialog;
 import by.laligulbani.vk.entity.users.User;
 import by.laligulbani.vk.model.converter.IConverter;
 import by.laligulbani.vk.model.facade.dto.DialogDto;

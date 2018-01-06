@@ -3,7 +3,7 @@ package by.laligulbani.vk.model.converter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import by.laligulbani.vk.entity.messages.Dialog;
+import by.laligulbani.vk.entity.dialog.Dialog;
 
 import static java.util.Locale.getDefault;
 

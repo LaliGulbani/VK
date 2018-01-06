@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-import by.laligulbani.vk.entity.messages.Dialog;
+import by.laligulbani.vk.entity.dialog.Dialog;
 import by.laligulbani.vk.entity.users.UserFull;
 import by.laligulbani.vk.model.function.Consumer;
 import by.laligulbani.vk.model.function.Function;
@@ -48,6 +48,8 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
              final int version) {
         super(context, name, factory, version);
         this.context = context;
+
+//        context.deleteDatabase(name);
     }
 
     @Override

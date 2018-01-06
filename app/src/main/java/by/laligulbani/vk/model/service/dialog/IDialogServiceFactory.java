@@ -5,13 +5,11 @@ import by.laligulbani.vk.model.db.IDataBaseFactory;
 import by.laligulbani.vk.model.parser.IParserFactory;
 
 public class IDialogServiceFactory {
-
-    private static IDialogService INSTANCE = new DialogService(
-            IClientFactory.getInstance(),
-            IParserFactory.getInstance(),
-            IDataBaseFactory.getInstance());
-
+    
     public static IDialogService getInstance() {
-        return INSTANCE;
+        return new DialogService(
+                IClientFactory.getInstance(),
+                IParserFactory.getInstance(),
+                IDataBaseFactory.getInstance());
     }
 }
