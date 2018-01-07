@@ -1,14 +1,13 @@
-package by.laligulbani.vk.entity.wall;
-
+package by.laligulbani.vk.model.parser.wrappers;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import by.laligulbani.vk.entity.wall.WallPostFull;
+
 public class WallResponse {
-    /**
-     * Total number
-     */
+
     @SerializedName("count")
     private Integer count;
 

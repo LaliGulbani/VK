@@ -1,8 +1,10 @@
-package by.laligulbani.vk.entity.dialog;
+package by.laligulbani.vk.model.parser.wrappers;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import by.laligulbani.vk.entity.dialog.Dialog;
 
 public class DialogResponse {
 

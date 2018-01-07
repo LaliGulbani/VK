@@ -5,6 +5,6 @@ import java.util.List;
 import by.laligulbani.vk.entity.dialog.Dialog;
 
 public interface IDialogService {
-    
+
     List<Dialog> getDialogs(String token);
 }

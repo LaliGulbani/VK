@@ -1,5 +1,6 @@
 package by.laligulbani.vk.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -9,6 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import by.laligulbani.vk.model.db.IDataBaseFactory;
+import by.laligulbani.vk.model.facade.dialog.IDialogFacadeFactory;
+import by.laligulbani.vk.model.service.executor.IExecutorService;
+import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
+import by.laligulbani.vk.model.service.user.IUserServiceFactory;
+import by.laligulbani.vk.model.util.ContextHolder;
+import by.laligulbani.vk.ui.task.Task;
 
 import static android.net.Uri.parse;
 import static by.laligulbani.vk.Api.AUTHORIZATION_URL;
@@ -48,16 +57,17 @@ public class LoginActivity extends AppCompatActivity {
 
             if (REDIRECT_URL.endsWith(uri.getSchemeSpecificPart())) {
 
-                Uri parse = getToken(uri);
-                String id = parse.getQueryParameter("user_id");
-                String token = parse.getQueryParameter("access_token");
+                final Uri parse = getToken(uri);
+                final String id = parse.getQueryParameter("user_id");
+                final String token = parse.getQueryParameter("access_token");
 
-                getPreferences(PREFERENCES_TOKEN, token);
-                getPreferences(PREFERENCES_ID_USER, id);
+                setPreferences(PREFERENCES_TOKEN, token);
+                setPreferences(PREFERENCES_ID_USER, id);
 
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
 
+                init(token);
                 return true;
             }
             return false;
@@ -67,13 +77,23 @@ public class LoginActivity extends AppCompatActivity {
             return parse(uri.toString().replace("#", "?"));
         }
 
-        private void getPreferences(String namePreferences, String value) {
+        private void setPreferences(final String namePreferences, final String value) {
             getSharedPreferences(APP_PREFERENCES_NAME, MODE_PRIVATE)
                     .edit()
                     .putString(namePreferences, value)
                     .apply();
         }
 
-    }
+        private void init(final String token) {
 
+            final Context applicationContext = getApplicationContext();
+            ContextHolder.setContext(applicationContext);
+            applicationContext.deleteDatabase(IDataBaseFactory.DB_NAME);
+
+            final IExecutorService executorService = IExecutorServiceFactory.getInstance();
+//            executorService.executeOnExecutor(new Task<>(() -> IDialogFacadeFactory.getInstance().getDialogs(token)));
+//            executorService.executeOnExecutor(new Task<>(() -> IUserServiceFactory.getInstance().getFriendsOnline(token)));
+//            executorService.executeOnExecutor(new Task<>(() -> IUserServiceFactory.getInstance().getFriends(token)));
+        }
+    }
 }

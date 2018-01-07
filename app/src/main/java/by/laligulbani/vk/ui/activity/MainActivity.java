@@ -12,9 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.model.util.ContextHolder;
-import by.laligulbani.vk.ui.fragment.FriendsViewPagerFragment;
 import by.laligulbani.vk.ui.fragment.DialogFragment;
+import by.laligulbani.vk.ui.fragment.FriendsViewPagerFragment;
 
 import static android.support.v4.view.GravityCompat.START;
 
@@ -39,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this::onSelected);
-
-        ContextHolder.setContext(getApplicationContext());
     }
 
     @Override

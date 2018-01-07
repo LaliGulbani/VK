@@ -2,10 +2,15 @@ package by.laligulbani.vk.entity.dialog;
 
 public class Dialog {
 
-    private String id;
+    //    @SerializedName("uid") // идентификатор сообщения
+    private String uid;
+    //    @SerializedName("date") //дата отправки сообщения в формате Unixtime.
     private String date;
+    //    @SerializedName("body") // текст сообщения.
     private String body;
+    //    @SerializedName("title") //заголовок сообщения или беседы.
     private String title;
+
     private String image;
 
     public String getTitle() {
@@ -24,12 +29,12 @@ public class Dialog {
         this.date = date;
     }
 
-    public String getId() {
-        return id;
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getBody() {

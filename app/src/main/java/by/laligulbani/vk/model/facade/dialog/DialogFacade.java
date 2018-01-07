@@ -12,6 +12,7 @@ import by.laligulbani.vk.model.service.image.IImageService;
 import by.laligulbani.vk.model.service.image.entity.ImageRequest;
 import by.laligulbani.vk.model.service.user.IUserService;
 
+import static java.lang.String.format;
 
 public class DialogFacade implements IDialogFacade {
 
@@ -38,10 +39,12 @@ public class DialogFacade implements IDialogFacade {
         final List<DialogDto> result = new ArrayList<>();
         for (final Dialog message : dialogs) {
             final Dialog dialog = converter.convert(message);
-            final User user = userService.getUser(dialog.getId());
+            final User user = userService.getUser(dialog.getUid());
+
+            final String name = user == null ? "No name" : format("%s %s", user.getFirstName(), user.getLastName());
 
             result.add(new DialogDto(
-                    user.getFirstName() + " " + user.getLastName(),
+                    name,
                     dialog.getDate(),
                     dialog.getBody(),
                     dialog.getImage()));

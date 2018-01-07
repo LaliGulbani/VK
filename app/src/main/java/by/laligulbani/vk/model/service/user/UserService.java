@@ -5,11 +5,12 @@ import java.util.Collection;
 import java.util.List;
 
 import by.laligulbani.vk.Api;
-import by.laligulbani.vk.entity.friends.FriendsResponse;
 import by.laligulbani.vk.entity.users.UserFull;
 import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.db.IDataBase;
 import by.laligulbani.vk.model.parser.IParser;
+import by.laligulbani.vk.model.parser.wrappers.FriendsResponse;
+import by.laligulbani.vk.model.parser.wrappers.UserFullResponse;
 import by.laligulbani.vk.model.service.AbstractService;
 
 import static java.util.Collections.emptyList;
@@ -47,11 +48,27 @@ public class UserService extends AbstractService implements IUserService {
 
         final UserFull dbUser = dataBase.getUser(id);
 
-        if (dbUser == null) {
-            final String getUserInfoUrl = Api.USERS_GET + id;
-            final UserFull user = execute(getUserInfoUrl, UserFull.class);
-            dataBase.addUser(user);
-            return user;
+        if (dbUser == null && checkInternetConnection()) {
+            synchronized (this) {
+
+                final UserFull checkUser = dataBase.getUser(id);
+
+                if (checkUser != null) {
+                    return checkUser;
+                }
+
+                final String getUserInfoUrl = Api.USERS_GET + id;
+
+                final List<UserFull> response = execute(getUserInfoUrl, UserFullResponse.class).getUsers();
+
+                if (response == null || response.isEmpty()) {
+                    return null;
+                }
+
+                final UserFull user = response.get(0);
+                dataBase.addUser(user);
+                return user;
+            }
         }
 
         return dbUser;

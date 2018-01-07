@@ -34,4 +34,6 @@ public class Api {
 
     public static final String SEND_MESSAGE = BASE_PATH_METHOD + "messages.send?user_id=";
 
+    public static final String MAIN_USER_INFO = BASE_PATH_METHOD + "account.getProfileInfo";
+
 }

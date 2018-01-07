@@ -17,7 +17,7 @@ public class DialogConverter implements IConverter<Dialog> {
         final Dialog dialog = new Dialog();
         dialog.setBody(source.getBody());
         dialog.setDate(DATE_FORMAT.format(new Date(1000 * Long.valueOf(source.getDate()))));
-        dialog.setId(source.getId());
+        dialog.setUid(source.getUid());
 
         return dialog;
     }

@@ -19,7 +19,6 @@ import by.laligulbani.vk.ui.task.Task;
 import static android.graphics.Color.BLUE;
 import static android.graphics.Color.CYAN;
 import static android.graphics.Color.GREEN;
-import static android.graphics.Color.RED;
 import static by.laligulbani.vk.Api.EMPTY;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
 import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
@@ -41,7 +40,7 @@ public class DialogFragment extends Fragment {
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         final SwipeRefreshLayout layout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_message);
-        layout.setColorSchemeColors(RED, GREEN, BLUE, CYAN);
+        layout.setColorSchemeColors(GREEN, BLUE, CYAN);
         layout.setOnRefreshListener(this::updateMessages);
 
         updateMessages();

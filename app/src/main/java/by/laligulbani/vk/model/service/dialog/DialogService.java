@@ -4,7 +4,7 @@ import java.util.List;
 
 import by.laligulbani.vk.Api;
 import by.laligulbani.vk.entity.dialog.Dialog;
-import by.laligulbani.vk.entity.dialog.DialogResponse;
+import by.laligulbani.vk.model.parser.wrappers.DialogResponse;
 import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.db.IDataBase;
 import by.laligulbani.vk.model.parser.IParser;
@@ -25,20 +25,21 @@ public class DialogService extends AbstractService implements IDialogService {
     public List<Dialog> getDialogs(final String token) {
 
         if (checkInternetConnection()) {
+            synchronized (this) {
+                final Dialog last = dataBase.getLastDialog();
 
-            final Dialog last = dataBase.getLastDialog();
+                String sb = Api.DIALOGS_GET
+                        + "?"
+                        + "access_token=" + token
+                        + "&"
+                        + "count=100";
 
-            final String sb = Api.DIALOGS_GET
-                    + "?"
-                    + "access_token=" + token
-                    + "&"
-                    + "count=100";
+                if (last != null && last.getUid() != null) {
+                    sb = sb + "&" + "unread=0";
+                }
 
-//            if (last != null && last.getId() != null) {
-//                sb.append("&").append("unread=0");
-//            }
-
-            dataBase.addDialogs(execute(sb, DialogResponse.class).getDialogs());
+                dataBase.addDialogs(execute(sb, DialogResponse.class).getDialogs());
+            }
         }
 
         return dataBase.getDialogs();

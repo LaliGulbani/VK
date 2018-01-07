@@ -48,8 +48,6 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
              final int version) {
         super(context, name, factory, version);
         this.context = context;
-
-//        context.deleteDatabase(name);
     }
 
     @Override
@@ -89,7 +87,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
         executeWritable((db) -> {
 
             final ContentValues values = new ContentValues();
-            values.put(KEY_ID_USER, dialog.getId());
+            values.put(KEY_ID_USER, dialog.getUid());
             values.put(KEY_BODY, dialog.getBody());
             values.put(KEY_DATA, dialog.getDate());
 
@@ -120,7 +118,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
 
                 do {
                     final Dialog dialog = new Dialog();
-                    dialog.setId(cursor.getString(0));
+                    dialog.setUid(cursor.getString(0));
                     dialog.setBody(cursor.getString(1));
                     dialog.setDate(cursor.getString(2));
 
@@ -154,7 +152,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
             if (cursor.moveToLast()) {
 
                 final Dialog dialog = new Dialog();
-                dialog.setId(cursor.getString(0));
+                dialog.setUid(cursor.getString(0));
                 dialog.setBody(cursor.getString(1));
                 dialog.setDate(cursor.getString(2));
 
@@ -176,7 +174,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
             if (cursor.moveToFirst()) {
 
                 final Dialog dialog = new Dialog();
-                dialog.setId((cursor.getString(0)));
+                dialog.setUid((cursor.getString(0)));
                 dialog.setBody(cursor.getString(1));
                 dialog.setDate(cursor.getString(2));
 

@@ -3,5 +3,5 @@ package by.laligulbani.vk.ui.adapter;
 import android.view.View;
 
 public interface IClickListener {
-    public void itemClicked(View view, int position);
+   void itemClicked(View view, int position);
 }
