@@ -10,17 +10,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
 import by.laligulbani.vk.ui.fragment.DialogFragment;
 import by.laligulbani.vk.ui.fragment.FriendsViewPagerFragment;
+import by.laligulbani.vk.ui.task.Task;
 
 import static android.support.v4.view.GravityCompat.START;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
-    private CharSequence title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
         drawer.addDrawerListener(toggle);
 
+        IExecutorServiceFactory.getInstance().executeOnExecutor(new Task());
+
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView =  navigationView.getHeaderView(0);
+        TextView nameUser = (TextView)hView.findViewById(R.id.profile_name);
+        nameUser.setText();
+        TextView statusUser = (TextView)hView.findViewById(R.id.profile_status);
+        ImageView ImageUser = (ImageView)hView.findViewById(R.id.drawer_profile_image);
         navigationView.setNavigationItemSelectedListener(this::onSelected);
     }
 
