@@ -6,10 +6,12 @@ import by.laligulbani.vk.model.parser.IParserFactory;
 
 public class IUserServiceFactory {
 
+    private static IUserService INSTANCE = new UserService(
+            IClientFactory.getInstance(),
+            IParserFactory.getInstance(),
+            IDataBaseFactory.getInstance());
+
     public static IUserService getInstance() {
-        return new UserService(
-                IClientFactory.getInstance(),
-                IParserFactory.getInstance(),
-                IDataBaseFactory.getInstance());
+        return INSTANCE;
     }
 }

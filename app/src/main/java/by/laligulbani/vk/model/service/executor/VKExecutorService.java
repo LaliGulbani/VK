@@ -15,8 +15,7 @@ public class VKExecutorService implements IExecutorService {
     }
 
     @Override
-    protected void finalize() throws Throwable {
+    public void shutdown() {
         executorService.shutdown();
-        super.finalize();
     }
 }

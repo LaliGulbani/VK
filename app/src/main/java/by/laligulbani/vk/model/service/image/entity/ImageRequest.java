@@ -70,6 +70,22 @@ public class ImageRequest {
         }
 
         public ImageRequest build() {
+
+            if (url == null) {
+                throw new IllegalArgumentException("Url doesn't set");
+            }
+
+            if (width > 0 && height > 0) {
+                return new ImageRequest(this);
+            }
+
+            final ImageView imageView = target.get();
+            imageView.setImageBitmap(null);
+            imageView.setTag(url);
+
+            width = imageView.getWidth();
+            height = imageView.getHeight();
+
             return new ImageRequest(this);
         }
     }

@@ -11,6 +11,8 @@ public interface IUserService {
 
     List<UserFull> getFriendsOnline(String token);
 
+    UserFull getMainUser(String token);
+
     UserFull getUser(String id);
 
     List<UserFull> getUsers(Collection<String> ids);

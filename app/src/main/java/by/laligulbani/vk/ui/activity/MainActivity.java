@@ -15,16 +15,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.model.service.executor.IExecutorService;
 import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
+import by.laligulbani.vk.model.service.image.IImageServiceFactory;
+import by.laligulbani.vk.model.service.image.entity.ImageRequest;
+import by.laligulbani.vk.model.service.user.IUserServiceFactory;
 import by.laligulbani.vk.ui.fragment.DialogFragment;
 import by.laligulbani.vk.ui.fragment.FriendsViewPagerFragment;
 import by.laligulbani.vk.ui.task.Task;
 
 import static android.support.v4.view.GravityCompat.START;
+import static by.laligulbani.vk.Api.EMPTY;
+import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;
+import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +48,29 @@ public class MainActivity extends AppCompatActivity {
 
         drawer.addDrawerListener(toggle);
 
-        IExecutorServiceFactory.getInstance().executeOnExecutor(new Task());
-
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View hView =  navigationView.getHeaderView(0);
+
+        View hView = navigationView.getHeaderView(0);
         TextView nameUser = (TextView)hView.findViewById(R.id.profile_name);
-        nameUser.setText();
         TextView statusUser = (TextView)hView.findViewById(R.id.profile_status);
-        ImageView ImageUser = (ImageView)hView.findViewById(R.id.drawer_profile_image);
+        ImageView imageUser = (ImageView)hView.findViewById(R.id.drawer_profile_image);
+
+        final String token = getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                .getString(PREFERENCES_TOKEN, EMPTY);
+
+        IExecutorServiceFactory.getInstance().executeOnExecutor(new Task<>(
+                () -> IUserServiceFactory.getInstance().getMainUser(token),
+                (mainUser) -> {
+                    nameUser.setText(String.format("%s %s", mainUser.getFirstName(), mainUser.getLastName()));
+                    statusUser.setText(mainUser.getStatus());
+
+                    IImageServiceFactory.getInstance().enqueue(new ImageRequest.Builder()
+                            .load(mainUser.getPhoto50())
+                            .into(imageUser)
+                            .build());
+                }
+        ));
+
         navigationView.setNavigationItemSelectedListener(this::onSelected);
     }
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import by.laligulbani.vk.Api;
 import by.laligulbani.vk.entity.message.Message;
-import by.laligulbani.vk.entity.message.MessageResponse;
+import by.laligulbani.vk.model.parser.wrappers.MessageResponse;
 import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.parser.IParser;
 import by.laligulbani.vk.model.service.AbstractService;

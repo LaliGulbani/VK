@@ -32,7 +32,6 @@ public class DialogFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_root_recycle_view, container, false);
     }
 
-
     @Override
     public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -59,11 +58,5 @@ public class DialogFragment extends Fragment {
                 () -> dialogFacade.getDialogs(token),
                 (messages) -> this.recyclerView.setAdapter(new DialogAdapter(dialogFacade, messages))));
     }
-
-   // @Override
-    //public void onResume() {
-     //   super.onResume();
-      //  ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Сообщения");
-   // }
 }
 

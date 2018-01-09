@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import by.laligulbani.vk.R;
+import by.laligulbani.vk.model.facade.user.IUserFacade;
+import by.laligulbani.vk.model.facade.user.IUserFacadeFactory;
 import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
-import by.laligulbani.vk.model.service.user.IUserServiceFactory;
 import by.laligulbani.vk.ui.adapter.FriendsAdapter;
 import by.laligulbani.vk.ui.task.Task;
 
@@ -43,9 +44,11 @@ public class FriendsOnlineFragment extends Fragment {
                 .getSharedPreferences(APP_PREFERENCES_NAME, 0)
                 .getString(PREFERENCES_TOKEN, EMPTY);
 
+        final IUserFacade userFacade = IUserFacadeFactory.getInstance();
+
         IExecutorServiceFactory.getInstance().executeOnExecutor(new Task<>(
-                () -> IUserServiceFactory.getInstance().getFriendsOnline(token),
-                (friends) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(friends))));
+                () -> userFacade.getFriendsOnline(token),
+                (friends) -> this.recyclerViewFriends.setAdapter(new FriendsAdapter(userFacade, friends))));
     }
 
 }

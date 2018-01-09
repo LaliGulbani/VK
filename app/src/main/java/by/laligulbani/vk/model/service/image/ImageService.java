@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.support.v4.util.LruCache;
-import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -48,22 +47,8 @@ public class ImageService implements IImageService {
 
     @Override
     public void enqueue(final ImageRequest request) {
-
-        final ImageView imageView = request.getTarget().get();
-
-        if (imageView == null) {
-            return;
-        }
-
-        imageView.setImageBitmap(null);
-
-        if (imageHasSize(request)) {
-            imageView.setTag(request.getUrl());
-            queue.addFirst(request);
-            dispatchLoading();
-        } else {
-            deferImageRequest(request);
-        }
+        queue.addFirst(request);
+        dispatchLoading();
     }
 
     private void dispatchLoading() {
@@ -72,108 +57,56 @@ public class ImageService implements IImageService {
 
     private ImageResult getImageResult() {
 
-        try {
-            final ImageRequest request = queue.takeFirst();
+        final ImageRequest request = queue.getLast();
+        final String url = request.getUrl();
 
-            final String url = request.getUrl();
-            synchronized (this) {
-                final Bitmap bitmap = cache.get(url);
-                if (bitmap != null) {
-                    return new ImageResult(request, bitmap);
-                }
+        try {
+            Bitmap bitmap = cache.get(url);
+            if (bitmap != null) {
+                return new ImageResult(bitmap, request.getUrl(), request.getTarget());
             }
 
             if (diskCache.contain(url)) {
                 final InputStream fileStream = IStreamProviderFactory.getInstance(File.class).get(diskCache.get(url));
-                final Bitmap bitmap = getScaledBitmap(fileStream, request.getWidth(), request.getHeight());
+                bitmap = getScaledBitmap(fileStream, request.getWidth(), request.getHeight());
                 if (bitmap != null) {
-                    return new ImageResult(request, bitmap);
+                    return new ImageResult(bitmap, request.getUrl(), request.getTarget());
                 }
             }
 
             final InputStream inputStream = IStreamProviderFactory.getInstance(URL.class).get(new URL(url));
-            final Bitmap bitmap = getScaledBitmap(inputStream, request.getHeight(), request.getWidth());
+            bitmap = getScaledBitmap(inputStream, request.getWidth(), request.getHeight());
             if (bitmap != null) {
                 cacheBitmap(request, bitmap);
-                return new ImageResult(request, bitmap);
+                return new ImageResult(bitmap, request.getUrl(), request.getTarget());
             }
 
-            throw new IllegalStateException("Bitmap is null");
+            return new ImageResult(new IllegalStateException("Bitmap is null"));
 
-        } catch (final Exception e) {
+        } catch (final IOException e) {
             return new ImageResult(e);
         }
     }
 
     private void processImageResult(final ImageResult imageResult) {
-        if (imageResult == null) {
+
+        final ImageView imageView = imageResult.getTarget().get();
+
+        if (imageResult.getException() != null
+                || imageView == null
+                || !imageResult.getUrl().equals(imageView.getTag())) {
             return;
         }
 
-        final ImageRequest request = imageResult.getRequest();
-        final ImageView imageView = request.getTarget().get();
+        final Bitmap bitmap = imageResult.getBitmap();
 
-        if (imageView == null) {
-            return;
-        }
+        final Drawable[] layers = {EMPTY_DRAWABLE, new BitmapDrawable(bitmap)};
+        final TransitionDrawable drawable = new TransitionDrawable(layers);
 
-        final Object tag = imageView.getTag();
-        if (tag != null && tag.equals(request.getUrl())) {
+        imageView.setImageDrawable(drawable);
+        imageView.setImageBitmap(bitmap);
 
-            final Drawable[] layers = {EMPTY_DRAWABLE, new BitmapDrawable(imageResult.getBitmap())};
-            final TransitionDrawable drawable = new TransitionDrawable(layers);
-
-            imageView.setImageDrawable(drawable);
-            imageView.setImageBitmap(imageResult.getBitmap());
-
-            drawable.startTransition(1000);
-        }
-
-    }
-
-    private void deferImageRequest(final ImageRequest request) {
-
-        final ImageView imageView = request.getTarget().get();
-        if (imageView == null) {
-            return;
-        }
-
-        imageView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
-
-            @Override
-            public boolean onPreDraw() {
-
-                imageView.getViewTreeObserver().removeOnPreDrawListener(this);
-                final ImageView view = request.getTarget().get();
-
-                if (view == null) {
-                    return true;
-                }
-
-                if (view.getWidth() > 0 && view.getHeight() > 0) {
-                    request.setWidth(view.getWidth());
-                    request.setHeight(view.getHeight());
-                    enqueue(request);
-                }
-                return true;
-            }
-        });
-    }
-
-    private boolean imageHasSize(final ImageRequest request) {
-
-        if (request.getWidth() > 0 && request.getHeight() > 0) {
-            return true;
-        }
-
-        final ImageView imageView = request.getTarget().get();
-        if (imageView != null && imageView.getWidth() > 0 && imageView.getHeight() > 0) {
-            request.setWidth(imageView.getWidth());
-            request.setHeight(imageView.getHeight());
-            return true;
-        }
-
-        return false;
+        drawable.startTransition(1000);
     }
 
     private Bitmap getScaledBitmap(final InputStream inputStream, final int w, final int h) throws IOException {

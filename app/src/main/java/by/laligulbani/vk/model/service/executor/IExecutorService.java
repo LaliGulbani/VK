@@ -4,4 +4,6 @@ import android.os.AsyncTask;
 
 public interface IExecutorService {
     void executeOnExecutor(AsyncTask task);
+
+    void shutdown();
 }

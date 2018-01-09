@@ -1,6 +1,5 @@
 package by.laligulbani.vk.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -12,12 +11,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import by.laligulbani.vk.model.db.IDataBaseFactory;
-import by.laligulbani.vk.model.facade.dialog.IDialogFacadeFactory;
 import by.laligulbani.vk.model.service.executor.IExecutorService;
 import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
-import by.laligulbani.vk.model.service.user.IUserServiceFactory;
 import by.laligulbani.vk.model.util.ContextHolder;
-import by.laligulbani.vk.ui.task.Task;
 
 import static android.net.Uri.parse;
 import static by.laligulbani.vk.Api.AUTHORIZATION_URL;
@@ -86,9 +82,7 @@ public class LoginActivity extends AppCompatActivity {
 
         private void init(final String token) {
 
-            final Context applicationContext = getApplicationContext();
-            ContextHolder.setContext(applicationContext);
-            applicationContext.deleteDatabase(IDataBaseFactory.DB_NAME);
+            ContextHolder.getContext().deleteDatabase(IDataBaseFactory.DB_NAME);
 
             final IExecutorService executorService = IExecutorServiceFactory.getInstance();
 //            executorService.executeOnExecutor(new Task<>(() -> IDialogFacadeFactory.getInstance().getDialogs(token)));

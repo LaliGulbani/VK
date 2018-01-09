@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import by.laligulbani.vk.Api;
-import by.laligulbani.vk.entity.users.MainUser;
 import by.laligulbani.vk.entity.users.UserFull;
 import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.db.IDataBase;
@@ -44,9 +43,10 @@ public class UserService extends AbstractService implements IUserService {
         return getUsers(execute(friendsOnlineUrl, FriendsResponse.class).getFriends());
     }
 
-    public MainUser getMainUser() {
-        final String mainUserUrl = Api.MAIN_USER_INFO;
-        return execute(mainUserUrl, MainUser.class);
+    @Override
+    public UserFull getMainUser(final String token) {
+        final String mainUserUrl = Api.USERS_GET + getUserId() + "&" + "access_token=" + token;
+        return execute(mainUserUrl, UserFullResponse.class).getUsers().get(0);
     }
 
     @Override
