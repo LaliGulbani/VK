@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import by.laligulbani.vk.R;
-import by.laligulbani.vk.model.service.executor.IExecutorService;
 import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
 import by.laligulbani.vk.model.service.image.IImageServiceFactory;
 import by.laligulbani.vk.model.service.image.entity.ImageRequest;
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         View hView = navigationView.getHeaderView(0);
         TextView nameUser = (TextView)hView.findViewById(R.id.profile_name);
-        TextView statusUser = (TextView)hView.findViewById(R.id.profile_status);
         ImageView imageUser = (ImageView)hView.findViewById(R.id.drawer_profile_image);
 
         final String token = getSharedPreferences(APP_PREFERENCES_NAME, 0)
@@ -62,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 () -> IUserServiceFactory.getInstance().getMainUser(token),
                 (mainUser) -> {
                     nameUser.setText(String.format("%s %s", mainUser.getFirstName(), mainUser.getLastName()));
-                    statusUser.setText(mainUser.getStatus());
 
                     IImageServiceFactory.getInstance().enqueue(new ImageRequest.Builder()
                             .load(mainUser.getPhoto50())
