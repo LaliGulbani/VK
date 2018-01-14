@@ -1,4 +1,4 @@
-package by.laligulbani.vk.ui.task;
+package by.laligulbani.vk.model.task;
 
 import android.os.AsyncTask;
 

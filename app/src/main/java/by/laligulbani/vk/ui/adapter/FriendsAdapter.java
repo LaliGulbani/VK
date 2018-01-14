@@ -20,6 +20,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
 
     private final List<UserDto> friends;
     private final IUserFacade userFacade;
+    private OnItemClickListener listener;
 
     public FriendsAdapter(final IUserFacade userFacade, final List<UserDto> friends) {
         this.friends = friends;
@@ -33,7 +34,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
                 .from(parent.getContext())
                 .inflate(R.layout.item_friends, parent, false);
 
-        return new FriendsHolder(view);
+        return new FriendsHolder(view, listener);
     }
 
     @Override
@@ -54,24 +55,39 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsH
         return friends.size();
     }
 
-    class FriendsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
+
+    class FriendsHolder extends RecyclerView.ViewHolder{
 
         private final TextView nameFriend;
         private final ImageView avatar;
-        private IClickListener clicklistener;
 
-        FriendsHolder(final View itemView) {
+        FriendsHolder(final View itemView, OnItemClickListener listener) {
             super(itemView);
-            itemView.setOnClickListener(this);
+
             nameFriend = (TextView) itemView.findViewById(R.id.name_friend_text_view);
             avatar = (ImageView) itemView.findViewById(R.id.profile_avatar_friend_image_view);
-        }
 
-        @Override
-        public void onClick(View v) {
-            if (clicklistener != null) {
-                clicklistener.itemClicked(v, getAdapterPosition());
-            }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position);
+
+                        }
+                    }
+                }
+            });
         }
     }
 }

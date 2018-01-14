@@ -2,17 +2,17 @@ package by.laligulbani.vk.model.parser.wrappers;
 
 import java.util.List;
 
-import by.laligulbani.vk.entity.message.Message;
+import by.laligulbani.vk.entity.message.MessageHistory;
 
 public class MessageResponse {
 
-    private List<Message> message;
+    private List<MessageHistory> mMessageHistory;
 
-    public List<Message> getMessage() {
-        return message;
+    public List<MessageHistory> getMessageHistory() {
+        return mMessageHistory;
     }
 
-    public void setMessage(List<Message> message) {
-        this.message = message;
+    public void setMessageHistory(List<MessageHistory> messageHistory) {
+        this.mMessageHistory = messageHistory;
     }
 }

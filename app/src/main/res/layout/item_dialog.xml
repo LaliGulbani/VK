@@ -18,11 +18,12 @@
         android:id="@+id/name_friend_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop = "@+id/profile_avatar_image_view"
         android:layout_toEndOf="@+id/profile_avatar_image_view"
         android:layout_toRightOf="@id/profile_avatar_image_view"
-        tools:text="От кого"
         android:textColor="@android:color/black"
-        android:textSize="20sp"/>
+        android:textSize="18sp"
+        tools:text="От кого"/>
 
     <TextView
         android:id="@+id/message_text_view"
@@ -32,6 +33,8 @@
         android:layout_toEndOf="@+id/profile_avatar_image_view"
         android:layout_toRightOf="@+id/profile_avatar_image_view"
         android:maxLines="2"
+        android:ellipsize="end"
+        android:singleLine="true"
         tools:text="сообщение"/>
 
     <TextView

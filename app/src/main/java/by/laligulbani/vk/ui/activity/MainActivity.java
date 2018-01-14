@@ -1,9 +1,9 @@
 package by.laligulbani.vk.ui.activity;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +18,11 @@ import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
 import by.laligulbani.vk.model.service.image.IImageServiceFactory;
 import by.laligulbani.vk.model.service.image.entity.ImageRequest;
+import by.laligulbani.vk.model.service.messages.IMessageServiceFactory;
 import by.laligulbani.vk.model.service.user.IUserServiceFactory;
 import by.laligulbani.vk.ui.fragment.DialogFragment;
 import by.laligulbani.vk.ui.fragment.FriendsViewPagerFragment;
-import by.laligulbani.vk.ui.task.Task;
+import by.laligulbani.vk.model.task.Task;
 
 import static android.support.v4.view.GravityCompat.START;
 import static by.laligulbani.vk.Api.EMPTY;
@@ -31,7 +32,6 @@ import static by.laligulbani.vk.ui.activity.LoginActivity.PREFERENCES_TOKEN;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,19 +97,20 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.nav_news:
-                getSupportActionBar().setTitle("Новости");
-                break;
-            case R.id.nav_notification:
+                final String token = getSharedPreferences(APP_PREFERENCES_NAME, 0)
+                        .getString(PREFERENCES_TOKEN, EMPTY);
+
+                IExecutorServiceFactory.getInstance().executeOnExecutor(new Task<>(
+                        () -> IMessageServiceFactory.getInstance().getNewMessage(token),
+                        (messages) -> getSupportActionBar().setTitle("Новости")));
                 break;
             case R.id.nav_messanges:
                 getSupportActionBar().setTitle("Сообщения");
-                replaceMessageFragment(new DialogFragment());
+                replaceDialogFragment(new DialogFragment());
                 break;
             case R.id.nav_friends:
                 getSupportActionBar().setTitle("Друзья");
                 replaceFriendsFragment(new FriendsViewPagerFragment());
-                break;
-            case R.id.nav_groups:
                 break;
             case R.id.nav_photo:
                 break;
@@ -120,14 +121,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void replaceMessageFragment(final Fragment fragment) {
-        final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+    private void replaceDialogFragment(final DialogFragment fragment) {
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
         fragmentTransaction.commit();
     }
 
-    private void replaceFriendsFragment(final android.support.v4.app.Fragment fragment) {
-        final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+    private void replaceFriendsFragment(final FriendsViewPagerFragment fragment) {
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container_frame_layout, fragment);
         fragmentTransaction.commit();
     }

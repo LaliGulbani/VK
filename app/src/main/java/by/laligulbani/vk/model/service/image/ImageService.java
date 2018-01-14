@@ -24,7 +24,7 @@ import by.laligulbani.vk.model.service.image.cache.IDiskCache;
 import by.laligulbani.vk.model.service.image.entity.ImageRequest;
 import by.laligulbani.vk.model.service.image.entity.ImageResult;
 import by.laligulbani.vk.model.service.image.streams.IStreamProviderFactory;
-import by.laligulbani.vk.ui.task.Task;
+import by.laligulbani.vk.model.task.Task;
 
 public class ImageService implements IImageService {
 
@@ -51,7 +51,7 @@ public class ImageService implements IImageService {
 
         final ImageView imageView = request.getTarget().get();
 
-        if (imageView == null) {
+        if (request.getUrl() == null || imageView == null) {
             return;
         }
 

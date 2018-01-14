@@ -13,14 +13,14 @@ import by.laligulbani.vk.model.service.user.IUserService;
 
 public class UserFacade implements IUserFacade {
 
-    private final IDialogService dialogService;
+
     private final IImageService imageService;
     private final IUserService userService;
 
     UserFacade(final IDialogService dialogService,
                final IImageService imageService,
                final IUserService userService) {
-        this.dialogService = dialogService;
+
         this.imageService = imageService;
         this.userService = userService;
     }
@@ -32,7 +32,7 @@ public class UserFacade implements IUserFacade {
 
         final List<UserDto> result = new ArrayList<>();
         for (final UserFull user : dialogs) {
-            result.add(new UserDto(user.getLastName(), user.getLastName(), user.getPhoto50()));
+            result.add(new UserDto(user.getFirstName(), user.getLastName(), user.getPhoto50()));
         }
         return result;
     }

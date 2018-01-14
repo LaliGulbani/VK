@@ -28,10 +28,12 @@ public class Api {
 
     public static final String GET_USER_NEWS = BASE_PATH_METHOD + "newsfeed.get?filters=post&end_time&access_token=";
 
-    public static final String MESSAGE_HISTORY_GET = BASE_PATH_METHOD + "messages.getHistory?user_id=";
-
-    public static final String SEND_MESSAGE = BASE_PATH_METHOD + "messages.send?user_id=";
-
     public static final String MAIN_USER_INFO = BASE_PATH_METHOD + "account.getProfileInfo?access_token=";
+
+    public static final String MESSAGES_GET_LONG_POLL_SERVER = BASE_PATH_METHOD  + "messages.getLongPollServer";
+    public static final String MESSAGES_GET_LONG_POLL_HISTORY = BASE_PATH_METHOD  + "messages.getLongPollHistory?need_pts=";
+    public static final String MESSAGE_HISTORY_GET = BASE_PATH_METHOD + "messages.getHistory?user_id=";
+    public static final String SEND_MESSAGE = BASE_PATH_METHOD + "messages.send?user_id=";
+    public static final String MESSAGES_GET_CHAT = BASE_PATH_METHOD + "messages.getChat";
 
 }

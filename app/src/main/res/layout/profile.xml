@@ -116,7 +116,7 @@
                     android:layout_weight="1"
 
                     android:textColor="#ffffff"
-                    tools:text="send a message"/>
+                    tools:text="send a messageHistory"/>
 
                 <Button
                     android:id="@+id/add_to_friend_button"

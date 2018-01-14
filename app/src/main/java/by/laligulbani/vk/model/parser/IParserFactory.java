@@ -7,9 +7,9 @@ import com.google.gson.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
-import by.laligulbani.vk.model.parser.typeadapter.DialogDeserializer;
-import by.laligulbani.vk.model.parser.typeadapter.FriendsDeserializer;
-import by.laligulbani.vk.model.parser.typeadapter.UserFullDeserializer;
+import by.laligulbani.vk.model.parser.deserializer.DialogDeserializer;
+import by.laligulbani.vk.model.parser.deserializer.FriendsDeserializer;
+import by.laligulbani.vk.model.parser.deserializer.UserFullDeserializer;
 import by.laligulbani.vk.model.parser.wrappers.DialogResponse;
 import by.laligulbani.vk.model.parser.wrappers.FriendsResponse;
 import by.laligulbani.vk.model.parser.wrappers.UserFullResponse;

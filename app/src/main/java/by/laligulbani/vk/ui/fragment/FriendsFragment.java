@@ -13,7 +13,7 @@ import by.laligulbani.vk.model.facade.user.IUserFacade;
 import by.laligulbani.vk.model.facade.user.IUserFacadeFactory;
 import by.laligulbani.vk.model.service.executor.IExecutorServiceFactory;
 import by.laligulbani.vk.ui.adapter.FriendsAdapter;
-import by.laligulbani.vk.ui.task.Task;
+import by.laligulbani.vk.model.task.Task;
 
 import static by.laligulbani.vk.Api.EMPTY;
 import static by.laligulbani.vk.ui.activity.LoginActivity.APP_PREFERENCES_NAME;

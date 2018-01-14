@@ -38,6 +38,9 @@ public class FriendsViewPagerFragment extends Fragment {
 
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
     }
 }
 

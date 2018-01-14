@@ -56,6 +56,7 @@ public class DialogFacade implements IDialogFacade {
             }
 
             result.add(new DialogDto(
+                    dialog.getUid(),
                     title,
                     DATE_FORMAT.format(new Date(1000 * Long.valueOf(dialog.getDate()))),
                     dialog.getBody(),
