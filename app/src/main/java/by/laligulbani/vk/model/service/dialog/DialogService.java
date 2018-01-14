@@ -4,11 +4,13 @@ import java.util.List;
 
 import by.laligulbani.vk.Api;
 import by.laligulbani.vk.entity.dialog.Dialog;
-import by.laligulbani.vk.model.parser.wrappers.DialogResponse;
 import by.laligulbani.vk.model.client.IClient;
 import by.laligulbani.vk.model.db.IDataBase;
 import by.laligulbani.vk.model.parser.IParser;
+import by.laligulbani.vk.model.parser.wrappers.DialogResponse;
 import by.laligulbani.vk.model.service.AbstractService;
+
+import static java.util.Collections.emptyList;
 
 public class DialogService extends AbstractService implements IDialogService {
 
@@ -38,10 +40,15 @@ public class DialogService extends AbstractService implements IDialogService {
                     sb = sb + "&" + "unread=0";
                 }
 
-                dataBase.addDialogs(execute(sb, DialogResponse.class).getDialogs());
+                final DialogResponse response = execute(sb, DialogResponse.class);
+
+                if (response == null) {
+                    return dataBase.getDialogs();
+                }
+
+                dataBase.addDialogs(response.getDialogs());
             }
         }
-
         return dataBase.getDialogs();
     }
 }

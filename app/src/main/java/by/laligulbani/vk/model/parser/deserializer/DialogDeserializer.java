@@ -27,6 +27,10 @@ public class DialogDeserializer implements JsonDeserializer<DialogResponse> {
 
         final JsonObject source = jsonElement.getAsJsonObject();
 
+        if (source == null || !source.has("response")) {
+            return null;
+        }
+
         final JsonArray array = source.getAsJsonArray("response");
 
         final JsonArray items = new JsonArray();

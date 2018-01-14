@@ -38,7 +38,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
     private static final String KEY_COUNT_COMMON = "_count_common";
     private static final String KEY_COUNT_VIDEOS = "_count_videos";
     private static final String KEY_COUNT_FOLLOWERS = "_count_followers";
-    private static final String KEY_COUNT_PHOTO = "_count_photo";
+    private static final String KEY_PHOTO_50 = "_count_photo";
 
     private final Context context;
 
@@ -64,13 +64,13 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
                 + KEY_ID_USER + " TEXT, "
                 + KEY_NAME + " TEXT, "
                 + KEY_LASTNAME + " TEXT, "
+                + KEY_PHOTO_50 + " TEXT, "
                 + KEY_CITY + " TEXT, "
                 + KEY_BIRTHDAY + " TEXT, "
                 + KEY_COUNT_FRIENDS + " TEXT, "
                 + KEY_COUNT_COMMON + " TEXT, "
                 + KEY_COUNT_VIDEOS + " TEXT, "
-                + KEY_COUNT_FOLLOWERS + " TEXT, "
-                + KEY_COUNT_PHOTO + " TEXT "
+                + KEY_COUNT_FOLLOWERS + " TEXT "
                 + ")");
     }
 
@@ -223,6 +223,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
                 user.setId(cursor.getString(0));
                 user.setFirstName(cursor.getString(1));
                 user.setLastName(cursor.getString(2));
+                user.setPhoto50(cursor.getString(3));
 
                 return user;
             }
@@ -247,7 +248,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
             //values.put(KEY_COUNT_COMMON, user.);
             //values.put(KEY_COUNT_VIDEOS, user.);
             //values.put(KEY_COUNT_FOLLOWERS, user.);
-            //values.put(KEY_COUNT_PHOTO, user.;
+            values.put(KEY_PHOTO_50, user.getPhoto50());
 
             db.insert(TABLE_USERS, null, values);
         });
@@ -275,6 +276,7 @@ public class DataBase extends SQLiteOpenHelper implements IDataBase {
                     user.setId(cursor.getString(0));
                     user.setFirstName(cursor.getString(1));
                     user.setLastName(cursor.getString(2));
+                    user.setPhoto50(cursor.getString(3));
 
                     users.add(user);
                 } while (cursor.moveToNext());

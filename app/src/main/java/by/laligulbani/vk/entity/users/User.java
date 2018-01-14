@@ -42,6 +42,10 @@ public class User extends UserMin {
     @SerializedName("online_app")
     private Integer onlineApp;
 
+    public void setPhoto50(String photo50) {
+        this.photo50 = photo50;
+    }
+
     public Sex getSex() {
         return sex;
     }

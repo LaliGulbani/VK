@@ -16,18 +16,17 @@ import by.laligulbani.vk.R;
 import by.laligulbani.vk.model.facade.dialog.IDialogFacade;
 import by.laligulbani.vk.model.facade.dto.DialogDto;
 import by.laligulbani.vk.model.service.image.entity.ImageRequest;
+import by.laligulbani.vk.model.util.ContextHolder;
 import by.laligulbani.vk.ui.activity.MessageActivity;
 
 public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.MessageHolder> {
 
     private final List<DialogDto> dialogs;
     private final IDialogFacade dialogFacade;
-    Context ctx;
 
-    public DialogAdapter(final IDialogFacade dialogFacade, final List<DialogDto> dialogs, Context ctx) {
+    public DialogAdapter(final IDialogFacade dialogFacade, final List<DialogDto> dialogs) {
         this.dialogFacade = dialogFacade;
         this.dialogs = dialogs;
-        this.ctx=ctx;
     }
 
     @Override
@@ -37,7 +36,7 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.MessageHol
                 .from(parent.getContext())
                 .inflate(R.layout.item_dialog, parent, false);
 
-        return new MessageHolder(view, dialogs, ctx);
+        return new MessageHolder(view, dialogs);
     }
 
     @Override
@@ -63,17 +62,15 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.MessageHol
     class MessageHolder extends ViewHolder {
 
         List<DialogDto> dialogs;
-        Context ctx;
 
         private final ImageView avatar;
         private final TextView message;
         private final TextView from;
         private final TextView time;
 
-        MessageHolder(final View itemView, final List<DialogDto> dialogs, Context ctx) {
+        MessageHolder(final View itemView, final List<DialogDto> dialogs) {
             super(itemView);
             this.dialogs = dialogs;
-            this.ctx = ctx;
 
             itemView.setOnClickListener(this::onClick);
 
@@ -89,10 +86,14 @@ public class DialogAdapter extends RecyclerView.Adapter<DialogAdapter.MessageHol
 
             DialogDto dialog = this.dialogs.get(position);
 
-            Intent intent = new Intent (ctx, MessageActivity.class);
+            Context context = ContextHolder.getContext();
+
+            Intent intent = new Intent(context, MessageActivity.class);
             intent.putExtra("user_id", dialog.getId());
             intent.putExtra("user_imageUrl", dialog.getImage());
-            ctx.startActivity(intent);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            context.startActivity(intent);
         }
     }
 }

@@ -25,7 +25,7 @@ public class FriendsFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle saveInstanceState) {
-        return inflater.inflate(R.layout.fragment_root_recycle_view, container, false);
+        return inflater.inflate(R.layout.fragment_recycle_view_friend, container, false);
     }
 
     @Override

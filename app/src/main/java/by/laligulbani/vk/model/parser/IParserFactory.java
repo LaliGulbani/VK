@@ -8,11 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import by.laligulbani.vk.model.parser.deserializer.DialogDeserializer;
-import by.laligulbani.vk.model.parser.deserializer.FriendsDeserializer;
-import by.laligulbani.vk.model.parser.deserializer.UserFullDeserializer;
 import by.laligulbani.vk.model.parser.wrappers.DialogResponse;
-import by.laligulbani.vk.model.parser.wrappers.FriendsResponse;
-import by.laligulbani.vk.model.parser.wrappers.UserFullResponse;
 
 public class IParserFactory {
 
@@ -45,8 +41,6 @@ public class IParserFactory {
 
         final Map<Class, JsonDeserializer> deserializerMap = new HashMap<>();
         deserializerMap.put(DialogResponse.class, new DialogDeserializer(gson));
-        deserializerMap.put(FriendsResponse.class, new FriendsDeserializer(gson));
-        deserializerMap.put(UserFullResponse.class, new UserFullDeserializer(gson));
 
         return deserializerMap;
     }

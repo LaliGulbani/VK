@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/drawer_profile_image"
-        android:layout_width="40sp"
-        android:layout_height="40sp"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
         android:layout_marginBottom="@dimen/standard_margin"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_person_24dp"
@@ -21,7 +21,6 @@
         android:id="@+id/profile_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="чья страница"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold"
         />

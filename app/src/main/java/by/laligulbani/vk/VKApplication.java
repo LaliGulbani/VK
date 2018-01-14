@@ -9,7 +9,7 @@ public class VKApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ContextHolder.setContext(getApplicationContext());
+        ContextHolder.setContext(this.getApplicationContext());
     }
 
     @Override
