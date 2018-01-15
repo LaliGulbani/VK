@@ -30,13 +30,13 @@ public class UserService extends AbstractService implements IUserService {
     public List<UserFull> getFriends(final String token) {
 
         if (checkInternetConnection()) {
-//             Api.FRIENDS_GET_ID + getUserId() + "&" + "access_token=" + token;
-            final String friendsUrl = new Api.Builder()
+          String friendsUrl = Api.FRIENDS_GET_ID + getUserId() + "&" + "access_token=" + token;
+           /* final String friendsUrl = new Api.Builder()
                     .basePathMethod("https://api.vk.com/method/")
                     .nameMethod("friends.get")
                     .addParameter("user_id", getUserId())
                     .addParameterToken(token)
-                    .build();
+                    .build();*/
             return getUsers(execute(friendsUrl, FriendsResponse.class).getFriends());
         }
 
@@ -51,14 +51,14 @@ public class UserService extends AbstractService implements IUserService {
 
     @Override
     public UserFull getMainUser(final String token) {
-       // final String mainUserUrl = Api.USERS_GET + getUserId() + "&" + "access_token=" + token;
-        final String mainUserUrl = new Api.Builder()
+        final String mainUserUrl = Api.USERS_GET + getUserId() + "&" + "access_token=" + token;
+       /* final String mainUserUrl = new Api.Builder()
                 .basePathMethod("https://api.vk.com/method/")
                 .nameMethod("users.get")
                 .addParameterToken(token)
                 .addParameter("fields", "photo_50")
                 .addParameter("user_ids", getUserId())
-                .build();
+                .build();*/
         return execute(mainUserUrl, UserFullResponse.class).getUsers().get(0);
     }
 
