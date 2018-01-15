@@ -36,10 +36,6 @@ public class DialogFragment extends Fragment {
         this.recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-       // final SwipeRefreshLayout layout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_message);
-        //layout.setColorSchemeColors(GREEN, BLUE, CYAN);
-        //layout.setOnRefreshListener(this::updateMessages);
-
         updateMessages();
     }
 

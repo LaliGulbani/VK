@@ -1,18 +1,15 @@
 package by.laligulbani.vk.entity.dialog;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Dialog {
 
-//    @SerializedName("uid") // идентификатор сообщения
     private String uid;
-//    @SerializedName("date") //дата отправки сообщения в формате Unixtime.
+
     private String date;
-//    @SerializedName("body") // текст сообщения.
+
     private String body;
-//    @SerializedName("title") //заголовок сообщения или беседы.
+
     private String title;
-//    @SerializedName("title") //заголовок сообщения или беседы.
+
     private String image;
 
     private String photo_50;
